@@ -16,9 +16,14 @@ const GlobalStyleCSS = createGlobalStyle`
   .content-container {
     max-width: 1280px;
     width: 100%;
-    padding: 0 1rem;
     box-sizing: border-box;
     margin: auto auto;
+
+    @media (min-width: 992px) {
+      padding: 0 1rem;
+    }
+    border: 1px solid #000; // tirar depois
+    height: 100vh; // tirar depois
   }
 
   *,

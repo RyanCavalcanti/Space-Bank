@@ -5,7 +5,7 @@ const theme = {
     Black: '#1A191E',
     Pink: '#FFF2F4',
     Golden: '#DDBD92',
-    WhiteFooter: '#F9F9F9',
+    SecondWhite: '#F9F9F9',
     Background: '#FFFFFF',
   },
 };
