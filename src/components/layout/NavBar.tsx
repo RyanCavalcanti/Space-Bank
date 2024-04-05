@@ -113,7 +113,7 @@ const UlStylesTwo = styled.ul`
 const ButtonGroupTwo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 10px;
 `;
 
 function NavBar() {
