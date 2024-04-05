@@ -11,26 +11,39 @@ const SectionStyles = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 100px;
+`
+
+const ContainerSection = styled.div`
+  padding: inherit;
+  max-width: 100%;
 `
 
 const HeaderStyles = styled.header`
   & > h1 {
-    font-size: 3.2rem;
+    font-size: 5.2rem;
     margin: 0px;
     color: ${theme.colors.Red};
 
-    @media(max-width: 991px) {
-      font-size: 1.8rem;
+    @media(max-width: 1099px) {
+      font-size: 3.8rem;
+    }
+
+    @media(max-width: 480px) {
+      font-size: 2.8rem;
     }
   }
 
   & > h2 {
-    font-size: 3.2rem;
+    font-size: 3.8rem;
     margin: 0px;
 
-    @media(max-width: 991px) {
-      font-size: 1.8rem;
+    @media(max-width: 1099px) {
+      font-size: 3.8rem;
+    }
+
+    @media(max-width: 480px) {
+      font-size: 2.8rem;
     }
   }
 `
@@ -39,11 +52,16 @@ const ArticleStyles = styled.article`
   & > h3 {
     font-family: "Inter", sans-serif;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 500;
     margin: 20px 0 0;
 
-    @media(max-width: 991px) {
+    @media(max-width: 1099px) {
       font-weight: 400;
+      font-size: 1.6rem;
+
+    }
+
+    @media(max-width: 480px) {
       font-size: 1.1rem;
     }
   }
@@ -65,15 +83,16 @@ const UlStyles = styled.ul`
       font-family: "Inter", sans-serif;
       font-size: 1.1rem;
       font-weight: 600;
+      margin: 0;
     }
   }
   
-  @media (min-width: 992px) {
+  @media (min-width: 1099px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: minmax(100px, auto);
+    grid-auto-rows: minmax(50px, auto);
   }
 
-  @media (max-width: 991px) {
+  @media (max-width: 1099px) {
     grid-template-columns: repeat(1, 1fr);
     grid-auto-rows: minmax(50px, auto);
   }
@@ -114,7 +133,7 @@ const ImagemStyles = styled.nav`
 function SectionOne() {
   return (
     <SectionStyles>
-      <div>
+      <ContainerSection>
         <HeaderStyles>
           <h1>SpaceBank</h1>
           <h2>seu universo financeiro.</h2>
@@ -150,7 +169,7 @@ function SectionOne() {
             </aside>
           </NavStyles>
         </ArticleStyles>
-      </div>
+      </ContainerSection>
 
       <ImagemStyles>
         <Image img={card} alt="Card" />

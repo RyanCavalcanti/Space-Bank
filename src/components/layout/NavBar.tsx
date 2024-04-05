@@ -16,7 +16,7 @@ const NavBarStyles = styled.nav`
   justify-content: space-between;
   width: 100%;
 
-  @media (max-width: 991px) {
+  @media (max-width: 1099px) {
     flex-direction: column;
   }
 `;
@@ -24,7 +24,7 @@ const NavBarStyles = styled.nav`
 const UlStyles = styled.ul`
   display: none;
 
-  @media (min-width: 992px) {
+  @media (min-width: 1100px) {
     display: flex;
     list-style-type: none;
     gap: 30px;
@@ -34,7 +34,7 @@ const UlStyles = styled.ul`
 const ButtonGroup = styled.div`
   display: none;
 
-  @media (min-width: 992px) {
+  @media (min-width: 1100px) {
     display: flex;
     gap: 10px;
   }
@@ -47,7 +47,7 @@ const ToggleMenu = styled.div<{ isActive: boolean }>`
   margin-left: 10px;
   background-color: ${({ isActive }) => (isActive ? theme.colors.Red : 'transparent')};
 
-  @media (min-width: 992px) {
+  @media (min-width: 1100px) {
     display: none;
   }
 `;
@@ -68,7 +68,7 @@ const LineToggleMenu = styled.div<{ isActive: boolean }>`
     transform: ${({ isActive }) => (isActive ? 'translate(0%, -180%) rotate(45deg)' : 'none')};
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: 1100px) {
     display: none;
   }
 `;
