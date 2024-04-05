@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import NavBar from "../components/layout/NavBar";
+import NavBar from "../../components/layout/NavBar";
+import SectionOne from "./SectionOne/SectionOne";
 
 const Container = styled.div`
   width: 100%;
@@ -14,6 +15,7 @@ function HomePage() {
   return (
     <Container>
       <NavBar />
+      <SectionOne />
     </Container>
   )
 }

@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/Home';
-import NotFound from './pages/NotFound';
-import Login from './pages/Login';
-import Registro from './pages/Registro';
-import Dashboard from './pages/Dashboard';
+import HomePage from './pages/Home/Home';
+import NotFound from './pages/NotFound/NotFound';
+import Login from './pages/Login/Login';
+import Register from './pages/Regiter/Register';
+import Dashboard from './pages/Dashboard/Dashboard';
 import GlobalStyle from './styles/GlobalStyle';
 
 function Index() {
@@ -16,7 +16,7 @@ function Index() {
             <Routes>
               <Route path='/' element={<HomePage />} />
               <Route path='login' element={<Login />} />
-              <Route path='registro' element={<Registro />} />
+              <Route path='registro' element={<Register />} />
               <Route path='dashboard' element={<Dashboard />} />
               <Route path='*' element={<NotFound />} />
             </Routes>

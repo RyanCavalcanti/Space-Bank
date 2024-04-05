@@ -6,6 +6,10 @@ export const AnchorBase = styled.a`
   font-size: 1.1rem;
   color: ${theme.colors.Black};
   font-weight: 500;
+
+  @media(max-width: 1038px){
+    font-size: 0.9rem;
+  }
 `;
 
 export const NavBarAnchor = styled(AnchorBase)`
