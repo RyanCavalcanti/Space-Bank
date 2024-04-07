@@ -6,6 +6,7 @@ import SectionThree from "./SectionThree/SectionThree";
 import theme from "../../styles/Theme";
 import SectionFour from "./SectionFour/SectionFour";
 import SectionFive from './SectionFive/SectionFive';
+import Footer from "../../components/layout/Footer";
 
 const Container = styled.div`
   max-width: 1280px;
@@ -18,8 +19,8 @@ const Container = styled.div`
   }
 `
 
-const BackgroundColor = styled.div`
-  background-color: ${theme.colors.Pink};
+const BackgroundColor = styled.div<{ color: string }>`
+  background-color: ${(props) => props.color};
 `
 
 function HomePage() {
@@ -30,7 +31,7 @@ function HomePage() {
         <SectionOne />
         <SectionTwo />
       </Container>
-      <BackgroundColor>
+      <BackgroundColor color={theme.colors.Pink}>
         <Container>
           <SectionThree />
         </Container>
@@ -38,9 +39,14 @@ function HomePage() {
       <Container>
         <SectionFour />
       </Container>
-      <BackgroundColor>
+      <BackgroundColor color={theme.colors.Pink}>
         <Container>
           <SectionFive />
+        </Container>
+      </BackgroundColor>
+      <BackgroundColor color={theme.colors.SecondWhite}>
+        <Container>
+          <Footer />
         </Container>
       </BackgroundColor>
     </>
