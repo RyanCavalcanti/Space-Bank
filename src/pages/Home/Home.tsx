@@ -5,6 +5,7 @@ import SectionTwo from "./SectionTwo/SectionTwo";
 import SectionThree from "./SectionThree/SectionThree";
 import theme from "../../styles/Theme";
 import SectionFour from "./SectionFour/SectionFour";
+import SectionFive from './SectionFive/SectionFive';
 
 const Container = styled.div`
   max-width: 1280px;
@@ -37,6 +38,11 @@ function HomePage() {
       <Container>
         <SectionFour />
       </Container>
+      <BackgroundColor>
+        <Container>
+          <SectionFive />
+        </Container>
+      </BackgroundColor>
     </>
   )
 }

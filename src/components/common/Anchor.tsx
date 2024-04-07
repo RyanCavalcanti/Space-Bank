@@ -16,7 +16,7 @@ export const NavBarAnchor = styled(AnchorBase)`
 
 interface AnchorProps {
   href: string;
-  children: string;
+  children: React.ReactNode;
   variant?: 'NavBar';
 }
 function Anchor({ href, children, variant = 'NavBar' }: AnchorProps) {
