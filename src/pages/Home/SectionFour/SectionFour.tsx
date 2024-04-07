@@ -2,12 +2,14 @@ import Image from "../../../components/common/Image";
 import Cards from '../../../assets/Images/Cards.webp';
 import Button from "../../../components/common/Button";
 import styled from "styled-components";
+import { ContainerHome, ContainerProps } from '../../../styles/GlobalStyle';
 
-const SectionStyle = styled.section`
+const SectionStyle = styled(ContainerHome)<ContainerProps>`
   display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
+  margin-top: 50px;
 
   & > h2 {
     font-size: 3.2rem;

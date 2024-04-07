@@ -7,14 +7,23 @@ import Percent from "../../../assets/Icon/Percent.svg";
 import Shield from "../../../assets/Icon/Shield.svg";
 import styled from "styled-components";
 import theme from "../../../styles/Theme";
+import { ContainerHome } from "../../../styles/GlobalStyle";
 
 const SectionStyles = styled.section`
-  margin: 100px 0;
+  background-color: ${theme.colors.Pink};
+  margin-top: 100px;
 `;
 
-const Container = styled.div`
-  padding: 50px 0;
+const ContainerBox = styled(ContainerHome)`
+  padding-top: 50px;
+  padding-bottom: 50px;
 
+  @media (max-width: 1099px) {
+    padding-bottom: 20px;
+  }
+`
+
+const Container = styled.div`
   & > h2 {
     font-size: 3.2rem;
     font-weight: 500;
@@ -95,61 +104,63 @@ const Article = ({ img, alt, title, text, disabled }: CardsProps) => {
 function SectionThree() {
   return (
     <SectionStyles>
-      <Container>
-        <h2>
-          Quais as vantagens de usar <span>SpaceBank?</span>
-        </h2>
-        <div>
-          <ContainerArticle>
-            <Article
-              img={CreditCard}
-              alt="Credit card"
-              title="Cartão SpaceBank"
-              text="O Cartão SpaceBank é um cartão de crédito exclusivo para clientes da SpaceBank, uma instituição financeira líder em inovação e tecnologia."
-              disabled={false}
-            />
-            <Article
-              img={Shopping}
-              alt="Shopping"
-              title="Investimentos"
-              text="O cartão também oferece diversos benefícios, como descontos em taxas de corretagem, acesso a fundos de investimento e cashback."
-              disabled={false}
-            />
-            <Article
-              img={Clock}
-              alt="Clock"
-              title="Atendimento 24h"
-              text="No SpaceBank, os usuários têm acesso a um atendimento ao cliente sempre disponível, 24 horas por dia, 7 dias por semana."
-              disabled={false}
-            />
-            <Article img="" alt="" title="" text="" disabled={true} />
-          </ContainerArticle>
-          <ContainerArticle>
-            <Article img="" alt="" title="" text="" disabled={true} />
-            <Article
-              img={Shield}
-              alt="Shield"
-              title="Segurança"
-              text="Os usuários contam com sistemas avançados de segurança, como verificação de identidade, monitoramento de transações e notificações de uso não autorizado."
-              disabled={false}
-            />
-            <Article
-              img={Percent}
-              alt="Percent"
-              title="Sem taxas"
-              text="Com o cartão SpaceBank, os usuários podem aproveitar ao máximo seus recursos financeiros, sem se preocupar com custos adicionais ou taxas escondidas."
-              disabled={false}
-            />
-            <Article
-              img={Gift}
-              alt="Gift"
-              title="Receba prêmios"
-              text="Os usuários têm acesso a um programa de recompensas que oferece pontos a cada transação realizada com o cartão, que podem ser trocados por diversos prêmios."
-              disabled={false}
-            />
-          </ContainerArticle>
-        </div>
-      </Container>
+      <ContainerBox>
+        <Container>
+          <h2>
+            Quais as vantagens de usar <span>SpaceBank?</span>
+          </h2>
+          <div>
+            <ContainerArticle>
+              <Article
+                img={CreditCard}
+                alt="Credit card"
+                title="Cartão SpaceBank"
+                text="O Cartão SpaceBank é um cartão de crédito exclusivo para clientes da SpaceBank, uma instituição financeira líder em inovação e tecnologia."
+                disabled={false}
+              />
+              <Article
+                img={Shopping}
+                alt="Shopping"
+                title="Investimentos"
+                text="O cartão também oferece diversos benefícios, como descontos em taxas de corretagem, acesso a fundos de investimento e cashback."
+                disabled={false}
+              />
+              <Article
+                img={Clock}
+                alt="Clock"
+                title="Atendimento 24h"
+                text="No SpaceBank, os usuários têm acesso a um atendimento ao cliente sempre disponível, 24 horas por dia, 7 dias por semana."
+                disabled={false}
+              />
+              <Article img="" alt="" title="" text="" disabled={true} />
+            </ContainerArticle>
+            <ContainerArticle>
+              <Article img="" alt="" title="" text="" disabled={true} />
+              <Article
+                img={Shield}
+                alt="Shield"
+                title="Segurança"
+                text="Os usuários contam com sistemas avançados de segurança, como verificação de identidade, monitoramento de transações e notificações de uso não autorizado."
+                disabled={false}
+              />
+              <Article
+                img={Percent}
+                alt="Percent"
+                title="Sem taxas"
+                text="Com o cartão SpaceBank, os usuários podem aproveitar ao máximo seus recursos financeiros, sem se preocupar com custos adicionais ou taxas escondidas."
+                disabled={false}
+              />
+              <Article
+                img={Gift}
+                alt="Gift"
+                title="Receba prêmios"
+                text="Os usuários têm acesso a um programa de recompensas que oferece pontos a cada transação realizada com o cartão, que podem ser trocados por diversos prêmios."
+                disabled={false}
+              />
+            </ContainerArticle>
+          </div>
+        </Container>
+      </ContainerBox>
     </SectionStyles>
   );
 }

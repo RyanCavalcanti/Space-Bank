@@ -7,12 +7,13 @@ import iconSmartphone from '../../../assets/Icon/IconSmartphone.webp';
 import iconHappy from '../../../assets/Icon/IconHappy.webp';
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { ContainerHome, ContainerProps } from "../../../styles/GlobalStyle";
 
-const SectionStyles = styled.section`
+const SectionStyles = styled(ContainerHome)<ContainerProps>`
   display: flex;
   align-items: center;
-  margin-top: 50px;
   gap: 100px;
+  margin-top: 50px;
 
   @media(max-width: 992px) {
     flex-direction: column;
@@ -133,7 +134,7 @@ function SectionTwo() {
   }, []);
 
   return (
-    <SectionStyles>
+    <SectionStyles as='section'>
 
       <div>
         <Image img={smartphoneImage} alt="Dashboard Smartphone SpaceBank" />

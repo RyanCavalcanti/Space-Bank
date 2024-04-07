@@ -6,8 +6,9 @@ import iconAndroid from '../../../assets/Icon/Icon-PlayStore.webp';
 import styled from "styled-components";
 import Button from "../../../components/common/Button";
 import theme from "../../../styles/Theme";
+import { ContainerHome, ContainerProps } from "../../../styles/GlobalStyle";
 
-const SectionStyles = styled.section`
+const SectionStyles = styled(ContainerHome)<ContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +16,6 @@ const SectionStyles = styled.section`
 `
 
 const ContainerSection = styled.div`
-  padding: inherit;
   max-width: 100%;
 `
 
@@ -132,48 +132,48 @@ const ImagemStyles = styled.nav`
 
 function SectionOne() {
   return (
-    <SectionStyles>
-      <ContainerSection>
-        <HeaderStyles>
-          <h1>SpaceBank</h1>
-          <h2>seu universo financeiro.</h2>
-        </HeaderStyles>
+    <SectionStyles as="section">
+        <ContainerSection>
+          <HeaderStyles>
+            <h1>SpaceBank</h1>
+            <h2>seu universo financeiro.</h2>
+          </HeaderStyles>
 
-        <ArticleStyles>
-          <h3>Com SpaceBank, você pode realizar transferências bancárias com zero taxa e pagar suas contas.</h3>
+          <ArticleStyles>
+            <h3>Com SpaceBank, você pode realizar transferências bancárias com zero taxa e pagar suas contas.</h3>
 
-          <UlStyles>
-            <li>
-              <StyledIcon src={iconCheck} alt="Icon Check" />
-              <p>Transferência instantânea</p>
-            </li>
-            <li>
-              <StyledIcon src={iconCheck} alt="Icon Check" />
-              <p>Pagamentos em todo o mundo</p>
-            </li>
-            <li>
-              <StyledIcon src={iconCheck} alt="Icon Check" />
-              <p>Sem taxas absurdas</p>
-            </li>
-            <li>
-              <StyledIcon src={iconCheck} alt="Icon Check" />
-              <p>100% pensando em você</p>
-            </li>
-          </UlStyles>
+            <UlStyles>
+              <li>
+                <StyledIcon src={iconCheck} alt="Icon Check" />
+                <p>Transferência instantânea</p>
+              </li>
+              <li>
+                <StyledIcon src={iconCheck} alt="Icon Check" />
+                <p>Pagamentos em todo o mundo</p>
+              </li>
+              <li>
+                <StyledIcon src={iconCheck} alt="Icon Check" />
+                <p>Sem taxas absurdas</p>
+              </li>
+              <li>
+                <StyledIcon src={iconCheck} alt="Icon Check" />
+                <p>100% pensando em você</p>
+              </li>
+            </UlStyles>
 
-          <NavStyles>
-            <Button variant="secondary" style={{ width: '100%' }}>Abrir uma conta</Button>
-            <aside>
-              <a href="#"><Image img={iconApple} alt="Apple" /></a>
-              <a href="#"><Image img={iconAndroid} alt="Android" /></a>
-            </aside>
-          </NavStyles>
-        </ArticleStyles>
-      </ContainerSection>
+            <NavStyles>
+              <Button variant="secondary" style={{ width: '100%' }}>Abrir uma conta</Button>
+              <aside>
+                <a href="#"><Image img={iconApple} alt="Apple" /></a>
+                <a href="#"><Image img={iconAndroid} alt="Android" /></a>
+              </aside>
+            </NavStyles>
+          </ArticleStyles>
+        </ContainerSection>
 
-      <ImagemStyles>
-        <Image img={card} alt="Card" />
-      </ImagemStyles>
+        <ImagemStyles>
+          <Image img={card} alt="Card" />
+        </ImagemStyles>
     </SectionStyles>
   )
 }

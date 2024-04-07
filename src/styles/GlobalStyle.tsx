@@ -1,4 +1,4 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import theme from './Theme';
 
 const GlobalStyleCSS = createGlobalStyle`
@@ -28,6 +28,17 @@ const GlobalStyleCSS = createGlobalStyle`
     font-style: normal;
     background-color: transparent;
   }
+`
+
+export interface ContainerProps {
+  as?: keyof JSX.IntrinsicElements;
+}
+
+export const ContainerHome = styled.div<ContainerProps>`
+  max-width: 1280px;
+  width: 100%;
+  margin: auto auto;
+  padding: 0px 20px;
 `
 
 export default function GlobalStyle() {

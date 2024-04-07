@@ -5,16 +5,23 @@ import RocketWhite from '../../../assets/Icon/Rocket-White.webp';
 import Image from '../../../components/common/Image';
 import theme from '../../../styles/Theme';
 import Anchor from '../../../components/common/Anchor';
+import { ContainerHome } from '../../../styles/GlobalStyle';
 
 const SectionStyle = styled.section`
+  background-color: ${theme.colors.Pink};
+`
+
+const ContainerBox = styled(ContainerHome)`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1220px;
-  padding: 100px 0;
   margin-top: 50px;
+  padding-top: 100px;
+  padding-bottom: 100px;
   @media (max-width: 1099px) {
     flex-direction: column;
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
 `
 
@@ -78,7 +85,7 @@ const CardsStyles = styled.div`
 const AnimationStyles = styled.div`
   display: block;
   unicode-bidi: isolate;
-  @media (max-width: 480px) {
+  @media (max-width: 1099px) {
     margin-top: 50px;
   }
   
@@ -114,23 +121,23 @@ const AnimationStyles = styled.div`
 function SectionFive() {
   return (
     <SectionStyle>
+      <ContainerBox>
+        <ArticleStyles>
+          <h2>Uma nova experiência em <span>serviços financeiros.</span></h2>
+          <p>Nossa abordagem inovadora e personalizada oferece uma experiência única para atender às suas necessidades.</p>
 
-      <ArticleStyles>
-        <h2>Uma nova experiência em <span>serviços financeiros.</span></h2>
-        <p>Nossa abordagem inovadora e personalizada oferece uma experiência única para atender às suas necessidades.</p>
+          <CardsStyles>
+            <Anchor href='#'><Image img={CardApple} alt='Card Apple' /></Anchor>
+            <Anchor href='#'><Image img={CardGoogle} alt='Card Google' /></Anchor>
+          </CardsStyles>
+        </ArticleStyles>
 
-        <CardsStyles>
-          <Anchor href='#'><Image img={CardApple} alt='Card Apple' /></Anchor>
-          <Anchor href='#'><Image img={CardGoogle} alt='Card Google' /></Anchor>
-        </CardsStyles>
-      </ArticleStyles>
-
-      <AnimationStyles>
-        <div>
-          <Image img={RocketWhite} alt='Rocket White' />
-        </div>
-      </AnimationStyles>
-
+        <AnimationStyles>
+          <div>
+            <Image img={RocketWhite} alt='Rocket White' />
+          </div>
+        </AnimationStyles>
+      </ContainerBox>
     </SectionStyle>
 
   )
