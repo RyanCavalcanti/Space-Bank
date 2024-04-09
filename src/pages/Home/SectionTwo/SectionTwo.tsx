@@ -134,7 +134,7 @@ function SectionTwo() {
   }, []);
 
   return (
-    <SectionStyles as='section'>
+    <SectionStyles as='section' id="contadigital">
 
       <div>
         <Image img={smartphoneImage} alt="Dashboard Smartphone SpaceBank" />

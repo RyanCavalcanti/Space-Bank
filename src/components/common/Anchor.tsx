@@ -51,9 +51,10 @@ interface AnchorProps {
   href: string;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  target?: string;
   variant: 'none' | 'text' | 'primary' | 'secondary' | 'tertiary';
 }
-function Anchor({ href, children, style, variant = 'none' }: AnchorProps) {
+function Anchor({ href, children, style, target, variant = 'none' }: AnchorProps) {
   let AnchorComponent;
   switch (variant) {
     case 'none':
@@ -76,7 +77,7 @@ function Anchor({ href, children, style, variant = 'none' }: AnchorProps) {
   }
 
   return(
-    <AnchorComponent href={href} style={style}>{ children }</AnchorComponent>
+    <AnchorComponent href={href} style={style} target={target}>{ children }</AnchorComponent>
   );
 }
 

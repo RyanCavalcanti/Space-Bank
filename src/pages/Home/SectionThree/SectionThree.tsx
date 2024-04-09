@@ -103,7 +103,7 @@ const Article = ({ img, alt, title, text, disabled }: CardsProps) => {
 
 function SectionThree() {
   return (
-    <SectionStyles>
+    <SectionStyles id="beneficios">
       <ContainerBox>
         <Container>
           <h2>

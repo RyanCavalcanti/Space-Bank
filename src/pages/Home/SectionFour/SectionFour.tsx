@@ -1,8 +1,8 @@
 import Image from "../../../components/common/Image";
 import Cards from '../../../assets/Images/Cards.webp';
-import Button from "../../../components/common/Button";
 import styled from "styled-components";
 import { ContainerHome, ContainerProps } from '../../../styles/GlobalStyle';
+import Anchor from "../../../components/common/Anchor";
 
 const SectionStyle = styled(ContainerHome)<ContainerProps>`
   display: flex;
@@ -52,13 +52,13 @@ const ImageBox = styled.div`
 
 function SectionFour() {
   return (
-    <SectionStyle>
+    <SectionStyle id="cartoes">
       <h2>Cartão perfeito para suas necessidades.</h2>
       <p>Encontre o cartão perfeito para suas necessidades financeiras. Seja para viagens ou compras do dia a dia, temos uma opção que se adapta a você.</p>
       <ImageBox>
         <Image img={Cards} alt="Cards Space Bank" />
       </ImageBox>
-      <Button variant="secondary">Abrir uma conta</Button>
+      <Anchor href="/register" variant="secondary">Abrir uma conta</Anchor>
     </SectionStyle>
   )
 }
