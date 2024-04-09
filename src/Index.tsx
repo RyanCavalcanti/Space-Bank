@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/Home/Home';
-import NotFound from './pages/NotFound/NotFound';
-import Login from './pages/Login/Login';
-import Register from './pages/Regiter/Register';
-import Dashboard from './pages/Dashboard/Dashboard';
+import NotFound from './pages/NotFound/Index';
+import Login from './pages/Login/Index';
+import Register from './pages/Regiter/Index';
+import Dashboard from './pages/Dashboard/Index';
 import GlobalStyle from './styles/GlobalStyle';
 
 function Index() {
