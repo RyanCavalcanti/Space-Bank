@@ -2,7 +2,6 @@
   import styled, { keyframes } from 'styled-components';
   import logoCelular from '../../assets/Images/Logo-Smarphone.webp';
   import logo from '../../assets/Images/Logo.webp';
-  import Button from '../common/Button';
   import Image from '../common/Image';
   import Anchor from '../common/Anchor';
   import theme from '../../styles/Theme';
@@ -144,9 +143,9 @@
           <NavBarStyles>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               {isMobile ? (
-                <a href='#'><Image img={logoCelular} alt='Logo SpaceBank Celular' /></a>
+                <a href='/'><Image img={logoCelular} alt='Logo SpaceBank Celular' /></a>
               ) : (
-                <a href='#'><Image img={logo} alt='Logo SpaceBank' /></a>
+                <a href='/'><Image img={logo} alt='Logo SpaceBank' /></a>
               )}
               <ToggleMenu onClick={toggleMobileMenu} isActive={toggleMenuVisible}>
                 <LineToggleMenu isActive={toggleMenuVisible} />
@@ -155,28 +154,28 @@
               </ToggleMenu>
             </div>
             <UlStyles>
-              <li><Anchor href='#'>Benefícios</Anchor></li>
-              <li><Anchor href='#'>Conta digital</Anchor></li>
-              <li><Anchor href='#'>Cartões</Anchor></li>
-              <li><Anchor href='#'>Download App</Anchor></li>
+              <li><Anchor href='#beneficios' variant='text'>Benefícios</Anchor></li>
+              <li><Anchor href='#contadigital' variant='text'>Conta digital</Anchor></li>
+              <li><Anchor href='#cartoes' variant='text'>Cartões</Anchor></li>
+              <li><Anchor href='#downloadapp' variant='text'>Download App</Anchor></li>
             </UlStyles>
             <ButtonGroup>
-              <Button variant='primary'>Entrar</Button>
-              <Button variant='secondary'>Abrir Conta</Button>
+              <Anchor href='/login' variant='primary'>Entrar</Anchor>
+              <Anchor href='/register' variant='secondary'>Abrir Conta</Anchor>
             </ButtonGroup>
           </NavBarStyles>
 
           <ToggleMenuContainer isVisible={toggleMenuVisible}>
 
             <UlStylesTwo>
-              <li><Anchor href='#'>Benefícios</Anchor></li>
-              <li><Anchor href='#'>Conta digital</Anchor></li>
-              <li><Anchor href='#'>Cartões</Anchor></li>
-              <li><Anchor href='#'>Download App</Anchor></li>
+              <li><Anchor href='#beneficios' variant='text'>Benefícios</Anchor></li>
+              <li><Anchor href='#contadigital' variant='text'>Conta digital</Anchor></li>
+              <li><Anchor href='#cartoes' variant='text'>Cartões</Anchor></li>
+              <li><Anchor href='#downloadapp' variant='text'>Download App</Anchor></li>
             </UlStylesTwo>
             <ButtonGroupTwo>
-              <Button variant='primary'>Entrar</Button>
-              <Button variant='secondary'>Abrir Conta</Button>
+              <Anchor href='/login' variant='primary'>Entrar</Anchor>
+              <Anchor href='/register' variant='secondary'>Abrir Conta</Anchor>
             </ButtonGroupTwo>
 
           </ToggleMenuContainer>

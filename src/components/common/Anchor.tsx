@@ -1,32 +1,70 @@
 import styled from "styled-components";
 import theme from "../../styles/Theme";
 
-export const AnchorBase = styled.a`
+export const TextAnchorBase = styled.a`
   text-decoration: none;
-  font-size: 1.1rem;
-  color: ${theme.colors.Black};
-  font-weight: 600;
 `;
 
-export const NavBarAnchor = styled(AnchorBase)`
+export const TextAnchor = styled(TextAnchorBase)`
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: ${theme.colors.Black};
   &:hover {
     color: ${theme.colors.Red};
   }
 `;
 
+export const ButtonBase = styled.a`
+  border: none;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 4px;
+  padding: 15px 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+
+  &:hover{
+    opacity: 0.9;
+  }
+`;
+
+export const PrimaryButton = styled(ButtonBase)`
+  background-color: ${theme.colors.Black};
+  color: ${theme.colors.White};
+`;
+
+export const SecondaryButton = styled(ButtonBase)`
+  background-color: ${theme.colors.Red};
+  color: ${theme.colors.White};
+`;
+
+export const TertiaryButton = styled(ButtonBase)`
+  background-color: ${theme.colors.White};
+  color: ${theme.colors.Red};
+`;
+
 interface AnchorProps {
   href: string;
   children: React.ReactNode;
-  variant?: 'NavBar';
+  variant: 'text' | 'primary' | 'secondary' | 'tertiary';
 }
-function Anchor({ href, children, variant = 'NavBar' }: AnchorProps) {
+function Anchor({ href, children, variant = 'text' }: AnchorProps) {
   let AnchorComponent;
   switch (variant) {
-    case 'NavBar':
-      AnchorComponent = NavBarAnchor;
+    case 'text':
+      AnchorComponent = TextAnchor;
+      break;
+    case 'primary':
+      AnchorComponent = PrimaryButton;
+      break;
+    case 'secondary':
+      AnchorComponent = SecondaryButton;
+      break;
+    case 'tertiary':
+      AnchorComponent = TertiaryButton;
       break;
     default:
-      AnchorComponent = NavBarAnchor;
+      AnchorComponent = TextAnchorBase;
   }
 
   return(
