@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FormInput from "../common/FormInput";
-import { ContainerFormStyles, FormStyles, LabelFormStyles } from "../../styles/FormStyles";
+import { ContainerFormStyles, ErrorText, FormStyles, LabelFormStyles } from "../../styles/FormStyles";
 import Button from "../common/Button";
 
 const RegisterForm: React.FC = () => {
@@ -14,13 +14,13 @@ const RegisterForm: React.FC = () => {
     event.preventDefault();
     // Validar entrada e fazer registro
     if (!firstName || !lastName || !email || !password) {
-      setError("Please fill out all fields");
+      setError("Por favor, preencha todos os campos");
       return;
     }
 
     const existingUser = localStorage.getItem("email");
     if (existingUser) {
-      setError("Email already exists");
+      setError("E-mail já existe! Tente outro.");
       return;
     }
 
@@ -28,7 +28,7 @@ const RegisterForm: React.FC = () => {
     localStorage.setItem("lastName", lastName);
     localStorage.setItem("email", email);
     localStorage.setItem("password", password);
-    alert("Registration successful");
+    alert("Registrado com sucesso!");
   };
 
   return (
@@ -63,7 +63,7 @@ const RegisterForm: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button variant="tertiary" type="submit">Register</Button>
-        {error && <div>{error}</div>}
+        {error && <ErrorText>{error}</ErrorText>}
       </FormStyles>
     </ContainerFormStyles>
   );

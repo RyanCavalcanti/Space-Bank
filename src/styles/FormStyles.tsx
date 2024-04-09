@@ -36,3 +36,9 @@ export const InputFormStyles = styled.input`
   background-color: ${theme.colors.White};
   font-weight: 600;
 `
+
+export const ErrorText = styled.div`
+  color: ${theme.colors.White};
+  font-size: 1.2rem;
+  margin-top: 5px;
+`;
