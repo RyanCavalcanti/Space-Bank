@@ -5,6 +5,7 @@ import SectionThree from "./SectionThree/SectionThree";
 import SectionFour from "./SectionFour/SectionFour";
 import SectionFive from './SectionFive/SectionFive';
 import Footer from "../../components/layout/Footer";
+import ScrollToTopButton from "../../components/common/ScrollToTopButton";
 
 function HomePage() {
   return (
@@ -16,6 +17,7 @@ function HomePage() {
       <SectionFour />
       <SectionFive />
       <Footer />
+      <ScrollToTopButton />
     </>
   )
 }
