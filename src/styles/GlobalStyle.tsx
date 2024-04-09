@@ -7,6 +7,7 @@ const GlobalStyleCSS = createGlobalStyle`
     padding: 0;
     overflow-x: hidden;
     font-size: 1rem;
+    height: 100vh;
   }
 
   #root {

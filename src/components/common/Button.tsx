@@ -23,6 +23,11 @@ export const SecondaryButton = styled(ButtonBase)`
   color: ${theme.colors.White};
 `;
 
+export const TertiaryButton = styled(ButtonBase)`
+  background-color: ${theme.colors.White};
+  color: ${theme.colors.Red};
+`;
+
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -31,7 +36,7 @@ interface ButtonProps {
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
   style?: React.CSSProperties;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'tertiary';
 }
 
 function Button({ children, onClick, className, disabled, type, style, variant = 'primary' }: ButtonProps) {
@@ -42,6 +47,9 @@ function Button({ children, onClick, className, disabled, type, style, variant =
       break;
     case 'secondary':
       ButtonComponent = SecondaryButton;
+      break;
+    case 'tertiary':
+      ButtonComponent = TertiaryButton;
       break;
     default:
       ButtonComponent = PrimaryButton;

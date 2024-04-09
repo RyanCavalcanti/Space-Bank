@@ -1,3 +1,5 @@
+import { InputFormStyles } from "../../styles/FormStyles";
+
 interface FormInputProps {
   type: string;
   placeholder: string;
@@ -12,7 +14,7 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange,
 }) => {
   return (
-    <input
+    <InputFormStyles
       type={type}
       placeholder={placeholder}
       value={value}

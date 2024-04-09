@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import FormInput from "../common/FormInput";
+import { ContainerFormStyles, FormStyles, LabelFormStyles } from "../../styles/FormStyles";
+import Button from "../common/Button";
 
 const RegisterForm: React.FC = () => {
   const [firstName, setFirstName] = useState("");
@@ -30,38 +32,40 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>First Name:</label>
-      <FormInput
-        type="text"
-        placeholder="First Name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <label>Last Name:</label>
-      <FormInput
-        type="text"
-        placeholder="Last Name"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-      />
-      <label>Email:</label>
-      <FormInput
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <label>Password:</label>
-      <FormInput
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Register</button>
-      {error && <div>{error}</div>}
-    </form>
+    <ContainerFormStyles as='div'>
+      <FormStyles onSubmit={handleSubmit}>
+        <LabelFormStyles>First Name:</LabelFormStyles>
+        <FormInput
+          type="text"
+          placeholder=""
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <LabelFormStyles>Last Name:</LabelFormStyles>
+        <FormInput
+          type="text"
+          placeholder=""
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        <LabelFormStyles>Email:</LabelFormStyles>
+        <FormInput
+          type="email"
+          placeholder=""
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <LabelFormStyles>Password:</LabelFormStyles>
+        <FormInput
+          type="password"
+          placeholder=""
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button variant="tertiary" type="submit">Register</Button>
+        {error && <div>{error}</div>}
+      </FormStyles>
+    </ContainerFormStyles>
   );
 };
 
