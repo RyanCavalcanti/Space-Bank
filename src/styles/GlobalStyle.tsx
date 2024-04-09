@@ -8,6 +8,8 @@ const GlobalStyleCSS = createGlobalStyle`
     overflow-x: hidden;
     font-size: 1rem;
     height: 100vh;
+    color: ${theme.colors.Black};
+    font-weight: 500;
   }
 
   #root {

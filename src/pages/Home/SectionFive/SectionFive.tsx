@@ -6,6 +6,9 @@ import Image from '../../../components/common/Image';
 import theme from '../../../styles/Theme';
 import Anchor from '../../../components/common/Anchor';
 import { ContainerHome } from '../../../styles/GlobalStyle';
+import Title from '../../../components/common/Title';
+import Span from '../../../components/common/Span';
+import Paragraph from '../../../components/common/Paragraph';
 
 const SectionStyle = styled.section`
   background-color: ${theme.colors.Pink};
@@ -30,43 +33,6 @@ const ArticleStyles = styled.article`
     display: flex;
     align-items: center;
     flex-direction: column;
-  }
-  & > h2 {
-    font-size: 2.6rem;
-    width: 60%;
-    font-weight: 600;
-    @media (max-width: 1099px) {
-      text-align: center;
-      width: 50%;
-    }
-
-    @media (max-width: 480px) {
-      font-size: 2rem;
-      width: 100%;
-    }
-
-    & > span {
-      color: ${theme.colors.Red};
-      @media (max-width: 480px) {
-      font-size: 2rem;
-      width: 100%;
-    }
-    }
-  }
-
-  & > p {
-    font-size: 1.5rem;
-    width: 80%;
-    font-weight: 400;
-    @media (max-width: 1099px) {
-      text-align: center;
-      width: 90%;
-    }
-
-    @media (max-width: 480px) {
-      font-size: 1.3rem;
-      width: 100%;
-    }
   }
 `
 
@@ -123,8 +89,8 @@ function SectionFive() {
     <SectionStyle id='downloadapp'>
       <ContainerBox>
         <ArticleStyles>
-          <h2>Uma nova experiência em <span>serviços financeiros.</span></h2>
-          <p>Nossa abordagem inovadora e personalizada oferece uma experiência única para atender às suas necessidades.</p>
+          <Title as="h2" fontWeight={600}>Uma nova experiência em <Span>serviços financeiros.</Span></Title>
+          <Paragraph marginTop={'20px'} marginBottom={'20px'}>Nossa abordagem inovadora e personalizada oferece uma experiência única para atender às suas necessidades.</Paragraph>
 
           <CardsStyles>
             <Anchor href='#' variant='none'><Image img={CardApple} alt='Card Apple' /></Anchor>

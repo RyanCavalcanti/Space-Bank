@@ -8,6 +8,9 @@ import iconHappy from '../../../assets/Icon/IconHappy.webp';
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { ContainerHome, ContainerProps } from "../../../styles/GlobalStyle";
+import Title from "../../../components/common/Title";
+import Paragraph from "../../../components/common/Paragraph";
+import Span from "../../../components/common/Span";
 
 const SectionStyles = styled(ContainerHome)<ContainerProps>`
   display: flex;
@@ -17,35 +20,6 @@ const SectionStyles = styled(ContainerHome)<ContainerProps>`
 
   @media(max-width: 992px) {
     flex-direction: column;
-  }
-`;
-
-const HeaderStyles = styled.header`
-  & > h2 {
-    font-size: 3.2rem;
-    margin: 0;
-    margin-bottom: 20px;
-
-    @media(max-width: 992px) {
-      font-size: 1.6rem;
-      text-align: center;
-    }
-
-    & > span {
-      color: ${theme.colors.Red};
-    }
-  }
-
-  & > p {
-    font-family: "Inter", sans-serif;
-    font-weight: 600;
-    margin: 0;
-    margin-bottom: 50px;
-
-    @media(max-width: 992px) {
-      font-weight: 500;
-      text-align: center;
-    }
   }
 `;
 
@@ -106,7 +80,7 @@ export const BoxInfo = ({ img, alt, title, text, addMargin }: BoxInfoProps) => {
         <Image img={img} alt={alt} style={{ width: '50px', height: '50px'}}/>
         <div>
           <h3>{title}</h3>
-          <p>{text}</p>
+          <Paragraph>{text}</Paragraph>
         </div>
       </ArticleContainer>
       <LinePink addMargin={addMargin} />
@@ -142,10 +116,10 @@ function SectionTwo() {
 
       <div>
 
-        <HeaderStyles>
-          <h2>Abra sua conta <span>gratuita</span></h2>
-          <p>Envie e receba dinheiro de forma mais prática e rápida. Faça Pix, TEDs e transferências para todos os bancos sem pagar nada.</p>
-        </HeaderStyles>
+        <header>
+          <Title as="h2" fontWeight={600}>Abra sua conta <Span>gratuita</Span></Title>
+          <Paragraph fontWeight={600} marginBottom={'50px'}>Envie e receba dinheiro de forma mais prática e rápida. Faça Pix, TEDs e transferências para todos os bancos sem pagar nada.</Paragraph>
+        </header>
 
         <BoxInfo img={iconMoney} alt="Icon Money" title="Seu dinheiro rendendo mais" text="Rendem mais que a poupança e você resgata quando quiser." addMargin={true} />
         <BoxInfo img={iconSmartphone} alt="Icon Smartphone" title="Conta digital 100% grátis" text="Transferências, boletos de depósito e outros serviços gratuitos." addMargin={true} />

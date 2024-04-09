@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Anchor from "../common/Anchor";
+import Paragraph from "../common/Paragraph";
+import Span from "../common/Span";
 
 const FooterStyles = styled.footer`
   display: flex;
@@ -7,14 +9,6 @@ const FooterStyles = styled.footer`
   flex-wrap: wrap;
   padding: 30px 0;
   gap: 20px;
-
-  & > p {
-    margin: 0;
-
-    & > span {
-      font-weight: 600;
-    }
-  }
 `
 
 function Footer() {
@@ -23,8 +17,8 @@ function Footer() {
 
   return(
     <FooterStyles>
-      <p>Copyright © {currentYear} <span><Anchor href="https://ryancavalcanti.com" variant="text">Ryancavalcanti.com.</Anchor></span></p>
-      <p>Todos os direitos reservados</p>
+      <Paragraph>Copyright © {currentYear} <Span><Anchor href="https://ryancavalcanti.com" variant="text">Ryancavalcanti.com.</Anchor></Span></Paragraph>
+      <Paragraph>Todos os direitos reservados</Paragraph>
     </FooterStyles>
   )
 }

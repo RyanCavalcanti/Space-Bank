@@ -3,6 +3,8 @@ import Cards from '../../../assets/Images/Cards.webp';
 import styled from "styled-components";
 import { ContainerHome, ContainerProps } from '../../../styles/GlobalStyle';
 import Anchor from "../../../components/common/Anchor";
+import Title from "../../../components/common/Title";
+import Paragraph from "../../../components/common/Paragraph";
 
 const SectionStyle = styled(ContainerHome)<ContainerProps>`
   display: flex;
@@ -10,33 +12,6 @@ const SectionStyle = styled(ContainerHome)<ContainerProps>`
   text-align: center;
   align-items: center;
   margin-top: 50px;
-
-  & > h2 {
-    font-size: 3.2rem;
-    font-weight: 500;
-    width: 45%;
-    line-height: 120%;
-    margin: 0;
-    margin-bottom: 24px;
-
-    @media (max-width: 1099px) {
-      font-size: 1.8rem;
-      width: 100%;
-    }
-  }
-
-  & > p {
-    font-family: "Inter", sans-serif;
-    font-size: 1.1rem;
-    font-weight: 500;
-    width: 55%;
-    line-height: 160%;
-    margin: 0;
-
-    @media (max-width: 1099px) {
-      width: 100%;
-    }
-  }
 `
 
 const ImageBox = styled.div`
@@ -53,8 +28,8 @@ const ImageBox = styled.div`
 function SectionFour() {
   return (
     <SectionStyle id="cartoes">
-      <h2>Cartão perfeito para suas necessidades.</h2>
-      <p>Encontre o cartão perfeito para suas necessidades financeiras. Seja para viagens ou compras do dia a dia, temos uma opção que se adapta a você.</p>
+      <Title as="h2" fontWeight={600}>Cartão perfeito para suas necessidades.</Title>
+      <Paragraph marginTop={'24px'}>Encontre o cartão perfeito para suas necessidades financeiras. Seja para viagens ou compras do dia a dia, temos uma opção que se adapta a você.</Paragraph>
       <ImageBox>
         <Image img={Cards} alt="Cards Space Bank" />
       </ImageBox>

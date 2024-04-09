@@ -7,6 +7,8 @@ import styled from "styled-components";
 import theme from "../../../styles/Theme";
 import { ContainerHome, ContainerProps } from "../../../styles/GlobalStyle";
 import Anchor from "../../../components/common/Anchor";
+import Title from "../../../components/common/Title";
+import Paragraph from "../../../components/common/Paragraph";
 
 const SectionStyles = styled(ContainerHome)<ContainerProps>`
   display: flex;
@@ -23,54 +25,6 @@ const ContainerSection = styled.div`
   max-width: 100%;
 `
 
-const HeaderStyles = styled.header`
-  & > h1 {
-    font-size: 5.2rem;
-    margin: 0px;
-    color: ${theme.colors.Red};
-
-    @media(max-width: 1099px) {
-      font-size: 3.8rem;
-    }
-
-    @media(max-width: 480px) {
-      font-size: 2.8rem;
-    }
-  }
-
-  & > h2 {
-    font-size: 3.8rem;
-    margin: 0px;
-
-    @media(max-width: 1099px) {
-      font-size: 3.8rem;
-    }
-
-    @media(max-width: 480px) {
-      font-size: 2.8rem;
-    }
-  }
-`
-
-const ArticleStyles = styled.article`
-  & > h3 {
-    font-family: "Inter", sans-serif;
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin: 20px 0 0;
-
-    @media(max-width: 1099px) {
-      font-weight: 400;
-      font-size: 1.6rem;
-
-    }
-
-    @media(max-width: 480px) {
-      font-size: 1.1rem;
-    }
-  }
-`
-
 const UlStyles = styled.ul`
   list-style-type: none;
   display: grid;
@@ -82,13 +36,6 @@ const UlStyles = styled.ul`
     align-items: center;
     gap: 10px;
     margin: 0;
-
-    & > p{
-      font-family: "Inter", sans-serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin: 0;
-    }
   }
   
   @media (min-width: 1099px) {
@@ -138,30 +85,30 @@ function SectionOne() {
   return (
     <SectionStyles as="section">
         <ContainerSection>
-          <HeaderStyles>
-            <h1>SpaceBank</h1>
-            <h2>seu universo financeiro.</h2>
-          </HeaderStyles>
+          <header>
+            <Title as="h1" color={theme.colors.Red} fontWeight={700}>SpaceBank</Title>
+            <Title as="h2" fontWeight={600}>seu universo financeiro.</Title>
+          </header>
 
-          <ArticleStyles>
-            <h3>Com SpaceBank, você pode realizar transferências bancárias com zero taxa e pagar suas contas.</h3>
+          <article>
+            <Title as="h3">Com SpaceBank, você pode realizar transferências bancárias com zero taxa e pagar suas contas.</Title>
 
             <UlStyles>
               <li>
                 <StyledIcon src={iconCheck} alt="Icon Check" />
-                <p>Transferência instantânea</p>
+                <Paragraph fontWeight={600}>Transferência instantânea</Paragraph>
               </li>
               <li>
                 <StyledIcon src={iconCheck} alt="Icon Check" />
-                <p>Pagamentos em todo o mundo</p>
+                <Paragraph fontWeight={600}>Pagamentos em todo o mundo</Paragraph>
               </li>
               <li>
                 <StyledIcon src={iconCheck} alt="Icon Check" />
-                <p>Sem taxas absurdas</p>
+                <Paragraph fontWeight={600}>Sem taxas absurdas</Paragraph>
               </li>
               <li>
                 <StyledIcon src={iconCheck} alt="Icon Check" />
-                <p>100% pensando em você</p>
+                <Paragraph fontWeight={600}>100% pensando em você</Paragraph>
               </li>
             </UlStyles>
 
@@ -172,7 +119,7 @@ function SectionOne() {
                 <Anchor href="#" variant="none"><Image img={iconAndroid} alt="Android" /></Anchor>
               </aside>
             </ContainerBtnStyles>
-          </ArticleStyles>
+          </article>
         </ContainerSection>
 
         <ImagemStyles>

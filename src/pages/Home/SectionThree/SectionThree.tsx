@@ -8,6 +8,9 @@ import Shield from "../../../assets/Icon/Shield.svg";
 import styled from "styled-components";
 import theme from "../../../styles/Theme";
 import { ContainerHome } from "../../../styles/GlobalStyle";
+import Title from "../../../components/common/Title";
+import Span from "../../../components/common/Span";
+import Paragraph from "../../../components/common/Paragraph";
 
 const SectionStyles = styled.section`
   background-color: ${theme.colors.Pink};
@@ -22,27 +25,6 @@ const ContainerBox = styled(ContainerHome)`
     padding-bottom: 20px;
   }
 `
-
-const Container = styled.div`
-  & > h2 {
-    font-size: 3.2rem;
-    font-weight: 500;
-    width: 50%;
-    background-color: transparent;
-    
-    & > span {
-      color: ${theme.colors.Red};
-      background-color: transparent;
-    }
-
-    @media (max-width: 1099px), (max-width: 480px) {
-      margin: auto;
-      text-align: center;
-      font-size: 2.5rem;
-      width: 100%;
-    }
-  }
-`;
 
 const ContainerArticle = styled.div`
   display: flex;
@@ -68,17 +50,6 @@ const StyledArticle = styled.article<{ disabled?: boolean }>`
     width: 100%;
     margin-bottom: 20px;
   }
-
-  & > h5 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 20px 0;
-  }
-
-  & > p {
-    font-weight: 500;
-    margin: 20px 0;
-  }
 `;
 
 interface CardsProps {
@@ -95,8 +66,8 @@ const Article = ({ img, alt, title, text, disabled }: CardsProps) => {
       <div>
         <Image img={img} alt={alt} />
       </div>
-      <h5>{title}</h5>
-      <p>{text}</p>
+      <Title as="h5" fontWeight={600}>{title}</Title>
+      <Paragraph marginTop={'16px'} marginBottom={'16px'}>{text}</Paragraph>
     </StyledArticle>
   );
 };
@@ -105,10 +76,10 @@ function SectionThree() {
   return (
     <SectionStyles id="beneficios">
       <ContainerBox>
-        <Container>
-          <h2>
-            Quais as vantagens de usar <span>SpaceBank?</span>
-          </h2>
+        <div>
+          <Title as='h2'>
+            Quais as vantagens de usar <Span>SpaceBank?</Span>
+          </Title>
           <div>
             <ContainerArticle>
               <Article
@@ -159,7 +130,7 @@ function SectionThree() {
               />
             </ContainerArticle>
           </div>
-        </Container>
+        </div>
       </ContainerBox>
     </SectionStyles>
   );
