@@ -4,9 +4,9 @@ import card from '../../../assets/Images/Card.webp';
 import iconApple from '../../../assets/Icon/Icon-Apple.webp';
 import iconAndroid from '../../../assets/Icon/Icon-PlayStore.webp';
 import styled from "styled-components";
-import Button from "../../../components/common/Button";
 import theme from "../../../styles/Theme";
 import { ContainerHome, ContainerProps } from "../../../styles/GlobalStyle";
+import Anchor from "../../../components/common/Anchor";
 
 const SectionStyles = styled(ContainerHome)<ContainerProps>`
   display: flex;
@@ -103,7 +103,7 @@ const StyledIcon = styled.img`
   height: 26px;
 `;
 
-const NavStyles = styled.nav`
+const ContainerBtnStyles = styled.div`
  display: flex;
  justify-content: space-between;
  
@@ -161,13 +161,13 @@ function SectionOne() {
               </li>
             </UlStyles>
 
-            <NavStyles>
-              <Button variant="secondary" style={{ width: '100%' }}>Abrir uma conta</Button>
+            <ContainerBtnStyles>
+              <Anchor href="/register" variant="secondary" style={{ width: '100%' }}>Abrir uma conta</Anchor>
               <aside>
-                <a href="#"><Image img={iconApple} alt="Apple" /></a>
-                <a href="#"><Image img={iconAndroid} alt="Android" /></a>
+                <Anchor href="#" variant="none"><Image img={iconApple} alt="Apple" /></Anchor>
+                <Anchor href="#" variant="none"><Image img={iconAndroid} alt="Android" /></Anchor>
               </aside>
-            </NavStyles>
+            </ContainerBtnStyles>
           </ArticleStyles>
         </ContainerSection>
 

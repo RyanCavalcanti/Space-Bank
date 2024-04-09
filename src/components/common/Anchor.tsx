@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import theme from "../../styles/Theme";
 
+export const NoneAnchor = styled.a`
+  text-decoration: none;
+`;
+
 export const TextAnchorBase = styled.a`
   text-decoration: none;
 `;
@@ -46,11 +50,15 @@ export const TertiaryButton = styled(ButtonBase)`
 interface AnchorProps {
   href: string;
   children: React.ReactNode;
-  variant: 'text' | 'primary' | 'secondary' | 'tertiary';
+  style?: React.CSSProperties;
+  variant: 'none' | 'text' | 'primary' | 'secondary' | 'tertiary';
 }
-function Anchor({ href, children, variant = 'text' }: AnchorProps) {
+function Anchor({ href, children, style, variant = 'none' }: AnchorProps) {
   let AnchorComponent;
   switch (variant) {
+    case 'none':
+      AnchorComponent = NoneAnchor;
+      break;
     case 'text':
       AnchorComponent = TextAnchor;
       break;
@@ -64,11 +72,11 @@ function Anchor({ href, children, variant = 'text' }: AnchorProps) {
       AnchorComponent = TertiaryButton;
       break;
     default:
-      AnchorComponent = TextAnchorBase;
+      AnchorComponent = NoneAnchor;
   }
 
   return(
-    <AnchorComponent href={href}>{ children }</AnchorComponent>
+    <AnchorComponent href={href} style={style}>{ children }</AnchorComponent>
   );
 }
 

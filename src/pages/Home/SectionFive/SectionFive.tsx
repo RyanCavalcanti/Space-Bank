@@ -127,8 +127,8 @@ function SectionFive() {
           <p>Nossa abordagem inovadora e personalizada oferece uma experiência única para atender às suas necessidades.</p>
 
           <CardsStyles>
-            <Anchor href='#'><Image img={CardApple} alt='Card Apple' /></Anchor>
-            <Anchor href='#'><Image img={CardGoogle} alt='Card Google' /></Anchor>
+            <Anchor href='#' variant='none'><Image img={CardApple} alt='Card Apple' /></Anchor>
+            <Anchor href='#' variant='none'><Image img={CardGoogle} alt='Card Google' /></Anchor>
           </CardsStyles>
         </ArticleStyles>
 
