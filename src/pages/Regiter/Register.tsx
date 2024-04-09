@@ -1,8 +1,9 @@
+import NavBar from "../../components/layout/NavBar";
 
 function Register() {
   return(
     <>
-      <h1>Register</h1>
+      <NavBar />
     </>
   )
 }

@@ -1,8 +1,9 @@
+import NavBar from "../../components/layout/NavBar";
 
 function Login() {
-  return(
+  return (
     <>
-      <h1>Login</h1>
+      <NavBar />
     </>
   )
 }
