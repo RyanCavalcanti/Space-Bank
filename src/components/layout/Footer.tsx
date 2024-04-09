@@ -23,7 +23,7 @@ function Footer() {
 
   return(
     <FooterStyles>
-      <p>Copyright © {currentYear} <span><Anchor href="/" variant="text">Ryancavalcanti.com.</Anchor></span></p>
+      <p>Copyright © {currentYear} <span><Anchor href="https://ryancavalcanti.com" variant="text">Ryancavalcanti.com.</Anchor></span></p>
       <p>Todos os direitos reservados</p>
     </FooterStyles>
   )

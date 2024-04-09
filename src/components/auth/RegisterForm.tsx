@@ -34,35 +34,35 @@ const RegisterForm: React.FC = () => {
   return (
     <ContainerFormStyles as='div'>
       <FormStyles onSubmit={handleSubmit}>
-        <LabelFormStyles>First Name:</LabelFormStyles>
+        <LabelFormStyles>Informe seu primeiro nome:</LabelFormStyles>
         <FormInput
           type="text"
           placeholder=""
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
-        <LabelFormStyles>Last Name:</LabelFormStyles>
+        <LabelFormStyles>Informe seu sobrenome:</LabelFormStyles>
         <FormInput
           type="text"
           placeholder=""
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
-        <LabelFormStyles>Email:</LabelFormStyles>
+        <LabelFormStyles>Informe e-mail:</LabelFormStyles>
         <FormInput
           type="email"
           placeholder=""
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <LabelFormStyles>Password:</LabelFormStyles>
+        <LabelFormStyles>Informe sua senha:</LabelFormStyles>
         <FormInput
           type="password"
           placeholder=""
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button variant="tertiary" type="submit">Register</Button>
+        <Button variant="tertiary" type="submit">Criar Conta</Button>
         {error && <ErrorText>{error}</ErrorText>}
       </FormStyles>
     </ContainerFormStyles>

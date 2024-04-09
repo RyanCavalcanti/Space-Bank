@@ -13,6 +13,10 @@ const SectionStyles = styled(ContainerHome)<ContainerProps>`
   justify-content: center;
   align-items: center;
   margin-top: 100px;
+
+  @media (max-width: 1099px) {
+    margin-top: 50px;
+  }
 `
 
 const ContainerSection = styled.div`

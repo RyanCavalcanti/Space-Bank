@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import FormInput from "../common/FormInput";
+import { ContainerFormStyles, ErrorText, FormStyles, LabelFormStyles } from "../../styles/FormStyles";
+import Button from "../common/Button";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -25,24 +27,26 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Email:</label>
-      <FormInput
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <label>Password:</label>
-      <FormInput
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Login</button>
-      {error && <div>{error}</div>}
-    </form>
+    <ContainerFormStyles as='div'>
+      <FormStyles onSubmit={handleSubmit}>
+        <LabelFormStyles>Informe e-mail:</LabelFormStyles>
+        <FormInput
+          type="email"
+          placeholder=""
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <LabelFormStyles>Informe sua senha:</LabelFormStyles>
+        <FormInput
+          type="password"
+          placeholder=""
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button variant="tertiary" type="submit">Entrar</Button>
+        {error && <ErrorText>{error}</ErrorText>}
+      </FormStyles>
+    </ContainerFormStyles>
   );
 };
 
