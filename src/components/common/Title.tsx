@@ -60,7 +60,6 @@ const StyledTitle = styled.h1<TitleProps>`
         return `
           font-size: 1.2rem;
           margin: 0;
-          margin-bottom: 20px;
         `;
       case 'h6': // será alterado futuramente
         return `

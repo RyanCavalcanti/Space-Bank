@@ -16,14 +16,14 @@ const LoginForm: React.FC = () => {
     const savedPassword = localStorage.getItem("password");
 
     if (!email || !password) {
-      setError("Please fill out all fields");
+      setError("Por favor, preencha todos os campos!");
       return;
     }
 
     if (savedEmail === email && savedPassword === password) {
-      alert("Login successful");
+      window.location.href = "/dashboard";
     } else {
-      setError("Invalid email or password");
+      setError("E-mail ou senha inválidos");
     }
   };
 
