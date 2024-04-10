@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FormInput from "../common/FormInput";
 import { ContainerFormStyles, ErrorText, FormStyles, LabelFormStyles } from "../../styles/FormStyles";
 import Button from "../common/Button";
+import Title from "../common/Title";
 
 const RegisterForm: React.FC = () => {
   const [firstName, setFirstName] = useState("");
@@ -33,6 +34,7 @@ const RegisterForm: React.FC = () => {
 
   return (
     <ContainerFormStyles as='div'>
+      <Title as='h3' fontWeight={600}>Cadastre-se gratuitamente!</Title>
       <FormStyles onSubmit={handleSubmit}>
         <LabelFormStyles>Informe seu primeiro nome:</LabelFormStyles>
         <FormInput

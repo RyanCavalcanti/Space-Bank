@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FormInput from "../common/FormInput";
 import { ContainerFormStyles, ErrorText, FormStyles, LabelFormStyles } from "../../styles/FormStyles";
 import Button from "../common/Button";
+import Title from "../common/Title";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -28,6 +29,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <ContainerFormStyles as='div'>
+      <Title as='h3' fontWeight={600}>Faça já o seu login</Title>
       <FormStyles onSubmit={handleSubmit}>
         <LabelFormStyles>Informe e-mail:</LabelFormStyles>
         <FormInput

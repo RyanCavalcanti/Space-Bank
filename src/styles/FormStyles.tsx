@@ -6,6 +6,7 @@ export const ContainerFormStyles = styled(ContainerHome)<ContainerProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   margin: auto auto;
   min-height: 100vh;
 `
@@ -16,6 +17,7 @@ export const FormStyles = styled.form`
   width: 100%;
   max-width: 800px;
   padding: 50px;
+  margin-top: 30px;
   border-radius: 6px;
   background-color: ${theme.colors.Red};
 `

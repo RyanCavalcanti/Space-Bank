@@ -45,7 +45,6 @@ const StyledTitle = styled.h1<TitleProps>`
           margin: 15px 0 0;
 
           @media(max-width: 1099px) {
-            font-weight: 400;
             font-size: 1.6rem;
           }
 
