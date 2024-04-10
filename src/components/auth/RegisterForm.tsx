@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { nanoid } from 'nanoid';
 import FormInput from "../common/FormInput";
 import {
   ContainerFormStyles,
@@ -24,11 +25,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    const storedFirstName = localStorage.getItem("firstName");
-    setFirstName(storedFirstName || ""); // Set default to empty string if not found
-  }, []);
+    if (success) {
+      alert("Registro bem-sucedido!");
+      setSuccess(false);
+    }
+  }, [success]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -38,23 +42,26 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
       return;
     }
 
-    const existingUser = localStorage.getItem("email");
+    const existingUser = localStorage.getItem(email);
     if (existingUser) {
       setError("E-mail já existe! Tente outro.");
       return;
     }
 
-    localStorage.setItem("firstName", firstName);
-    localStorage.setItem("lastName", lastName);
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
+    const userId = nanoid();
 
-    onSubmit({
+    const user = {
+      id: userId,
       firstName,
       lastName,
       email,
       password,
-    });
+    };
+
+    localStorage.setItem(email, JSON.stringify(user));
+
+    onSubmit(user);
+    setSuccess(true);
   };
 
   return (

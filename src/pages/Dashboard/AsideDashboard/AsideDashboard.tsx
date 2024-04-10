@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import theme from "../../../styles/Theme";
 import Image from "../../../components/common/Image";
@@ -50,7 +51,12 @@ const ContainerHelp = styled.div`
 `;
 
 function AsideDashboard() {
-  const storedFirstName = localStorage.getItem("firstName") || "";
+  const [storedFirstName, setStoredFirstName] = useState<string>("");
+
+  useEffect(() => {
+    const firstName = localStorage.getItem("firstName") || "";
+    setStoredFirstName(firstName);
+  }, []);
 
   return (
     <AsideStyles>
@@ -64,7 +70,7 @@ function AsideDashboard() {
 
         <ContainerUser>
           <Title as='h3' color={theme.colors.White}>Bem-Vindo!</Title>
-          <Paragraph fontWeight={600} color={theme.colors.White}>{storedFirstName || "Welcome!"}</Paragraph>
+          <Paragraph fontWeight={600} color={theme.colors.White}>{storedFirstName || "Usuário[Error213241]"}</Paragraph>
         </ContainerUser>
 
         <ContainerBtns>

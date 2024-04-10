@@ -1,35 +1,45 @@
 import React, { useState } from "react";
 import FormInput from "../common/FormInput";
-import { ContainerFormStyles, ErrorText, FormStyles, LabelFormStyles } from "../../styles/FormStyles";
+import {
+  ContainerFormStyles,
+  ErrorText,
+  FormStyles,
+  LabelFormStyles,
+} from "../../styles/FormStyles";
 import Button from "../common/Button";
 import Title from "../common/Title";
 
-const LoginForm: React.FC = () => {
+interface LoginFormProps {
+  onLogin: (userId: string) => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Verificar credenciais e fazer login
-    const savedEmail = localStorage.getItem("email");
-    const savedPassword = localStorage.getItem("password");
 
-    if (!email || !password) {
-      setError("Por favor, preencha todos os campos!");
+    const savedUser = localStorage.getItem(email);
+
+    if (!savedUser) {
+      setError("Usuário não encontrado");
       return;
     }
 
-    if (savedEmail === email && savedPassword === password) {
-      window.location.href = "/dashboard";
+    const { id, password: savedPassword } = JSON.parse(savedUser);
+
+    if (savedPassword === password) {
+      onLogin(id); 
     } else {
       setError("E-mail ou senha inválidos");
     }
   };
 
   return (
-    <ContainerFormStyles as='div'>
-      <Title as='h3' fontWeight={600}>Faça já o seu login</Title>
+    <ContainerFormStyles as="div">
+      <Title as="h3" fontWeight={600}>Faça já o seu login</Title>
       <FormStyles onSubmit={handleSubmit}>
         <LabelFormStyles>Informe e-mail:</LabelFormStyles>
         <FormInput
