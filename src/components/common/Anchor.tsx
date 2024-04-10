@@ -3,6 +3,7 @@ import theme from "../../styles/Theme";
 
 export const NoneAnchor = styled.a`
   text-decoration: none;
+  color: inherit;
 `;
 
 export const TextAnchorBase = styled.a`

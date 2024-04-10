@@ -3,10 +3,10 @@ import NavBar from "../../components/layout/NavBar";
 
 function Login() {
   return (
-    <>
+    <section>
       <NavBar />
       <LoginForm />
-    </>
+    </section>
   )
 }
 
