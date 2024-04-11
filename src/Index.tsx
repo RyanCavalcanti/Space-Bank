@@ -5,7 +5,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import GlobalStyle from './styles/GlobalStyle';
 import PrivateRoute from './components/auth/PrivateRoute';
-import AsideDashboard from './pages/Dashboard/AsideDashboard/AsideDashboard';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function Index() {
   const isAuthenticated = !!localStorage.getItem('userId');
@@ -21,7 +21,7 @@ function Index() {
             <Route path='/home' element={<HomePage />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
-            <Route path='/dashboard' element={<PrivateRoute isAuthenticated={isAuthenticated} redirectTo="/login"><AsideDashboard /></PrivateRoute>} />
+            <Route path='/dashboard/*' element={<PrivateRoute isAuthenticated={isAuthenticated} redirectTo="/login"><Dashboard /></PrivateRoute>} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </Router>

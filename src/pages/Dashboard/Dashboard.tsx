@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import AsideDashboard from './AsideDashboard/AsideDashboard';
-import LoginForm from '../../components/auth/LoginForm';
 
 function Dashboard() {
   const isAuthenticated = !!localStorage.getItem('userId');
@@ -15,20 +14,11 @@ function Dashboard() {
 
   return (
     <section>
-      <Routes>
-        <Route
-          path="/dashboard"
-          element={
-            isAuthenticated ? <AsideDashboard /> : <Navigate to="/login" />
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            isAuthenticated ? <Navigate to="/dashboard" /> : <LoginForm onLogin={() => {}} />
-          }
-        />
-      </Routes>
+      {isAuthenticated ? (
+        <AsideDashboard />
+      ) : (
+        <Navigate to="/login" />
+      )}
     </section>
   );
 }
