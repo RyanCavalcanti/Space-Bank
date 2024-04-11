@@ -9,16 +9,16 @@ function Login() {
   useEffect(() => {
     const loginTime = localStorage.getItem('loginTime');
     const userIdFromStorage = localStorage.getItem('userId');
-
+  
     if (!loginTime || !userIdFromStorage) {
       navigate('/login');
       return;
     }
-
+  
     const currentTime = new Date().getTime();
     const elapsedTime = currentTime - parseInt(loginTime, 10);
     const tenMinutesInMilliseconds = 10 * 60 * 1000;
-
+  
     if (elapsedTime > tenMinutesInMilliseconds) {
       localStorage.removeItem('loginTime');
       localStorage.removeItem('userId');
@@ -26,7 +26,7 @@ function Login() {
     } else {
       navigate('/dashboard');
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogin = (userId: string) => {
     localStorage.setItem('loginTime', new Date().getTime().toString());

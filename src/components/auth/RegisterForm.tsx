@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { nanoid } from 'nanoid';
 import FormInput from "../common/FormInput";
 import {
@@ -46,8 +46,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
       return;
     }
 
-    const existingUser = localStorage.getItem(email);
-    if (existingUser) {
+    const allUsers = JSON.parse(localStorage.getItem('users') || '{}');
+
+    if (allUsers[email]) {
       setError("E-mail já existe! Tente outro.");
       return;
     }
@@ -59,7 +60,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
       ...userData,
     };
 
-    localStorage.setItem(email, JSON.stringify(user));
+    allUsers[email] = user;
+
+    localStorage.setItem('users', JSON.stringify(allUsers));
 
     onSubmit(user);
   };
