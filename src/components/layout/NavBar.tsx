@@ -7,6 +7,10 @@ import Anchor from '../common/Anchor';
 import theme from '../../styles/Theme';
 import { ContainerHome, ContainerProps } from '../../styles/GlobalStyle';
 
+interface ToggleMenuContainerProps {
+  isVisible: boolean;
+}
+
 const HeaderStyles = styled(ContainerHome)<ContainerProps>`
   padding-top: 50px;
 `;
@@ -40,32 +44,32 @@ const ButtonGroup = styled.div`
   }
 `;
 
-const ToggleMenu = styled.div<{ isActive: boolean }>`
+const ToggleMenu = styled.div`
   border: 1px solid ${theme.colors.Red};
   border-radius: 8px;
   padding: 10px;
   margin-left: 10px;
-  background-color: ${({ isActive }) => (isActive ? theme.colors.Red : 'transparent')};
+  background-color: transparent;
 
   @media (min-width: 1100px) {
     display: none;
   }
 `;
 
-const LineToggleMenu = styled.div<{ isActive: boolean }>`
+const LineToggleMenu = styled.div`
   width: 30px;
   height: 4px;
   border-radius: 20px;
   margin: 4px 0px;
-  background-color: ${({ isActive }) => (isActive ? theme.colors.White : theme.colors.Red)};
-  transform: ${({ isActive }) => (isActive ? 'rotate(0deg)' : 'none')};
+  background-color: ${theme.colors.Red};
+  transform: none;
   transition: background-color 0.3s ease, transform 0.3s ease;
 
   &:first-child {
-    transform: ${({ isActive }) => (isActive ? 'translate(0%, 180%) rotate(-45deg)' : 'none')};
+    transform: none;
   }
   &:last-child {
-    transform: ${({ isActive }) => (isActive ? 'translate(0%, -180%) rotate(45deg)' : 'none')};
+    transform: none;
   }
 
   @media (min-width: 1100px) {
@@ -91,12 +95,17 @@ const fadeOut = keyframes`
   }
 `;
 
-const ToggleMenuContainer = styled.div<{ isVisible: boolean }>`
-  display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
+const ToggleMenuContainer = styled.div<ToggleMenuContainerProps>`
+  display: none;
   flex-direction: column;
   justify-content: flex-start;
   margin-top: 10px;
-  animation: ${({ isVisible }) => (isVisible ? fadeIn : fadeOut)} 0.5s ease;
+  animation: ${fadeOut} 0.5s ease;
+
+  @media (max-width: 1099px) {
+    display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
+    animation: ${({ isVisible }) => (isVisible ? fadeIn : fadeOut)} 0.5s ease;
+  }
 `;
 
 const UlStylesTwo = styled.ul`
@@ -147,10 +156,10 @@ function NavBar() {
             ) : (
               <a href='/'><Image img={logo} alt='Logo SpaceBank' /></a>
             )}
-            <ToggleMenu onClick={toggleMobileMenu} isActive={toggleMenuVisible}>
-              <LineToggleMenu isActive={toggleMenuVisible} />
-              <LineToggleMenu isActive={false} />
-              <LineToggleMenu isActive={toggleMenuVisible} />
+            <ToggleMenu onClick={toggleMobileMenu}>
+              <LineToggleMenu />
+              <LineToggleMenu />
+              <LineToggleMenu />
             </ToggleMenu>
           </div>
           <UlStyles>
@@ -166,7 +175,6 @@ function NavBar() {
         </NavBarStyles>
 
         <ToggleMenuContainer isVisible={toggleMenuVisible}>
-
           <UlStylesTwo>
             <li><Anchor href='#beneficios' variant='text'>Benefícios</Anchor></li>
             <li><Anchor href='#contadigital' variant='text'>Conta digital</Anchor></li>
@@ -177,7 +185,6 @@ function NavBar() {
             <Anchor href='/login' variant='primary'>Entrar</Anchor>
             <Anchor href='/register' variant='secondary'>Abrir Conta</Anchor>
           </ButtonGroupTwo>
-
         </ToggleMenuContainer>
     </HeaderStyles>
   );

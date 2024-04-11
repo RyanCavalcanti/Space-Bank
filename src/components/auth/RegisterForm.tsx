@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { nanoid } from 'nanoid';
+import React, { useState } from "react";
 import FormInput from "../common/FormInput";
 import {
   ContainerFormStyles,
@@ -10,33 +9,37 @@ import {
 import Button from "../common/Button";
 import Title from "../common/Title";
 
+interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
 interface RegisterFormProps {
-  onSubmit: (data: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-  }) => void;
+  onSubmit: (data: User) => void;
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<User>({
+    id: 1, 
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUserData(prevData => ({
+    setUserData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const { firstName, lastName, email, password } = userData;
@@ -46,25 +49,33 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
       return;
     }
 
-    const allUsers = JSON.parse(localStorage.getItem('users') || '{}');
-
-    if (allUsers[email]) {
-      setError("E-mail já existe! Tente outro.");
-      return;
-    }
-
-    const userId = nanoid();
-
-    const user = {
-      id: userId,
+    const newUser: User = {
       ...userData,
+      id: Date.now(), 
     };
 
-    allUsers[email] = user;
+    onSubmit(newUser);
 
-    localStorage.setItem('users', JSON.stringify(allUsers));
+    setUserData({
+      id: 1,
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    });
 
-    onSubmit(user);
+    const allUsers = await getUsersFromLocalStorage();
+    allUsers[newUser.id] = newUser;
+    setUsersInLocalStorage(allUsers);
+  };
+
+  const getUsersFromLocalStorage = async (): Promise<{ [key: number]: User }> => {
+    const usersString = localStorage.getItem("users");
+    return usersString ? JSON.parse(usersString) : {};
+  };
+
+  const setUsersInLocalStorage = async (users: { [key: number]: User }) => {
+    localStorage.setItem("users", JSON.stringify(users));
   };
 
   return (

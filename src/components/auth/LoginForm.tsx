@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import FormInput from "../common/FormInput";
 import {
   ContainerFormStyles,
@@ -9,6 +9,12 @@ import {
 import Button from "../common/Button";
 import Title from "../common/Title";
 
+interface User {
+  id: string;
+  email: string;
+  password: string;
+}
+
 interface LoginFormProps {
   onLogin: (userId: string) => void;
 }
@@ -18,27 +24,34 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const savedUser = JSON.parse(localStorage.getItem(email) || "{}");
-
-    if (!savedUser.id) {
-      setError("Usuário não encontrado");
+    const usersString = localStorage.getItem("users");
+    if (!usersString) {
+      setError("Nenhum usuário cadastrado");
       return;
     }
 
-    if (savedUser.password !== password) {
+    const users: { [key: string]: User } = JSON.parse(usersString);
+
+    const foundUser = Object.values(users).find(
+      (user) => user.email === email && user.password === password
+    );
+
+    if (!foundUser) {
       setError("E-mail ou senha inválidos");
       return;
     }
 
-    onLogin(savedUser.id);
+    onLogin(foundUser.id);
   };
 
   return (
     <ContainerFormStyles as="div">
-      <Title as="h3" fontWeight={600}>Faça já o seu login</Title>
+      <Title as="h3" fontWeight={600}>
+        Faça já o seu login
+      </Title>
       <FormStyles onSubmit={handleSubmit}>
         <LabelFormStyles>Informe e-mail:</LabelFormStyles>
         <FormInput
@@ -58,7 +71,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           name="password"
           autoComplete="off"
         />
-        <Button variant="tertiary" type="submit">Entrar</Button>
+        <Button variant="tertiary" type="submit">
+          Entrar
+        </Button>
         {error && <ErrorText>{error}</ErrorText>}
       </FormStyles>
     </ContainerFormStyles>
