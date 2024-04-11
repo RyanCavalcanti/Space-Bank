@@ -8,28 +8,20 @@ import {
 } from "../../styles/FormStyles";
 import Button from "../common/Button";
 import Title from "../common/Title";
-
-interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+import { registerUser } from "../../services/api";
 
 interface RegisterFormProps {
-  onSubmit: (data: User) => void;
+  onSubmit: () => void;
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
-  const [userData, setUserData] = useState<User>({
-    id: 1, 
+  const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string | null>(null); // Define o tipo como string | null
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -42,40 +34,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const { firstName, lastName, email, password } = userData;
-
-    if (!firstName || !lastName || !email || !password) {
-      setError("Por favor, preencha todos os campos");
-      return;
+    try {
+      await registerUser(userData);
+      onSubmit();
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message); // Trata o tipo de erro como string
+      } else {
+        setError("Erro desconhecido"); // Trata outros tipos de erro
+      }
     }
-
-    const newUser: User = {
-      ...userData,
-      id: Date.now(), 
-    };
-
-    onSubmit(newUser);
-
-    setUserData({
-      id: 1,
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-    });
-
-    const allUsers = await getUsersFromLocalStorage();
-    allUsers[newUser.id] = newUser;
-    setUsersInLocalStorage(allUsers);
-  };
-
-  const getUsersFromLocalStorage = async (): Promise<{ [key: number]: User }> => {
-    const usersString = localStorage.getItem("users");
-    return usersString ? JSON.parse(usersString) : {};
-  };
-
-  const setUsersInLocalStorage = async (users: { [key: number]: User }) => {
-    localStorage.setItem("users", JSON.stringify(users));
   };
 
   return (

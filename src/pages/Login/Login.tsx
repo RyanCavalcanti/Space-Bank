@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+// Login.tsx
 import LoginForm from '../../components/auth/LoginForm';
 import NavBar from '../../components/layout/NavBar';
 import { useNavigate } from 'react-router-dom';
@@ -6,15 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const userIdFromStorage = localStorage.getItem('userId');
-    if (userIdFromStorage) {
-      navigate('/dashboard');
-    }
-  }, [navigate]);
-
-  const handleLogin = (userId: string) => {
-    localStorage.setItem('userId', userId);
+  const handleLogin = () => {
     navigate('/dashboard');
   };
 

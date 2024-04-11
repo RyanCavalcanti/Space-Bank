@@ -8,12 +8,7 @@ import {
 } from "../../styles/FormStyles";
 import Button from "../common/Button";
 import Title from "../common/Title";
-
-interface User {
-  id: string;
-  email: string;
-  password: string;
-}
+import { loginUser } from "../../services/api";
 
 interface LoginFormProps {
   onLogin: (userId: string) => void;
@@ -22,29 +17,23 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null); // Define o tipo como string | null
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const usersString = localStorage.getItem("users");
-    if (!usersString) {
-      setError("Nenhum usuário cadastrado");
-      return;
+    try {
+      const userData = { email, password };
+      const data = await loginUser(userData);
+      localStorage.setItem('token', data.token);
+      onLogin(data.userId);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message); // Trata o tipo de erro como string
+      } else {
+        setError("Erro desconhecido"); // Trata outros tipos de erro
+      }
     }
-
-    const users: { [key: string]: User } = JSON.parse(usersString);
-
-    const foundUser = Object.values(users).find(
-      (user) => user.email === email && user.password === password
-    );
-
-    if (!foundUser) {
-      setError("E-mail ou senha inválidos");
-      return;
-    }
-
-    onLogin(foundUser.id);
   };
 
   return (
