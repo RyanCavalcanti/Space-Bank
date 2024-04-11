@@ -7,6 +7,7 @@ function Register() {
 
   const handleRegister = () => {
     navigate("/login");
+    alert("Registro bem-sucedido!");
   };
 
   return (

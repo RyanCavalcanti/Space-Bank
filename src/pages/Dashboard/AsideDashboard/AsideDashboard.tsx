@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import theme from "../../../styles/Theme";
 import Image from "../../../components/common/Image";
@@ -54,8 +54,12 @@ function AsideDashboard() {
   const [storedFirstName, setStoredFirstName] = useState<string>("");
 
   useEffect(() => {
-    const firstName = localStorage.getItem("firstName") || "";
-    setStoredFirstName(firstName);
+    const fetchUserData = async () => {
+      const firstName = localStorage.getItem("firstName") || "";
+      setStoredFirstName(firstName);
+    };
+
+    fetchUserData();
   }, []);
 
   return (

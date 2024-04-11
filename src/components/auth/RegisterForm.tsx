@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { nanoid } from 'nanoid';
 import FormInput from "../common/FormInput";
 import {
@@ -20,22 +20,26 @@ interface RegisterFormProps {
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    if (success) {
-      alert("Registro bem-sucedido!");
-      setSuccess(false);
-    }
-  }, [success]);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const { firstName, lastName, email, password } = userData;
 
     if (!firstName || !lastName || !email || !password) {
       setError("Por favor, preencha todos os campos");
@@ -52,16 +56,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
 
     const user = {
       id: userId,
-      firstName,
-      lastName,
-      email,
-      password,
+      ...userData,
     };
 
     localStorage.setItem(email, JSON.stringify(user));
 
     onSubmit(user);
-    setSuccess(true);
   };
 
   return (
@@ -74,29 +74,29 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
         <FormInput
           type="text"
           placeholder=""
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          value={userData.firstName}
+          onChange={handleChange}
         />
         <LabelFormStyles>Informe seu sobrenome:</LabelFormStyles>
         <FormInput
           type="text"
           placeholder=""
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          value={userData.lastName}
+          onChange={handleChange}
         />
         <LabelFormStyles>Informe e-mail:</LabelFormStyles>
         <FormInput
           type="email"
           placeholder=""
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={userData.email}
+          onChange={handleChange}
         />
         <LabelFormStyles>Informe sua senha:</LabelFormStyles>
         <FormInput
           type="password"
           placeholder=""
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={userData.password}
+          onChange={handleChange}
         />
         <Button variant="tertiary" type="submit">
           Criar Conta

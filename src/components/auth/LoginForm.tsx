@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import FormInput from "../common/FormInput";
 import {
   ContainerFormStyles,
@@ -21,20 +21,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const savedUser = localStorage.getItem(email);
+    const savedUser = JSON.parse(localStorage.getItem(email) || "{}");
 
-    if (!savedUser) {
+    if (!savedUser.id) {
       setError("Usuário não encontrado");
       return;
     }
 
-    const { id, password: savedPassword } = JSON.parse(savedUser);
-
-    if (savedPassword === password) {
-      onLogin(id); 
-    } else {
+    if (savedUser.password !== password) {
       setError("E-mail ou senha inválidos");
+      return;
     }
+
+    onLogin(savedUser.id);
   };
 
   return (
