@@ -77,6 +77,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
           value={userData.firstName}
           onChange={handleChange}
           name="firstName"
+          autoComplete="off"
         />
         <LabelFormStyles>Informe seu sobrenome:</LabelFormStyles>
         <FormInput
@@ -85,6 +86,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
           value={userData.lastName}
           onChange={handleChange}
           name="lastName"
+          autoComplete="off"
         />
         <LabelFormStyles>Informe e-mail:</LabelFormStyles>
         <FormInput
@@ -93,6 +95,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
           value={userData.email}
           onChange={handleChange}
           name="email"
+          autoComplete="off"
         />
         <LabelFormStyles>Informe sua senha:</LabelFormStyles>
         <FormInput
@@ -101,6 +104,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
           value={userData.password}
           onChange={handleChange}
           name="password"
+          autoComplete="current-password"
         />
         <Button variant="tertiary" type="submit">
           Criar Conta

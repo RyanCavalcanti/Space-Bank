@@ -7,6 +7,7 @@ interface FormInputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
+  autoComplete: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -15,6 +16,7 @@ const FormInput: React.FC<FormInputProps> = ({
   value,
   onChange,
   name,
+  autoComplete,
 }) => {
   return (
     <InputFormStyles
@@ -23,6 +25,7 @@ const FormInput: React.FC<FormInputProps> = ({
       value={value}
       onChange={onChange}
       name={name}
+      autoComplete={autoComplete}
     />
   );
 };

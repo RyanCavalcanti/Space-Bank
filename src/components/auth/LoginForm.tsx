@@ -47,6 +47,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           name="email"
+          autoComplete="off"
         />
         <LabelFormStyles>Informe sua senha:</LabelFormStyles>
         <FormInput
@@ -55,6 +56,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           name="password"
+          autoComplete="off"
         />
         <Button variant="tertiary" type="submit">Entrar</Button>
         {error && <ErrorText>{error}</ErrorText>}
