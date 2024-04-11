@@ -46,6 +46,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           placeholder=""
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          name="email"
         />
         <LabelFormStyles>Informe sua senha:</LabelFormStyles>
         <FormInput
@@ -53,6 +54,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           placeholder=""
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          name="password"
         />
         <Button variant="tertiary" type="submit">Entrar</Button>
         {error && <ErrorText>{error}</ErrorText>}

@@ -1,3 +1,4 @@
+import React from "react";
 import { InputFormStyles } from "../../styles/FormStyles";
 
 interface FormInputProps {
@@ -5,6 +6,7 @@ interface FormInputProps {
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -12,6 +14,7 @@ const FormInput: React.FC<FormInputProps> = ({
   placeholder,
   value,
   onChange,
+  name,
 }) => {
   return (
     <InputFormStyles
@@ -19,6 +22,7 @@ const FormInput: React.FC<FormInputProps> = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      name={name}
     />
   );
 };

@@ -30,7 +30,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUserData((prevData) => ({
+    setUserData(prevData => ({
       ...prevData,
       [name]: value,
     }));
@@ -76,6 +76,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
           placeholder=""
           value={userData.firstName}
           onChange={handleChange}
+          name="firstName"
         />
         <LabelFormStyles>Informe seu sobrenome:</LabelFormStyles>
         <FormInput
@@ -83,6 +84,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
           placeholder=""
           value={userData.lastName}
           onChange={handleChange}
+          name="lastName"
         />
         <LabelFormStyles>Informe e-mail:</LabelFormStyles>
         <FormInput
@@ -90,6 +92,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
           placeholder=""
           value={userData.email}
           onChange={handleChange}
+          name="email"
         />
         <LabelFormStyles>Informe sua senha:</LabelFormStyles>
         <FormInput
@@ -97,6 +100,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
           placeholder=""
           value={userData.password}
           onChange={handleChange}
+          name="password"
         />
         <Button variant="tertiary" type="submit">
           Criar Conta
