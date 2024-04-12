@@ -28,11 +28,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
       localStorage.setItem('token', data.token);
       onLogin(data.userId);
     } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message); // Trata o tipo de erro como string
-      } else {
-        setError("Erro desconhecido"); // Trata outros tipos de erro
-      }
+        setError('Erro ao tentar fazer login. Tente novamente.');
     }
   };
 

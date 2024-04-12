@@ -26,10 +26,15 @@ export const loginUser = async (userData: { [key: string]: string }) => {
       },
       body: JSON.stringify(userData),
     });
+
     const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Erro ao fazer login. Tente novamente mais tarde.');
+    }
+
     return data;
   } catch (error) {
-    console.error('Error logging in:', error);
-    throw new Error('Failed to log in');
+    throw new Error('Erro ao fazer login. Tente novamente mais tarde.');
   }
 };

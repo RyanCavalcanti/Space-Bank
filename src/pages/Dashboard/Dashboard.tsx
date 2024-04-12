@@ -10,7 +10,7 @@ function Dashboard() {
     if (!userIdFromStorage) {
       <Navigate to={'/login'} />
     }
-  }, []);
+  }, []); 
 
   return (
     <section>
