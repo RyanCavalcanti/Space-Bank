@@ -10,25 +10,29 @@ import Button from "../common/Button";
 import Title from "../common/Title";
 import { loginUser } from "../../services/api";
 
+interface Credentials {
+  email: string;
+  password: string;
+}
+
 interface LoginFormProps {
-  onLogin: (userId: string) => void;
+  onLogin: (credentials: Credentials) => void; // Corrigido para aceitar um objeto Credentials
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null); // Define o tipo como string | null
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const userData = { email, password };
-      const data = await loginUser(userData);
+      const data = await loginUser({ email, password });
       localStorage.setItem('token', data.token);
-      onLogin(data.userId);
+      onLogin({ email, password }); // Passa um objeto Credentials para onLogin
     } catch (error) {
-        setError('Erro ao tentar fazer login. Tente novamente.');
+      setError('Erro ao tentar fazer login. Tente novamente.(LoginForm)');
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import FormInput from "../common/FormInput";
 import {
   ContainerFormStyles,
@@ -21,7 +21,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState<string | null>(null); // Define o tipo como string | null
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

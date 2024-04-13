@@ -1,24 +1,21 @@
+// Dashboard.tsx
 import { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AsideDashboard from './AsideDashboard/AsideDashboard';
 
 function Dashboard() {
-  const isAuthenticated = !!localStorage.getItem('userId');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const userIdFromStorage = localStorage.getItem('userId');
-    if (!userIdFromStorage) {
-      <Navigate to={'/login'} />
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login'); // Corrija o redirecionamento para /login
     }
-  }, []); 
+  }, [navigate]);
 
   return (
     <section>
-      {isAuthenticated ? (
-        <AsideDashboard />
-      ) : (
-        <Navigate to="/login" />
-      )}
+      <AsideDashboard />
     </section>
   );
 }

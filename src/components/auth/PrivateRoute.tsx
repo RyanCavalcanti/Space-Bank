@@ -11,7 +11,9 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
   isAuthenticated,
   redirectTo,
 }) => {
-  return isAuthenticated ? (
+  const token = localStorage.getItem('token');
+
+  return isAuthenticated && token ? (
     <>{children}</>
   ) : (
     <Navigate to={redirectTo} replace />

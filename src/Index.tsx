@@ -8,7 +8,7 @@ import PrivateRoute from './components/auth/PrivateRoute';
 import Dashboard from './pages/Dashboard/Dashboard';
 
 function Index() {
-  const isAuthenticated = !!localStorage.getItem('userId');
+  const isAuthenticated = !!localStorage.getItem('token');
 
   return (
     <>
@@ -21,7 +21,9 @@ function Index() {
             <Route path='/home' element={<HomePage />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
-            <Route path='/dashboard/*' element={<PrivateRoute isAuthenticated={isAuthenticated} redirectTo="/login"><Dashboard /></PrivateRoute>} />
+            <Route path='/dashboard/*' element={<PrivateRoute isAuthenticated={isAuthenticated} redirectTo="/login">
+              <Dashboard />
+            </PrivateRoute>} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </Router>
