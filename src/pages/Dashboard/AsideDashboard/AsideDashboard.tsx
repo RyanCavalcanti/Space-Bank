@@ -50,6 +50,7 @@ const ContainerHelp = styled.div`
 `;
 
 function AsideDashboard() {
+  const firstName = localStorage.getItem('firstName');
 
   return (
     <AsideStyles>
@@ -65,7 +66,7 @@ function AsideDashboard() {
           <Title as="h3" color={theme.colors.White}>
             Bem-Vindo!
           </Title>
-          <Paragraph fontWeight={600} color={theme.colors.White}> Usuário12323 </Paragraph>
+          <Paragraph fontWeight={600} color={theme.colors.White}>{firstName} </Paragraph>
         </ContainerUser>
 
         <ContainerBtns>Btns</ContainerBtns>

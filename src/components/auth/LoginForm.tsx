@@ -13,6 +13,7 @@ import { loginUser } from "../../services/api";
 interface Credentials {
   email: string;
   password: string;
+  firstName: string;
 }
 
 interface LoginFormProps {
@@ -30,7 +31,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
     try {
       const data = await loginUser({ email, password });
       localStorage.setItem('token', data.token);
-      onLogin({ email, password }); // Passa um objeto Credentials para onLogin
+      console.log(data.token)
+      localStorage.setItem('firstName', data.firstName); // Store firstName in localStorage
+      onLogin({ email, password, firstName: data.firstName }); // Pass a Credentials object to onLogin
+      console.log(data)
     } catch (error) {
       setError('Erro ao tentar fazer login. Tente novamente.(LoginForm)');
     }
