@@ -20,7 +20,7 @@ interface ToggleMenuContainerProps {
   isVisible: boolean;
 }
 
-interface FuncaoDeTransacaoProps {
+interface TransacaoProps {
   transacao: string;
   valor: number; // Alterado para number para garantir que seja um número
   mes?: string;
@@ -184,15 +184,10 @@ const ArticleExtratoStyles = styled.article`
     }
 `
 
-const FuncaoDeTransacao = async (transacao: FuncaoDeTransacaoProps) => {
+const FuncaoDeTransacao = async (transacao: TransacaoProps) => {
   if (transacao.valor <= 0) {
     console.error('Erro: Valor de transação inválido.');
     return; // Impede a execução se o valor for menor ou igual a zero
-  }
-
-  if (transacao.transacao !== 'Depósito') {
-    console.error('Erro: Apenas depósitos são permitidos.');
-    return; // Impede a execução se a transação não for um depósito
   }
 
   if (transacao.valor > 100000000) {
@@ -210,6 +205,7 @@ const FuncaoDeTransacao = async (transacao: FuncaoDeTransacaoProps) => {
     // Você pode querer notificar o usuário sobre o erro aqui
   }
 };
+
 
 function BoxDashboard() {
   const firstName = localStorage.getItem('firstName');

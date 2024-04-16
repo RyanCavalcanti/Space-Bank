@@ -1,38 +1,83 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+const BASE_URL = 'http://localhost:3012/api';
 
-const API_URL = 'http://localhost:3012/api';
-
-type HttpMethod = 'get' | 'post' | 'put' | 'delete';
-
-const sendRequest = async <T>(method: HttpMethod, endpoint: string, data?: Record<string, unknown>): Promise<T> => {
+export const registerUser = async (userData: { [key: string]: string }) => {
   try {
-    const config: AxiosRequestConfig | undefined = data ? { data } : undefined;
-    const response = await axios[method](`${API_URL}/${endpoint}`, config);
-    return response.data;
+    const response = await fetch(`${BASE_URL}/users/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+    const data = await response.json();
+    return data;
   } catch (error) {
-    const axiosError = error as AxiosError;
-    console.error(`Error ${method.toUpperCase()} ${endpoint}:`, axiosError.message);
-    throw new Error(`Failed to ${method} ${endpoint}`);
+    console.error('Error registering user:', error);
+    throw new Error('Failed to register user');
   }
 };
 
+export const loginUser = async (userData: { [key: string]: string }) => {
+  try {
+    const response = await fetch(`${BASE_URL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
 
-interface UserData {
-  [key: string]: string;
-}
+    const data = await response.json();
 
-export const registerUser = async (userData: UserData) => {
-  return sendRequest<void>('post', 'users/register', userData);
+    if (!response.ok) {
+      throw new Error(data.message || 'Erro ao fazer login. Tente novamente mais tarde.');
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error('Erro ao fazer login. Tente novamente mais tarde.');
+  }
 };
 
-export const loginUser = async (userData: UserData) => {
-  return sendRequest<void>('post', 'auth/login', userData);
+export const obterSaldo = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/obter-saldo`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Erro ao obter saldo. Tente novamente mais tarde.');
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error('Erro ao obter saldo. Tente novamente mais tarde.');
+  }
 };
 
-export const adicionarSaldo = async (valorTransacao: number): Promise<void> => {
-  return sendRequest<void>('post', 'adicionar-saldo', { valorTransacao });
-};
+export const adicionarSaldo = async (valorTransacao: number) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/adicionar-saldo`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ valorTransacao }),
+    });
 
-export const obterSaldo = async (): Promise<number> => {
-  return sendRequest<number>('get', 'obter-saldo');
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Erro ao adicionar saldo. Tente novamente mais tarde.');
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error('Erro ao adicionar saldo. Tente novamente mais tarde.');
+  }
 };

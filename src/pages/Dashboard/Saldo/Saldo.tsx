@@ -14,14 +14,14 @@ const DivMainStyles = styled.div`
 `;
 
 export default function Saldo({ saldo }: SaldoProps) {
-  const [saldoAtual, setSaldoAtual] = useState<number>(saldo); // Use o saldo passado como prop
+  const [saldoAtual, setSaldoAtual] = useState<number>(saldo);
 
   useEffect(() => {
     async function fetchSaldo() {
       try {
         const saldoResponse = await obterSaldo();
-        if (typeof saldoResponse === 'number') {
-          setSaldoAtual(saldoResponse); // Atualiza o saldo atual com o valor retornado
+        if (saldoResponse === 'number') {
+          setSaldoAtual(saldoResponse);
         } else {
           console.error('Formato de saldo inválido:', saldoResponse);
         }
@@ -30,7 +30,7 @@ export default function Saldo({ saldo }: SaldoProps) {
       }
     }
     fetchSaldo();
-  }, [saldo]); // Adicione saldo como dependência para recarregar o saldo quando ele mudar
+  }, [saldo]);
 
   return (
     <DivMainStyles>
@@ -39,7 +39,7 @@ export default function Saldo({ saldo }: SaldoProps) {
       </div>
       <hr />
       <Paragraph>Conta corrente</Paragraph>
-      <Paragraph>R$ {saldoAtual.toFixed(2)}</Paragraph> {/* Exibe o saldo atual */}
+      <Paragraph>R$ {saldoAtual.toFixed(2)}</Paragraph>
     </DivMainStyles>
   );
 }

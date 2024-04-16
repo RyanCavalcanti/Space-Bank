@@ -1,9 +1,9 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import styled from 'styled-components';
 
-interface Transacao {
+export interface Transacao {
   transacao: string;
-  valor: number; // Alterado para number para garantir que seja um número
+  valor: number;
   mes?: string;
 }
 
@@ -36,11 +36,12 @@ const Botao = styled.button`
 `;
 
 export default function FormularioDeTransacao({ realizarTransacao }: FormularioProps) {
-  const [valor, setValor] = useState<Transacao>({ transacao: '', valor: 0 }); // Inicializa valor como 0
+  const [valor, setValor] = useState<Transacao>({ transacao: '', valor: 0, mes: '' }); // Inicializa todas as propriedades da transação
 
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
-    const valoresAtualizados = { ...valor, [name]: value };
+    const novoValor = name === 'valor' ? parseFloat(value) : value;
+    const valoresAtualizados = { ...valor, [name]: novoValor };
     setValor(valoresAtualizados);
   }
 
@@ -53,7 +54,7 @@ export default function FormularioDeTransacao({ realizarTransacao }: FormularioP
       ...valor,
       mes: mesTransacao[0].toUpperCase() + mesTransacao.substring(1),
     });
-    setValor({ transacao: '', valor: 0 }); // Limpa o formulário após a transação e define o valor como 0
+    setValor({ transacao: '', valor: 0, mes: '' }); // Limpa o formulário após a transação e define todas as propriedades
   }
 
   return (

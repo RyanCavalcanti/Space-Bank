@@ -17,7 +17,7 @@ function Login() {
       localStorage.setItem('token', data.token); // Armazenar o token no localStorage
       navigate('/dashboard'); // Redirecionar para o painel após o login
     } catch (error) {
-      console.log('Erro ao efetuar login(login.tsx):', error)
+      console.log('Erro ao efetuar login:', error)
     }
   };
   
