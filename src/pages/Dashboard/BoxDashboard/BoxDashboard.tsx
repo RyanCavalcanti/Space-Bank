@@ -6,6 +6,10 @@ import logo from '../../../assets/Icon/Rocket-White.svg';
 import Title from '../../../components/common/Title';
 import Paragraph from '../../../components/common/Paragraph';
 import Button from '../../../components/common/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { ContainerHome, ContainerProps } from '../../../styles/GlobalStyle';
+import Anchor from '../../../components/common/Anchor';
 
 interface ToggleMenuContainerProps {
   isVisible: boolean;
@@ -18,9 +22,9 @@ const HeaderStyles = styled.header`
   position: relative; /* Para posicionamento absoluto dos elementos filhos */
 `;
 
-const NavBarStyles = styled.nav`
+const NavBarStyles = styled(ContainerHome) <ContainerProps>`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
   position: relative; /* Para posicionamento absoluto dos elementos filhos */
@@ -50,9 +54,17 @@ const ToggleMenuContainer = styled.div<ToggleMenuContainerProps>`
   left: 0;
   z-index: 999; /* Para ficar acima do conteúdo padrão */
   background-color: ${theme.colors.White};
-  border-radius: 5px;
-  padding: 10px;
-  animation: ${({ isVisible }) => (isVisible ? fadeIn : fadeOut )} 0.5s ease;
+  border-radius: 0 0 5px 5px;
+  padding: 10px 20px;
+  margin-top: 17px;
+  margin-left: 40px;
+  background-color: ${theme.colors.Red};
+  animation: ${({ isVisible }) => (isVisible ? fadeIn : fadeOut)} 0.5s ease;
+
+  & > ul {
+    list-style-type: none;
+    padding: 0;
+  }
 `;
 
 const fadeIn = keyframes`
@@ -73,6 +85,89 @@ const fadeOut = keyframes`
   }
 `;
 
+const MainStyles = styled.main`
+  margin-top: 20px;
+`
+
+const SectionStyles = styled(ContainerHome) <ContainerProps>`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const ArticleInfosStyles = styled.article`
+    background-color: ${theme.colors.Red};
+    border-radius: 8px;
+    box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
+    list-style: none;
+    height: 85vh;
+    padding: 24px;
+    width: 200px;
+
+    & > ul {
+      list-style-type: none;
+      padding: 0;
+
+      & > li {
+        text-align: center;
+        color: ${theme.colors.White};
+      }
+    }
+`
+
+const BoxesStyles = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 85vh;
+`
+
+const BoxSectionOneStyles = styled.section`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: ${theme.colors.Pink};
+    border-radius: 8px;
+    box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
+    height: 50%;
+    padding: 24px;
+    max-width: 690px;
+    width: 100%;
+`;
+
+const BoxSectionTwoStyles = styled.section`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: ${theme.colors.Pink};
+    border-radius: 8px;
+    box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
+    height: 50%;
+    padding: 24px;
+    max-width: 690px;
+    width: 100%;
+`
+
+const ArticleExtratoStyles = styled.article`
+    background-color: ${theme.colors.Red};
+    border-radius: 8px;
+    box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
+    list-style: none;
+    height: 85vh;
+    padding: 24px;
+    width: 200px;
+
+    & > ul {
+      list-style-type: none;
+      padding: 0;
+
+      & > li {
+        text-align: center;
+        color: ${theme.colors.White};
+      }
+    }
+`
+
 function BoxDashboard() {
   const firstName = localStorage.getItem('firstName');
   const [menuVisible, setMenuVisible] = useState(false);
@@ -84,7 +179,7 @@ function BoxDashboard() {
   return (
     <>
       <HeaderStyles>
-        <NavBarStyles>
+        <NavBarStyles as="nav">
           <ContainerLogo>
             <Image img={logo} alt="Logo SpaceBank" />
             <Title as="h5" color={theme.colors.White}>
@@ -93,14 +188,15 @@ function BoxDashboard() {
           </ContainerLogo>
 
           <ContainerUser>
-            <Paragraph color={theme.colors.White}>{firstName}</Paragraph>
+            <Paragraph color={theme.colors.White} fontWeight={600}>{firstName}</Paragraph>
+
             <div>
-              <Button onClick={toggleMenu}>
-                <Image img="" alt="User" />
+              <Button onClick={toggleMenu} style={{ padding: '0' }}>
+                <FontAwesomeIcon icon={faUser} size='lg' color={theme.colors.White} style={{ border: '1px solid', borderRadius: '50%', padding: '10px' }} />
               </Button>
               <ToggleMenuContainer isVisible={menuVisible}>
                 <ul>
-                  <li>SAIR</li>
+                  <li><Button style={{ padding: '0', color: `${theme.colors.White}` }}>Sair</Button></li>
                 </ul>
               </ToggleMenuContainer>
             </div>
@@ -108,7 +204,30 @@ function BoxDashboard() {
         </NavBarStyles>
       </HeaderStyles>
 
-      <main>asdsadsa</main>
+      <MainStyles>
+        <SectionStyles as='section'>
+          <ArticleInfosStyles>
+            <ul>
+              <li><Anchor href='#' variant='none'>Inicio</Anchor></li>
+              <hr />
+              <li><Anchor href='#' variant='none'>Transferências</Anchor></li>
+              <hr />
+              <li><Anchor href='#' variant='none'>Investimentos</Anchor></li>
+              <hr />
+              <li><Anchor href='#' variant='none'>Outros serviços</Anchor></li>
+            </ul>
+          </ArticleInfosStyles>
+          <BoxesStyles>
+            <BoxSectionOneStyles>
+              <Title as='h3'>Olá, {firstName} :)!</Title>
+            </BoxSectionOneStyles>
+            <BoxSectionTwoStyles>COMPONENTE DE TRANSAÇÃO</BoxSectionTwoStyles>
+          </BoxesStyles>
+          <ArticleExtratoStyles>
+            Extrato
+          </ArticleExtratoStyles>
+        </SectionStyles>
+      </MainStyles>
     </>
   );
 }
