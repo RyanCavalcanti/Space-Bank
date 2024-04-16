@@ -1,7 +1,7 @@
 // Dashboard.tsx
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AsideDashboard from './AsideDashboard/AsideDashboard';
+import BoxDashboard from './BoxDashboard/BoxDashboard';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function Dashboard() {
 
   return (
     <section>
-      <AsideDashboard />
+      <BoxDashboard />
     </section>
   );
 }

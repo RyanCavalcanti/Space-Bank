@@ -13,6 +13,10 @@ export const ButtonBase = styled.button`
   }
 `;
 
+export const NoneStylesButton = styled(ButtonBase)`
+  background-color: inherit;
+`;
+
 export const PrimaryButton = styled(ButtonBase)`
   background-color: ${theme.colors.Black};
   color: ${theme.colors.White};
@@ -39,7 +43,7 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'tertiary';
 }
 
-function Button({ children, onClick, className, disabled, type, style, variant = 'primary' }: ButtonProps) {
+function Button({ children, onClick, className, disabled, type, style, variant }: ButtonProps) {
   let ButtonComponent;
   switch (variant) {
     case 'primary':
@@ -52,7 +56,7 @@ function Button({ children, onClick, className, disabled, type, style, variant =
       ButtonComponent = TertiaryButton;
       break;
     default:
-      ButtonComponent = PrimaryButton;
+      ButtonComponent = NoneStylesButton;
   }
 
   return (
