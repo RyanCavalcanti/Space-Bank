@@ -1,40 +1,38 @@
-const BASE_URL = 'http://localhost:3012/api';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
-export const registerUser = async (userData: { [key: string]: string }) => {
+const API_URL = 'http://localhost:3012/api';
+
+type HttpMethod = 'get' | 'post' | 'put' | 'delete';
+
+const sendRequest = async <T>(method: HttpMethod, endpoint: string, data?: Record<string, unknown>): Promise<T> => {
   try {
-    const response = await fetch(`${BASE_URL}/users/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-    const data = await response.json();
-    return data;
+    const config: AxiosRequestConfig | undefined = data ? { data } : undefined;
+    const response = await axios[method](`${API_URL}/${endpoint}`, config);
+    return response.data;
   } catch (error) {
-    console.error('Error registering user:', error);
-    throw new Error('Failed to register user');
+    const axiosError = error as AxiosError;
+    console.error(`Error ${method.toUpperCase()} ${endpoint}:`, axiosError.message);
+    throw new Error(`Failed to ${method} ${endpoint}`);
   }
 };
 
-export const loginUser = async (userData: { [key: string]: string }) => {
-  try {
-    const response = await fetch(`${BASE_URL}/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
 
-    const data = await response.json();
+interface UserData {
+  [key: string]: string;
+}
 
-    if (!response.ok) {
-      throw new Error(data.message || 'Erro ao fazer login. Tente novamente mais tarde.');
-    }
+export const registerUser = async (userData: UserData) => {
+  return sendRequest<void>('post', 'users/register', userData);
+};
 
-    return data;
-  } catch (error) {
-    throw new Error('Erro ao fazer login. Tente novamente mais tarde.');
-  }
+export const loginUser = async (userData: UserData) => {
+  return sendRequest<void>('post', 'auth/login', userData);
+};
+
+export const adicionarSaldo = async (valorTransacao: number): Promise<void> => {
+  return sendRequest<void>('post', 'adicionar-saldo', { valorTransacao });
+};
+
+export const obterSaldo = async (): Promise<number> => {
+  return sendRequest<number>('get', 'obter-saldo');
 };

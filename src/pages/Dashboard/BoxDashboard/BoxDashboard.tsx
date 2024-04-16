@@ -10,10 +10,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { ContainerHome, ContainerProps } from '../../../styles/GlobalStyle';
 import Anchor from '../../../components/common/Anchor';
+import DateBrasil from '../../../components/common/Date';
+import Saldo from '../Saldo/Saldo';
+import ilustracao from '../../../assets/Icon//ilustracao.svg';
+import FormularioDeTransacao from '../Transacao/Transacao';
+import { adicionarSaldo } from '../../../services/api';
 
 interface ToggleMenuContainerProps {
   isVisible: boolean;
 }
+
+interface FuncaoDeTransacaoProps {
+  transacao: string;
+  valor: number; // Alterado para number para garantir que seja um número
+  mes?: string;
+}
+
 
 const HeaderStyles = styled.header`
   width: 100%;
@@ -102,7 +114,7 @@ const ArticleInfosStyles = styled.article`
     list-style: none;
     height: 85vh;
     padding: 24px;
-    width: 200px;
+    width: 180px;
 
     & > ul {
       list-style-type: none;
@@ -120,20 +132,26 @@ const BoxesStyles = styled.div`
   flex-direction: column;
   gap: 20px;
   height: 85vh;
+  max-width: 690px;
+  width: 100%;
 `
 
 const BoxSectionOneStyles = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: ${theme.colors.Pink};
+    background-color: ${theme.colors.Grey};
     border-radius: 8px;
     box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
     height: 50%;
     padding: 24px;
-    max-width: 690px;
-    width: 100%;
 `;
+
+const DivSaldo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
 
 const BoxSectionTwoStyles = styled.section`
     display: flex;
@@ -144,8 +162,6 @@ const BoxSectionTwoStyles = styled.section`
     box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
     height: 50%;
     padding: 24px;
-    max-width: 690px;
-    width: 100%;
 `
 
 const ArticleExtratoStyles = styled.article`
@@ -155,7 +171,7 @@ const ArticleExtratoStyles = styled.article`
     list-style: none;
     height: 85vh;
     padding: 24px;
-    width: 200px;
+    width: 300px;
 
     & > ul {
       list-style-type: none;
@@ -168,6 +184,33 @@ const ArticleExtratoStyles = styled.article`
     }
 `
 
+const FuncaoDeTransacao = async (transacao: FuncaoDeTransacaoProps) => {
+  if (transacao.valor <= 0) {
+    console.error('Erro: Valor de transação inválido.');
+    return; // Impede a execução se o valor for menor ou igual a zero
+  }
+
+  if (transacao.transacao !== 'Depósito') {
+    console.error('Erro: Apenas depósitos são permitidos.');
+    return; // Impede a execução se a transação não for um depósito
+  }
+
+  if (transacao.valor > 100000000) {
+    console.warn('Aviso: Valor muito alto. Será avaliado pelo Banco Central.');
+    // Você pode querer notificar o usuário sobre essa condição
+  }
+
+  try {
+    if (transacao.valor <= 100000000) { // Adiciona saldo apenas se o valor for menor ou igual a 100000000
+      await adicionarSaldo(transacao.valor);
+    }
+    console.log('Transação realizada com sucesso:', transacao);
+  } catch (error) {
+    console.error('Erro ao realizar a transação:', error);
+    // Você pode querer notificar o usuário sobre o erro aqui
+  }
+};
+
 function BoxDashboard() {
   const firstName = localStorage.getItem('firstName');
   const [menuVisible, setMenuVisible] = useState(false);
@@ -175,6 +218,7 @@ function BoxDashboard() {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
+  
 
   return (
     <>
@@ -220,8 +264,15 @@ function BoxDashboard() {
           <BoxesStyles>
             <BoxSectionOneStyles>
               <Title as='h3'>Olá, {firstName} :)!</Title>
+              <DateBrasil />
+              <DivSaldo>
+                <Image img={ilustracao} alt='ilustração' style={{ width: '200px', height: '200px'}}/>
+                <Saldo saldo={0}/>
+              </DivSaldo>
             </BoxSectionOneStyles>
-            <BoxSectionTwoStyles>COMPONENTE DE TRANSAÇÃO</BoxSectionTwoStyles>
+            <BoxSectionTwoStyles>
+              <FormularioDeTransacao realizarTransacao={FuncaoDeTransacao}/>
+            </BoxSectionTwoStyles>
           </BoxesStyles>
           <ArticleExtratoStyles>
             Extrato
