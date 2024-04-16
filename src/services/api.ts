@@ -41,10 +41,12 @@ export const loginUser = async (userData: { [key: string]: string }) => {
 
 export const obterSaldo = async () => {
   try {
+    const token = localStorage.getItem('token'); // Obtenha o token armazenado localmente
     const response = await fetch(`${BASE_URL}/users/obter-saldo`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, // Inclua o token de autorização no cabeçalho
       },
     });
 
@@ -62,10 +64,12 @@ export const obterSaldo = async () => {
 
 export const adicionarSaldo = async (valorTransacao: number) => {
   try {
+    const token = localStorage.getItem('token'); // Obtenha o token armazenado localmente
     const response = await fetch(`${BASE_URL}/users/adicionar-saldo`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, // Inclua o token de autorização no cabeçalho
       },
       body: JSON.stringify({ valorTransacao }),
     });
