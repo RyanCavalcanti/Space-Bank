@@ -15,6 +15,7 @@ import Saldo from '../Saldo/Saldo';
 import ilustracao from '../../../assets/Icon/ilustracao.svg';
 import FormularioDeTransacao, { Transacao } from '../Transacao/Transacao'; // Importar a interface Transacao
 import { alterarSaldoNoBanco } from '../../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 
 interface ToggleMenuContainerProps {
@@ -24,7 +25,7 @@ interface ToggleMenuContainerProps {
 const HeaderStyles = styled.header`
   width: 100%;
   height: 80px;
-  background-color: ${theme.colors.Black};
+  background-color: ${theme.colors.Red};
   position: relative;
 `;
 
@@ -63,7 +64,7 @@ const ToggleMenuContainer = styled.div<ToggleMenuContainerProps>`
   padding: 10px 20px;
   margin-top: 17px;
   margin-left: 40px;
-  background-color: ${theme.colors.Grey};
+  background-color: ${theme.colors.Red};
   animation: ${({ isVisible }) => (isVisible ? fadeIn : fadeOut)} 0.5s ease;
 
   & > ul {
@@ -210,6 +211,7 @@ const ArticleExtratoStyles = styled.article`
 function BoxDashboard() {
   const firstName = localStorage.getItem('firstName');
   const [menuVisible, setMenuVisible] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -245,6 +247,11 @@ function BoxDashboard() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('firstName');
+    navigate("/login");
+  }
 
   return (
     <>
@@ -266,7 +273,7 @@ function BoxDashboard() {
               </Button>
               <ToggleMenuContainer isVisible={menuVisible}>
                 <ul>
-                  <li><Button style={{ padding: '0', color: `${theme.colors.White}` }}>Sair</Button></li>
+                  <li><Button onClick={handleLogout} style={{ padding: '0', color: `${theme.colors.White}` }}>Sair</Button></li>
                 </ul>
               </ToggleMenuContainer>
             </div>

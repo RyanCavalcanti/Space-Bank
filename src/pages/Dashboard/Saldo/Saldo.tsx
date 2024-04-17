@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Paragraph from '../../../components/common/Paragraph';
 import Title from '../../../components/common/Title';
-import { obterSaldo } from '../../../services/api'; // Removido adicionarSaldo e subtrairSaldo
+import { obterSaldo } from '../../../services/api';
 import theme from '../../../styles/Theme';
 
 interface SaldoProps {
