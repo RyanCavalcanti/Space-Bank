@@ -1,9 +1,12 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import styled from 'styled-components';
+import Button from '../../../components/common/Button';
+import Paragraph from '../../../components/common/Paragraph';
+import Title from '../../../components/common/Title';
 
 export interface Transacao {
   transacao: string;
-  valor: number;
+  valor: string;
   mes?: string;
 }
 
@@ -15,15 +18,7 @@ const FormGroup = styled.form`
   /* Estilos aqui */
 `;
 
-const LegendaOpcoes = styled.h3`
-  /* Estilos aqui */
-`;
-
 const GrupoOpcoes = styled.select`
-  /* Estilos aqui */
-`;
-
-const Legenda = styled.label`
   /* Estilos aqui */
 `;
 
@@ -31,16 +26,12 @@ const CampoValor = styled.input`
   /* Estilos aqui */
 `;
 
-const Botao = styled.button`
-  /* Estilos aqui */
-`;
-
 export default function FormularioDeTransacao({ realizarTransacao }: FormularioProps) {
-  const [valor, setValor] = useState<Transacao>({ transacao: '', valor: 0, mes: '' }); // Inicializa todas as propriedades da transação
+  const [valor, setValor] = useState<Transacao>({ transacao: '', valor: '', mes: '' });
 
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
-    const novoValor = name === 'valor' ? parseFloat(value) : value;
+    const novoValor = name === 'valor' ? value : e.target.value;
     const valoresAtualizados = { ...valor, [name]: novoValor };
     setValor(valoresAtualizados);
   }
@@ -54,20 +45,20 @@ export default function FormularioDeTransacao({ realizarTransacao }: FormularioP
       ...valor,
       mes: mesTransacao[0].toUpperCase() + mesTransacao.substring(1),
     });
-    setValor({ transacao: '', valor: 0, mes: '' }); // Limpa o formulário após a transação e define todas as propriedades
+    setValor({ transacao: '', valor: '', mes: '' });
   }
 
   return (
     <FormGroup onSubmit={handleSubmit}>
-      <LegendaOpcoes>Nova Transação</LegendaOpcoes>
-      <GrupoOpcoes onChange={handleChange} name="transacao" data-testid="select-opcoes">
-        <option value="">Selecione um tipo de transação</option>
-        <option value="Depósito">Depósito</option>
-        <option value="Transferência">Transferência</option>
+      <Title as='h5'>Nova Transação</Title>
+      <GrupoOpcoes onChange={handleChange} value={valor.transacao} name="transacao"> {/* Adicionado o atributo name */}
+        <option value=''>Selecione um tipo de transação</option>
+        <option value='Depósito'>Depósito</option>
+        <option value='Transferência'>Transferência</option>
       </GrupoOpcoes>
-      <Legenda htmlFor="valor">Valor</Legenda>
-      <CampoValor onChange={handleChange} type="number" value={valor.valor} name="valor" id="valor" placeholder="Digite um valor" />
-      <Botao type="submit">Realizar transação</Botao>
+      <Paragraph>Valor</Paragraph>
+      <CampoValor onChange={handleChange} type="number" value={valor.valor} name='valor' id='valor' placeholder="Digite um valor" />
+      <Button type="submit" variant='primary'>Realizar transação</Button>
     </FormGroup>
   );
 }

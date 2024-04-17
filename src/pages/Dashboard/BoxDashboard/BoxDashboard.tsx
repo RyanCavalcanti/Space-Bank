@@ -12,26 +12,19 @@ import { ContainerHome, ContainerProps } from '../../../styles/GlobalStyle';
 import Anchor from '../../../components/common/Anchor';
 import DateBrasil from '../../../components/common/Date';
 import Saldo from '../Saldo/Saldo';
-import ilustracao from '../../../assets/Icon//ilustracao.svg';
-import FormularioDeTransacao from '../Transacao/Transacao';
-import { adicionarSaldo } from '../../../services/api';
+import ilustracao from '../../../assets/Icon/ilustracao.svg';
+import FormularioDeTransacao, { Transacao } from '../Transacao/Transacao'; // Importar a interface Transacao
+import { BASE_URL } from '../../../services/api';
 
 interface ToggleMenuContainerProps {
   isVisible: boolean;
 }
 
-interface TransacaoProps {
-  transacao: string;
-  valor: number; // Alterado para number para garantir que seja um número
-  mes?: string;
-}
-
-
 const HeaderStyles = styled.header`
   width: 100%;
   height: 80px;
   background-color: ${theme.colors.Red};
-  position: relative; /* Para posicionamento absoluto dos elementos filhos */
+  position: relative;
 `;
 
 const NavBarStyles = styled(ContainerHome) <ContainerProps>`
@@ -39,7 +32,7 @@ const NavBarStyles = styled(ContainerHome) <ContainerProps>`
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  position: relative; /* Para posicionamento absoluto dos elementos filhos */
+  position: relative;
 `;
 
 const ContainerLogo = styled.div`
@@ -56,15 +49,15 @@ const ContainerUser = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-  position: relative; /* Para posicionamento absoluto dos elementos filhos */
+  position: relative;
 `;
 
 const ToggleMenuContainer = styled.div<ToggleMenuContainerProps>`
   display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
   position: absolute;
-  top: 100%; /* Para ficar abaixo da nav */
+  top: 100%;
   left: 0;
-  z-index: 999; /* Para ficar acima do conteúdo padrão */
+  z-index: 999;
   background-color: ${theme.colors.White};
   border-radius: 0 0 5px 5px;
   padding: 10px 20px;
@@ -184,27 +177,63 @@ const ArticleExtratoStyles = styled.article`
     }
 `
 
-const FuncaoDeTransacao = async (transacao: TransacaoProps) => {
-  if (transacao.valor <= 0) {
-    console.error('Erro: Valor de transação inválido.');
-    return; // Impede a execução se o valor for menor ou igual a zero
-  }
-
-  if (transacao.valor > 100000000) {
-    console.warn('Aviso: Valor muito alto. Será avaliado pelo Banco Central.');
-    // Você pode querer notificar o usuário sobre essa condição
+const alterarSaldoNoBanco = async (transacao: Transacao) => {
+  let url = BASE_URL;
+  if (transacao.transacao === 'Depósito') {
+    url = '/users/adicionar-saldo';
+  } else if (transacao.transacao === 'Transferência') {
+    url = '/users/subtrair-saldo';
   }
 
   try {
-    if (transacao.valor <= 100000000) { // Adiciona saldo apenas se o valor for menor ou igual a 100000000
-      await adicionarSaldo(transacao.valor);
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ valor: transacao.valor }),
+    });
+
+    if (response.ok) {
+      console.log('Saldo alterado com sucesso!');
+    } else {
+      console.error('Erro ao alterar o saldo no banco de dados');
     }
-    console.log('Transação realizada com sucesso:', transacao);
   } catch (error) {
-    console.error('Erro ao realizar a transação:', error);
-    // Você pode querer notificar o usuário sobre o erro aqui
+    console.error('Erro ao comunicar com o servidor:', error);
   }
 };
+
+const FuncaoDeTransacao = async (transacao: Transacao) => {
+  const valorNumerico = parseFloat(transacao.valor); // Convertendo valor para número
+
+  if (isNaN(valorNumerico) || valorNumerico <= 0) { // Verificando se é um número válido e maior que zero
+    console.error('Erro: Valor de transação inválido.');
+    return;
+  }
+
+  if (transacao.transacao === '') {
+    console.error('Erro: Tipo de transação não selecionado.');
+    return;
+  }
+
+  if (valorNumerico > 100000000) {
+    console.error('Aviso: Valor muito alto. Será avaliado pelo Banco Central.');
+    return;
+  }
+
+  try {
+    if (transacao.transacao === 'Depósito' || transacao.transacao === 'Transferência') {
+      console.log('Transação realizada com sucesso:', transacao);
+      await alterarSaldoNoBanco(transacao);
+    } else {
+      console.error('Erro: Tipo de transação inválido.', transacao);
+    }
+  } catch (error) {
+    console.error('Erro ao realizar a transação:', error);
+  }
+};
+
 
 
 function BoxDashboard() {
@@ -214,7 +243,6 @@ function BoxDashboard() {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
-  
 
   return (
     <>

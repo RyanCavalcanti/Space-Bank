@@ -1,4 +1,3 @@
-// Dashboard.tsx
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BoxDashboard from './BoxDashboard/BoxDashboard';

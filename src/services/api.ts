@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3012/api';
+export const BASE_URL = 'http://localhost:3012/api';
 
 export const registerUser = async (userData: { [key: string]: string }) => {
   try {
@@ -83,5 +83,29 @@ export const adicionarSaldo = async (valorTransacao: number) => {
     return data;
   } catch (error) {
     throw new Error('Erro ao adicionar saldo. Tente novamente mais tarde.');
+  }
+};
+
+export const subtrairSaldo = async (valorTransacao: number) => {
+  try {
+    const token = localStorage.getItem('token'); // Obtenha o token armazenado localmente
+    const response = await fetch(`${BASE_URL}/users/subtrair-saldo`, { // Corrigido o caminho da rota
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, // Inclua o token de autorização no cabeçalho
+      },
+      body: JSON.stringify({ valorTransacao }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Erro ao subtrair saldo. Tente novamente mais tarde.');
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error('Erro ao subtrair saldo. Tente novamente mais tarde.');
   }
 };
