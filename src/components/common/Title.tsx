@@ -6,6 +6,7 @@ interface TitleProps {
   color?: string;
   children: React.ReactNode;
   fontWeight?: number;
+  style?: React.CSSProperties;
 }
 
 const StyledTitle = styled.h1<TitleProps>`
@@ -73,8 +74,8 @@ const StyledTitle = styled.h1<TitleProps>`
   font-weight: ${({ fontWeight }) => fontWeight || 'normal'};
 `;
 
-const Title: React.FC<TitleProps> = ({ as: Component = 'h1', color, children, fontWeight }) => {
-  return <StyledTitle as={Component} color={color} fontWeight={fontWeight}>{children}</StyledTitle>;
+const Title: React.FC<TitleProps> = ({ as: Component = 'h1', color, children, fontWeight, style }) => {
+  return <StyledTitle as={Component} color={color} fontWeight={fontWeight} style={style}>{children}</StyledTitle>;
 };
 
 export default Title;

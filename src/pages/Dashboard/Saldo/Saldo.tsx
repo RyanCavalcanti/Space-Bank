@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Paragraph from '../../../components/common/Paragraph';
 import Title from '../../../components/common/Title';
 import { obterSaldo } from '../../../services/api'; // Removido adicionarSaldo e subtrairSaldo
+import theme from '../../../styles/Theme';
 
 interface SaldoProps {
   saldo: number;
@@ -11,6 +12,11 @@ interface SaldoProps {
 const DivMainStyles = styled.div`
   margin: 0 auto;
   width: 190px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    max-width: 440px;
+  }
 `;
 
 export default function Saldo({ saldo }: SaldoProps) {
@@ -36,11 +42,12 @@ export default function Saldo({ saldo }: SaldoProps) {
   return (
     <DivMainStyles>
       <div>
-        <Title as="h5">Saldo</Title>
+        <Title as="h3" color={theme.colors.White}>Saldo</Title>
       </div>
       <hr />
-      <Paragraph>Conta corrente</Paragraph>
-      <Paragraph>R$ {saldoAtual.toFixed(2)}</Paragraph>
+      <br />
+      <Paragraph color={theme.colors.White} style={{ fontSize: '1.2rem'}}>Conta corrente</Paragraph>
+      <Paragraph color={theme.colors.White} fontWeight={600} style={{ fontSize: '1.2rem'}}>R$ {saldoAtual.toFixed(2)}</Paragraph>
     </DivMainStyles>
   );
 }

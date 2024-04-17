@@ -14,7 +14,8 @@ import DateBrasil from '../../../components/common/Date';
 import Saldo from '../Saldo/Saldo';
 import ilustracao from '../../../assets/Icon/ilustracao.svg';
 import FormularioDeTransacao, { Transacao } from '../Transacao/Transacao'; // Importar a interface Transacao
-import { BASE_URL } from '../../../services/api';
+import { alterarSaldoNoBanco } from '../../../services/api';
+
 
 interface ToggleMenuContainerProps {
   isVisible: boolean;
@@ -23,7 +24,7 @@ interface ToggleMenuContainerProps {
 const HeaderStyles = styled.header`
   width: 100%;
   height: 80px;
-  background-color: ${theme.colors.Red};
+  background-color: ${theme.colors.Black};
   position: relative;
 `;
 
@@ -58,12 +59,11 @@ const ToggleMenuContainer = styled.div<ToggleMenuContainerProps>`
   top: 100%;
   left: 0;
   z-index: 999;
-  background-color: ${theme.colors.White};
   border-radius: 0 0 5px 5px;
   padding: 10px 20px;
   margin-top: 17px;
   margin-left: 40px;
-  background-color: ${theme.colors.Red};
+  background-color: ${theme.colors.Grey};
   animation: ${({ isVisible }) => (isVisible ? fadeIn : fadeOut)} 0.5s ease;
 
   & > ul {
@@ -98,6 +98,12 @@ const SectionStyles = styled(ContainerHome) <ContainerProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 85vh;
+
+  @media (max-width: 1220px) {
+    flex-direction: column;
+    justify-content: center;
+  }
 `
 
 const ArticleInfosStyles = styled.article`
@@ -105,7 +111,7 @@ const ArticleInfosStyles = styled.article`
     border-radius: 8px;
     box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
     list-style: none;
-    height: 85vh;
+    height: 100%;
     padding: 24px;
     width: 180px;
 
@@ -118,13 +124,17 @@ const ArticleInfosStyles = styled.article`
         color: ${theme.colors.White};
       }
     }
+
+    @media (max-width: 1220px) {
+      display: none;
+    }
 `
 
 const BoxesStyles = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  height: 85vh;
+  height: 100%;
   max-width: 690px;
   width: 100%;
 `
@@ -133,7 +143,7 @@ const BoxSectionOneStyles = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: ${theme.colors.Grey};
+    background-color: ${theme.colors.Green};
     border-radius: 8px;
     box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
     height: 50%;
@@ -144,27 +154,43 @@ const DivSaldo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  & > img {
+    width: 200px;
+    height: 200px;
+  }
+
+  @media (max-width: 480px){
+    & > img {
+    display: none;
+    }
+  }
 `
 
 const BoxSectionTwoStyles = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: ${theme.colors.Pink};
+    background-color: ${theme.colors.Grey};
     border-radius: 8px;
     box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
     height: 50%;
     padding: 24px;
+
+    @media (max-width: 690px){
+      height: 740px;
+  }
 `
 
 const ArticleExtratoStyles = styled.article`
-    background-color: ${theme.colors.Red};
+    background-color: ${theme.colors.Grey};
     border-radius: 8px;
     box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
     list-style: none;
-    height: 85vh;
+    height: 100%;
     padding: 24px;
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
 
     & > ul {
       list-style-type: none;
@@ -175,66 +201,11 @@ const ArticleExtratoStyles = styled.article`
         color: ${theme.colors.White};
       }
     }
+
+    @media (max-width: 1220px) {
+      display: none;
+    }
 `
-
-const alterarSaldoNoBanco = async (transacao: Transacao) => {
-  let url = BASE_URL;
-  if (transacao.transacao === 'Depósito') {
-    url = '/users/adicionar-saldo';
-  } else if (transacao.transacao === 'Transferência') {
-    url = '/users/subtrair-saldo';
-  }
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ valor: transacao.valor }),
-    });
-
-    if (response.ok) {
-      console.log('Saldo alterado com sucesso!');
-    } else {
-      console.error('Erro ao alterar o saldo no banco de dados');
-    }
-  } catch (error) {
-    console.error('Erro ao comunicar com o servidor:', error);
-  }
-};
-
-const FuncaoDeTransacao = async (transacao: Transacao) => {
-  const valorNumerico = parseFloat(transacao.valor); // Convertendo valor para número
-
-  if (isNaN(valorNumerico) || valorNumerico <= 0) { // Verificando se é um número válido e maior que zero
-    console.error('Erro: Valor de transação inválido.');
-    return;
-  }
-
-  if (transacao.transacao === '') {
-    console.error('Erro: Tipo de transação não selecionado.');
-    return;
-  }
-
-  if (valorNumerico > 100000000) {
-    console.error('Aviso: Valor muito alto. Será avaliado pelo Banco Central.');
-    return;
-  }
-
-  try {
-    if (transacao.transacao === 'Depósito' || transacao.transacao === 'Transferência') {
-      console.log('Transação realizada com sucesso:', transacao);
-      await alterarSaldoNoBanco(transacao);
-    } else {
-      console.error('Erro: Tipo de transação inválido.', transacao);
-    }
-  } catch (error) {
-    console.error('Erro ao realizar a transação:', error);
-  }
-};
-
-
 
 function BoxDashboard() {
   const firstName = localStorage.getItem('firstName');
@@ -243,6 +214,37 @@ function BoxDashboard() {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
+
+  const FuncaoDeTransacao = async (transacao: Transacao) => {
+    const valorNumerico = parseFloat(transacao.valor); // Convertendo valor para número
+
+    if (isNaN(valorNumerico) || valorNumerico <= 0) { // Verificando se é um número válido e maior que zero
+      console.error('Erro: Valor de transação inválido.');
+      return;
+    }
+
+    if (transacao.transacao === '') {
+      console.error('Erro: Tipo de transação não selecionado.');
+      return;
+    }
+
+    if (valorNumerico > 100000000) {
+      console.error('Aviso: Valor muito alto. Será avaliado pelo Banco Central.');
+      return;
+    }
+
+    try {
+      if (transacao.transacao === 'Depósito' || transacao.transacao === 'Transferência') {
+        console.log('Transação realizada com sucesso:', transacao);
+        await alterarSaldoNoBanco(transacao);
+      } else {
+        console.error('Erro: Tipo de transação inválido.', transacao);
+      }
+    } catch (error) {
+      console.error('Erro ao realizar a transação:', error);
+    }
+  };
+
 
   return (
     <>
@@ -287,15 +289,15 @@ function BoxDashboard() {
           </ArticleInfosStyles>
           <BoxesStyles>
             <BoxSectionOneStyles>
-              <Title as='h3'>Olá, {firstName} :)!</Title>
+              <Title as='h3' color={theme.colors.White} >Olá, {firstName} :)!</Title>
               <DateBrasil />
               <DivSaldo>
-                <Image img={ilustracao} alt='ilustração' style={{ width: '200px', height: '200px'}}/>
-                <Saldo saldo={0}/>
+                <Image img={ilustracao} alt='ilustração' />
+                <Saldo saldo={0} />
               </DivSaldo>
             </BoxSectionOneStyles>
             <BoxSectionTwoStyles>
-              <FormularioDeTransacao realizarTransacao={FuncaoDeTransacao}/>
+              <FormularioDeTransacao realizarTransacao={FuncaoDeTransacao} />
             </BoxSectionTwoStyles>
           </BoxesStyles>
           <ArticleExtratoStyles>

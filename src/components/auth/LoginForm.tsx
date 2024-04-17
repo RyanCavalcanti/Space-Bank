@@ -27,7 +27,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+  
     try {
       const data = await loginUser({ email, password });
       localStorage.setItem('token', data.token);

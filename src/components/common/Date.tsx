@@ -1,3 +1,4 @@
+import theme from "../../styles/Theme";
 import Paragraph from "./Paragraph";
 
 const data = Date.now();
@@ -15,6 +16,6 @@ const diasDaSemana = [
 
 export default function DateBrasil() {
   return(
-    <Paragraph>{`${diasDaSemana[hoje.getDay()]}, ${hoje.toLocaleDateString('pt-BR')}`}</Paragraph>
+    <Paragraph color={theme.colors.White}>{`${diasDaSemana[hoje.getDay()]}, ${hoje.toLocaleDateString('pt-BR')}`}</Paragraph>
   )
 }

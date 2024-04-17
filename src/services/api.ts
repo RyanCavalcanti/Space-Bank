@@ -1,4 +1,6 @@
-export const BASE_URL = 'http://localhost:3012/api';
+import { Transacao } from "../pages/Dashboard/Transacao/Transacao";
+
+export const BASE_URL = 'http://localhost:3333/api';
 
 export const registerUser = async (userData: { [key: string]: string }) => {
   try {
@@ -69,7 +71,7 @@ export const adicionarSaldo = async (valorTransacao: number) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Inclua o token de autorização no cabeçalho
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({ valorTransacao }),
     });
@@ -93,7 +95,7 @@ export const subtrairSaldo = async (valorTransacao: number) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Inclua o token de autorização no cabeçalho
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({ valorTransacao }),
     });
@@ -109,3 +111,43 @@ export const subtrairSaldo = async (valorTransacao: number) => {
     throw new Error('Erro ao subtrair saldo. Tente novamente mais tarde.');
   }
 };
+
+export const alterarSaldoNoBanco = async (transacao: Transacao) => {
+  const token = localStorage.getItem('token');
+  let url = '';
+  let method = '';
+
+  if (transacao.transacao === 'Depósito') {
+    url = `${BASE_URL}/users/adicionar-saldo`;
+    method = 'POST'; // Alteração para POST para adicionar saldo
+  } else if (transacao.transacao === 'Transferência') {
+    url = `${BASE_URL}/users/subtrair-saldo`;
+    method = 'POST'; // Alteração para POST para subtrair saldo
+  } else {
+    throw new Error('Tipo de transação inválido');
+  }
+
+  try {
+    const response = await fetch(url, {
+      method: method, // Usar o método correto
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ valorTransacao: parseFloat(transacao.valor) }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Erro ao alterar o saldo no banco de dados');
+    }
+
+    console.log('Saldo alterado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao comunicar com o servidor:', error);
+    throw new Error('Erro ao comunicar com o servidor');
+  }
+};
+
+

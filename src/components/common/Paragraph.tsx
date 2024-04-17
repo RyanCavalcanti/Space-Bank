@@ -6,6 +6,7 @@ interface ParagraphProps {
   marginBottom?: string;
   fontWeight?: number;
   color?: string;
+  style?: React.CSSProperties;
 }
 
 const ParagraphStyles = styled.p<ParagraphProps>`
@@ -18,9 +19,9 @@ const ParagraphStyles = styled.p<ParagraphProps>`
     color: ${({ color }) => color || 'inherit'};
 `;
 
-function Paragraph({ children, marginTop, marginBottom, fontWeight, color }: ParagraphProps) {
+function Paragraph({ children, marginTop, marginBottom, fontWeight, color, style }: ParagraphProps) {
   return(
-    <ParagraphStyles fontWeight={fontWeight} marginTop={marginTop} marginBottom={marginBottom} color={color}>{ children }</ParagraphStyles>
+    <ParagraphStyles fontWeight={fontWeight} marginTop={marginTop} marginBottom={marginBottom} color={color} style={style}>{ children }</ParagraphStyles>
   )
 }
 
