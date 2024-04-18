@@ -37,6 +37,11 @@ export default function Saldo({ saldo }: SaldoProps) {
       }
     }
     fetchSaldo();
+    // Configurar intervalo para buscar o saldo a cada 5 segundos
+    const intervalId = setInterval(fetchSaldo, 3500);
+
+    // Retornar uma função de limpeza para limpar o intervalo quando o componente for desmontado
+    return () => clearInterval(intervalId);
   }, [saldo]);
 
   return (

@@ -308,7 +308,7 @@ function BoxDashboard() {
             </BoxSectionTwoStyles>
           </BoxesStyles>
           <ArticleExtratoStyles>
-            Extrato
+            Extrato em desenvolvimento!
           </ArticleExtratoStyles>
         </SectionStyles>
       </MainStyles>
