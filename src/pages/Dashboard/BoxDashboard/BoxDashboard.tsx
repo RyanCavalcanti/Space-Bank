@@ -10,12 +10,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { ContainerHome, ContainerProps } from '../../../styles/GlobalStyle';
 import Anchor from '../../../components/common/Anchor';
-import DateBrasil from '../../../components/common/Date';
+import DateBrasil from '../../../components/common/Date/Date';
 import Saldo from '../Saldo/Saldo';
 import ilustracao from '../../../assets/Icon/ilustracao.svg';
 import FormularioDeTransacao, { Transacao } from '../Transacao/Transacao'; // Importar a interface Transacao
 import { alterarSaldoNoBanco } from '../../../services/api';
 import { useNavigate } from 'react-router-dom';
+import Extrato from '../../../components/common/Extrato/Extrato';
+import { TransacaoProvider } from '../Transacao/TransacaoContext';
 
 
 interface ToggleMenuContainerProps {
@@ -254,65 +256,70 @@ function BoxDashboard() {
   }
 
   return (
-    <>
-      <HeaderStyles>
-        <NavBarStyles as="nav">
-          <ContainerLogo>
-            <Image img={logo} alt="Logo SpaceBank" />
-            <Title as="h5" color={theme.colors.White}>
-              SpaceBank
-            </Title>
-          </ContainerLogo>
+    <TransacaoProvider>
+      <>
+        <HeaderStyles>
+          <NavBarStyles as="nav">
+            <ContainerLogo>
+              <Image img={logo} alt="Logo SpaceBank" />
+              <Title as="h5" color={theme.colors.White}>
+                SpaceBank
+              </Title>
+            </ContainerLogo>
 
-          <ContainerUser>
-            <Paragraph color={theme.colors.White} fontWeight={600}>{firstName}</Paragraph>
+            <ContainerUser>
+              <Paragraph color={theme.colors.White} fontWeight={600}>{firstName}</Paragraph>
 
-            <div>
-              <Button onClick={toggleMenu} style={{ padding: '0' }}>
-                <FontAwesomeIcon icon={faUser} size='lg' color={theme.colors.White} style={{ border: '1px solid', borderRadius: '50%', padding: '10px' }} />
-              </Button>
-              <ToggleMenuContainer isVisible={menuVisible}>
-                <ul>
-                  <li><Button onClick={handleLogout} style={{ padding: '0', color: `${theme.colors.White}` }}>Sair</Button></li>
-                </ul>
-              </ToggleMenuContainer>
-            </div>
-          </ContainerUser>
-        </NavBarStyles>
-      </HeaderStyles>
+              <div>
+                <Button onClick={toggleMenu} style={{ padding: '0' }}>
+                  <FontAwesomeIcon icon={faUser} size='lg' color={theme.colors.White} style={{ border: '1px solid', borderRadius: '50%', padding: '10px' }} />
+                </Button>
+                <ToggleMenuContainer isVisible={menuVisible}>
+                  <ul>
+                    <li><Button onClick={handleLogout} style={{ padding: '0', color: `${theme.colors.White}` }}>Sair</Button></li>
+                  </ul>
+                </ToggleMenuContainer>
+              </div>
+            </ContainerUser>
+          </NavBarStyles>
+        </HeaderStyles>
 
-      <MainStyles>
-        <SectionStyles as='section'>
-          <ArticleInfosStyles>
-            <ul>
-              <li><Anchor href='#' variant='none'>Inicio</Anchor></li>
-              <hr />
-              <li><Anchor href='#' variant='none'>Transferências</Anchor></li>
-              <hr />
-              <li><Anchor href='#' variant='none'>Investimentos</Anchor></li>
-              <hr />
-              <li><Anchor href='#' variant='none'>Outros serviços</Anchor></li>
-            </ul>
-          </ArticleInfosStyles>
-          <BoxesStyles>
-            <BoxSectionOneStyles>
-              <Title as='h3' color={theme.colors.White} >Olá, {firstName} :)!</Title>
-              <DateBrasil />
-              <DivSaldo>
-                <Image img={ilustracao} alt='ilustração' />
-                <Saldo saldo={0} />
-              </DivSaldo>
-            </BoxSectionOneStyles>
-            <BoxSectionTwoStyles>
-              <FormularioDeTransacao realizarTransacao={FuncaoDeTransacao} />
-            </BoxSectionTwoStyles>
-          </BoxesStyles>
-          <ArticleExtratoStyles>
-            Extrato em desenvolvimento!
-          </ArticleExtratoStyles>
-        </SectionStyles>
-      </MainStyles>
-    </>
+        <MainStyles>
+          <SectionStyles as='section'>
+            <ArticleInfosStyles>
+              <ul>
+                <li><Anchor href='#' variant='none'>Inicio</Anchor></li>
+                <hr />
+                <li><Anchor href='#' variant='none'>Transferências</Anchor></li>
+                <hr />
+                <li><Anchor href='#' variant='none'>Investimentos</Anchor></li>
+                <hr />
+                <li><Anchor href='#' variant='none'>Outros serviços</Anchor></li>
+              </ul>
+            </ArticleInfosStyles>
+            <BoxesStyles>
+              <BoxSectionOneStyles>
+                <Title as='h3' color={theme.colors.White} >Olá, {firstName} :)!</Title>
+                <DateBrasil />
+                <DivSaldo>
+                  <Image img={ilustracao} alt='ilustração' />
+                  <Saldo saldo={0} />
+                </DivSaldo>
+              </BoxSectionOneStyles>
+              <BoxSectionTwoStyles>
+                <FormularioDeTransacao realizarTransacao={FuncaoDeTransacao} />
+              </BoxSectionTwoStyles>
+            </BoxesStyles>
+            <ArticleExtratoStyles>
+              <Paragraph fontWeight={600} style={{ fontSize: '1.8rem' }} >Extrato</Paragraph>
+              <ul>
+                <Extrato />
+              </ul>
+            </ArticleExtratoStyles>
+          </SectionStyles>
+        </MainStyles>
+      </>
+    </TransacaoProvider>
   );
 }
 
