@@ -6,7 +6,6 @@ import Title from '../../../components/common/Title';
 import theme from '../../../styles/Theme';
 import Image from '../../../components/common/Image';
 import WomanCard from '../../../assets/Icon/Woman-card.svg';
-import { useTransacao } from './TransacaoContext';
 
 export interface Transacao {
   transacao: string;
@@ -61,7 +60,6 @@ const CampoValor = styled.input`
 `;
 
 export default function FormularioDeTransacao({ realizarTransacao }: FormularioProps) {
-  const { setTipoTransacao, setValorTransacao } = useTransacao();
   const [valor, setValor] = useState<Transacao>({ transacao: '', valor: '' });
 
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
@@ -73,10 +71,8 @@ export default function FormularioDeTransacao({ realizarTransacao }: FormularioP
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    await realizarTransacao(valor)
+    await realizarTransacao(valor);
     setValor({ transacao: '', valor: '' });
-    setTipoTransacao(valor.transacao);
-    setValorTransacao(valor.valor);
   }
 
   return (

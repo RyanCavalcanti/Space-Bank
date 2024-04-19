@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import Month from '../Month/Month';
 import DateNumbers from '../Date/DateNumber';
-import { useTransacao } from '../../../pages/Dashboard/Transacao/TransacaoContext';
 import theme from '../../../styles/Theme';
 import Paragraph from '../Paragraph';
+
+interface ExtratoProps{
+  tipoTransacao: string;
+  valorTransacao: string;
+}
 
 const ExtratoItem = styled.li`
   display: flex;
@@ -31,8 +35,7 @@ const Linha = styled.div`
 `
 
 
-const Extrato = () => {
-  const { tipoTransacao, valorTransacao } = useTransacao();
+const Extrato = ({ tipoTransacao, valorTransacao }: ExtratoProps) => {
 
   return (
     <ExtratoItem>

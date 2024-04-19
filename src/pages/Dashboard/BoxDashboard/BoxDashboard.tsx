@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import theme from '../../../styles/Theme';
 import Image from '../../../components/common/Image';
@@ -13,12 +13,16 @@ import Anchor from '../../../components/common/Anchor';
 import DateBrasil from '../../../components/common/Date/Date';
 import Saldo from '../Saldo/Saldo';
 import ilustracao from '../../../assets/Icon/ilustracao.svg';
-import FormularioDeTransacao, { Transacao } from '../Transacao/Transacao'; // Importar a interface Transacao
+import FormularioDeTransacao, { Transacao } from '../Transacao/Transacao';
 import { alterarSaldoNoBanco } from '../../../services/api';
 import { useNavigate } from 'react-router-dom';
 import Extrato from '../../../components/common/Extrato/Extrato';
-import { TransacaoProvider } from '../Transacao/TransacaoContext';
 
+interface ExtratoItem {
+  id: string;
+  tipo: string;
+  valor: string;
+}
 
 interface ToggleMenuContainerProps {
   isVisible: boolean;
@@ -110,27 +114,27 @@ const SectionStyles = styled(ContainerHome) <ContainerProps>`
 `
 
 const ArticleInfosStyles = styled.article`
-    background-color: ${theme.colors.Red};
-    border-radius: 8px;
-    box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
-    list-style: none;
-    height: 100%;
-    padding: 24px;
-    width: 180px;
+  background-color: ${theme.colors.Red};
+  border-radius: 8px;
+  box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
+  list-style: none;
+  height: 100%;
+  padding: 24px;
+  width: 180px;
 
-    & > ul {
-      list-style-type: none;
-      padding: 0;
+  & > ul {
+    list-style-type: none;
+    padding: 0;
 
-      & > li {
-        text-align: center;
-        color: ${theme.colors.White};
-      }
+    & > li {
+      text-align: center;
+      color: ${theme.colors.White};
     }
+  }
 
-    @media (max-width: 1220px) {
-      display: none;
-    }
+  @media (max-width: 1220px) {
+    display: none;
+  }
 `
 
 const BoxesStyles = styled.div`
@@ -143,14 +147,14 @@ const BoxesStyles = styled.div`
 `
 
 const BoxSectionOneStyles = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: ${theme.colors.Green};
-    border-radius: 8px;
-    box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
-    height: 50%;
-    padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: ${theme.colors.Green};
+  border-radius: 8px;
+  box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
+  height: 50%;
+  padding: 24px;
 `;
 
 const DivSaldo = styled.div`
@@ -165,61 +169,63 @@ const DivSaldo = styled.div`
 
   @media (max-width: 480px){
     & > img {
-    display: none;
+      display: none;
     }
   }
 `
 
 const BoxSectionTwoStyles = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: ${theme.colors.Grey};
-    border-radius: 8px;
-    box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
-    height: 50%;
-    padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: ${theme.colors.Grey};
+  border-radius: 8px;
+  box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
+  height: 50%;
+  padding: 24px;
 
-    @media (max-width: 690px){
-      height: 740px;
+  @media (max-width: 690px){
+    height: 740px;
   }
 `
 
 const ArticleExtratoStyles = styled.article`
-    background-color: ${theme.colors.Grey};
-    border-radius: 8px;
-    box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
-    list-style: none;
-    height: 100%;
-    padding: 24px;
-    max-width: 300px;
-    width: 100%;
+  background-color: ${theme.colors.Grey};
+  border-radius: 8px;
+  box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
+  list-style: none;
+  height: 100%;
+  padding: 24px;
+  max-width: 300px;
+  width: 100%;
+  overflow-y: auto;
 
-    & > ul {
-      list-style-type: none;
-      padding: 0;
+  & > ul {
+    list-style-type: none;
+    padding: 0;
 
-      & > li {
-        text-align: center;
-        color: ${theme.colors.White};
-      }
+    & > li {
+      text-align: center;
+      color: ${theme.colors.White};
     }
+  }
 
-    @media (max-width: 1220px) {
-      display: none;
-    }
+  @media (max-width: 1220px) {
+    display: none;
+  }
 `
 
 function BoxDashboard() {
   const firstName = localStorage.getItem('firstName');
   const [menuVisible, setMenuVisible] = useState(false);
   const navigate = useNavigate();
+  const [extratos, setExtratos] = useState<ExtratoItem[]>([]);
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
 
-  const FuncaoDeTransacao = async (transacao: Transacao) => {
+  const realizarTransacao = async (transacao: Transacao) => {
     const valorNumerico = parseFloat(transacao.valor); // Convertendo valor para número
 
     if (isNaN(valorNumerico) || valorNumerico <= 0) { // Verificando se é um número válido e maior que zero
@@ -241,6 +247,12 @@ function BoxDashboard() {
       if (transacao.transacao === 'Depósito' || transacao.transacao === 'Transferência') {
         console.log('Transação realizada com sucesso:', transacao);
         await alterarSaldoNoBanco(transacao);
+        const novoExtrato: ExtratoItem = {
+          id: generateId(),
+          tipo: transacao.transacao,
+          valor: transacao.valor
+        };
+        setExtratos(prevExtratos => [...prevExtratos, novoExtrato]);
       } else {
         console.error('Erro: Tipo de transação inválido.', transacao);
       }
@@ -249,14 +261,21 @@ function BoxDashboard() {
     }
   };
 
+  const generateId = (): string => {
+    return Math.random().toString(36).slice(2, 9);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('firstName');
     navigate("/login");
   }
 
+  useEffect(() => {
+    console.log('Extratos atualizados:', extratos);
+  }, [extratos]);
+
   return (
-    <TransacaoProvider>
       <>
         <HeaderStyles>
           <NavBarStyles as="nav">
@@ -307,19 +326,20 @@ function BoxDashboard() {
                 </DivSaldo>
               </BoxSectionOneStyles>
               <BoxSectionTwoStyles>
-                <FormularioDeTransacao realizarTransacao={FuncaoDeTransacao} />
+                <FormularioDeTransacao realizarTransacao={realizarTransacao} />
               </BoxSectionTwoStyles>
             </BoxesStyles>
             <ArticleExtratoStyles>
               <Paragraph fontWeight={600} style={{ fontSize: '1.8rem' }} >Extrato</Paragraph>
               <ul>
-                <Extrato />
+                {extratos.map(extrato => (
+                  <Extrato key={extrato.id} tipoTransacao={extrato.tipo} valorTransacao={extrato.valor} />
+                ))}
               </ul>
             </ArticleExtratoStyles>
           </SectionStyles>
         </MainStyles>
       </>
-    </TransacaoProvider>
   );
 }
 
