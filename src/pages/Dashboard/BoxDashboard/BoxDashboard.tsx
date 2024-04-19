@@ -14,15 +14,23 @@ import DateBrasil from '../../../components/common/Date/Date';
 import Saldo from '../Saldo/Saldo';
 import ilustracao from '../../../assets/Icon/ilustracao.svg';
 import FormularioDeTransacao, { Transacao } from '../Transacao/Transacao';
-import { alterarSaldoNoBanco } from '../../../services/api';
+import { alterarSaldoNoBanco, getTransactions, saveTransaction } from '../../../services/api';
 import { useNavigate } from 'react-router-dom';
 import Extrato from '../../../components/common/Extrato/Extrato';
 
 interface ExtratoItem {
-  id: string;
+  transactionId: string;
   tipo: string;
   valor: string;
+  data: string;
+  mes: string;
 }
+
+const mesesDoAno = [
+  'Janeiro', 'Fevereiro', 'Março', 'Abril',
+  'Maio', 'Junho', 'Julho', 'Agosto',
+  'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+];
 
 interface ToggleMenuContainerProps {
   isVisible: boolean;
@@ -248,11 +256,19 @@ function BoxDashboard() {
         console.log('Transação realizada com sucesso:', transacao);
         await alterarSaldoNoBanco(transacao);
         const novoExtrato: ExtratoItem = {
-          id: generateId(),
+          transactionId: generateId(),
           tipo: transacao.transacao,
-          valor: transacao.valor
+          valor: transacao.valor,
+          data: new Date().toLocaleDateString('pt-BR'), // Adicionando data no formato dd/mm/aaaa
+          mes: mesesDoAno[new Date().getMonth()] // Adicionando o mês
         };
-        setExtratos(prevExtratos => [novoExtrato, ...prevExtratos]); // adicionando extrato novo no topo ao invés de abaixo do outro.
+        setExtratos(prevExtratos => [...prevExtratos, novoExtrato]); // adicionando extrato novo no topo ao invés de abaixo do outro.
+        const token = localStorage.getItem('token');
+        if (token !== null) {
+          await saveTransaction(novoExtrato, token);
+        } else {
+          console.error('Erro: Token não encontrado.');
+        }
       } else {
         console.error('Erro: Tipo de transação inválido.', transacao);
       }
@@ -272,74 +288,89 @@ function BoxDashboard() {
   }
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const fetchTransactions = async () => {
+        try {
+          const transactions = await getTransactions(token);
+          setExtratos(transactions);
+        } catch (error) {
+          console.error('Erro ao obter transações:', error);
+        }
+      };
+      fetchTransactions();
+    }
+  }, []);
+
+  useEffect(() => {
     console.log('Extratos atualizados:', extratos);
   }, [extratos]);
 
   return (
-      <>
-        <HeaderStyles>
-          <NavBarStyles as="nav">
-            <ContainerLogo>
-              <Image img={logo} alt="Logo SpaceBank" />
-              <Title as="h5" color={theme.colors.White}>
-                SpaceBank
-              </Title>
-            </ContainerLogo>
+    <>
+      <HeaderStyles>
+        <NavBarStyles as="nav">
+          <ContainerLogo>
+            <Image img={logo} alt="Logo SpaceBank" />
+            <Title as="h5" color={theme.colors.White}>
+              SpaceBank
+            </Title>
+          </ContainerLogo>
 
-            <ContainerUser>
-              <Paragraph color={theme.colors.White} fontWeight={600}>{firstName}</Paragraph>
+          <ContainerUser>
+            <Paragraph color={theme.colors.White} fontWeight={600}>{firstName}</Paragraph>
 
-              <div>
-                <Button onClick={toggleMenu} style={{ padding: '0' }}>
-                  <FontAwesomeIcon icon={faUser} size='lg' color={theme.colors.White} style={{ border: '1px solid', borderRadius: '50%', padding: '10px' }} />
-                </Button>
-                <ToggleMenuContainer isVisible={menuVisible}>
-                  <ul>
-                    <li><Button onClick={handleLogout} style={{ padding: '0', color: `${theme.colors.White}` }}>Sair</Button></li>
-                  </ul>
-                </ToggleMenuContainer>
-              </div>
-            </ContainerUser>
-          </NavBarStyles>
-        </HeaderStyles>
+            <div>
+              <Button onClick={toggleMenu} style={{ padding: '0' }}>
+                <FontAwesomeIcon icon={faUser} size='lg' color={theme.colors.White} style={{ border: '1px solid', borderRadius: '50%', padding: '10px' }} />
+              </Button>
+              <ToggleMenuContainer isVisible={menuVisible}>
+                <ul>
+                  <li><Button onClick={handleLogout} style={{ padding: '0', color: `${theme.colors.White}` }}>Sair</Button></li>
+                </ul>
+              </ToggleMenuContainer>
+            </div>
+          </ContainerUser>
+        </NavBarStyles>
+      </HeaderStyles>
 
-        <MainStyles>
-          <SectionStyles as='section'>
-            <ArticleInfosStyles>
-              <ul>
-                <li><Anchor href='#' variant='none'>Inicio</Anchor></li>
-                <hr />
-                <li><Anchor href='#' variant='none'>Transferências</Anchor></li>
-                <hr />
-                <li><Anchor href='#' variant='none'>Investimentos</Anchor></li>
-                <hr />
-                <li><Anchor href='#' variant='none'>Outros serviços</Anchor></li>
-              </ul>
-            </ArticleInfosStyles>
-            <BoxesStyles>
-              <BoxSectionOneStyles>
-                <Title as='h3' color={theme.colors.White} >Olá, {firstName} :)!</Title>
-                <DateBrasil />
-                <DivSaldo>
-                  <Image img={ilustracao} alt='ilustração' />
-                  <Saldo saldo={0} />
-                </DivSaldo>
-              </BoxSectionOneStyles>
-              <BoxSectionTwoStyles>
-                <FormularioDeTransacao realizarTransacao={realizarTransacao} />
-              </BoxSectionTwoStyles>
-            </BoxesStyles>
-            <ArticleExtratoStyles>
-              <Paragraph fontWeight={600} style={{ fontSize: '1.8rem' }} >Extrato</Paragraph>
-              <ul>
-                {extratos.map(extrato => (
-                  <Extrato key={extrato.id} tipoTransacao={extrato.tipo} valorTransacao={extrato.valor} />
-                ))}
-              </ul>
-            </ArticleExtratoStyles>
-          </SectionStyles>
-        </MainStyles>
-      </>
+      <MainStyles>
+        <SectionStyles as='section'>
+          <ArticleInfosStyles>
+            <ul>
+              <li><Anchor href='#' variant='none'>Inicio</Anchor></li>
+              <hr />
+              <li><Anchor href='#' variant='none'>Transferências</Anchor></li>
+              <hr />
+              <li><Anchor href='#' variant='none'>Investimentos</Anchor></li>
+              <hr />
+              <li><Anchor href='#' variant='none'>Outros serviços</Anchor></li>
+            </ul>
+          </ArticleInfosStyles>
+          <BoxesStyles>
+            <BoxSectionOneStyles>
+              <Title as='h3' color={theme.colors.White} >Olá, {firstName} :)!</Title>
+              <DateBrasil />
+              <DivSaldo>
+                <Image img={ilustracao} alt='ilustração' />
+                <Saldo saldo={0} />
+              </DivSaldo>
+            </BoxSectionOneStyles>
+            <BoxSectionTwoStyles>
+              <FormularioDeTransacao realizarTransacao={realizarTransacao} />
+            </BoxSectionTwoStyles>
+          </BoxesStyles>
+          <ArticleExtratoStyles>
+            <Paragraph fontWeight={600} style={{ fontSize: '1.8rem' }} >Extrato</Paragraph>
+            <ul>
+              {extratos.map(extrato => (
+                <Extrato key={extrato.transactionId} tipoTransacao={extrato.tipo} valorTransacao={extrato.valor} />
+              ))}
+            </ul>
+          </ArticleExtratoStyles>
+        </SectionStyles>
+      </MainStyles>
+    </>
   );
 }
 

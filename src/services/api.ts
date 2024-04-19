@@ -2,6 +2,13 @@ import { Transacao } from "../pages/Dashboard/Transacao/Transacao";
 
 export const BASE_URL = 'http://localhost:3333/api';
 
+interface TransactionData {
+  tipo: string;
+  valor: string;
+  data: string;
+  mes: string;
+}
+
 export const registerUser = async (userData: { [key: string]: string }) => {
   try {
     const response = await fetch(`${BASE_URL}/users/register`, {
@@ -102,4 +109,33 @@ export const alterarSaldoNoBanco = async (transacao: Transacao) => {
   }
 };
 
+export const saveTransaction = async (transactionData: TransactionData, token: string) => {
+  try {
+    await fetch(`${BASE_URL}/salvar-extrato`, { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(transactionData)
+    });
+  } catch (error) {
+    throw new Error('Erro ao salvar transação');
+  }
+};
 
+export const getTransactions = async (token: string) => {
+  try {
+    const response = await fetch(`${BASE_URL}/buscar-transacoes`, { 
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+    return data.transactions;
+  } catch (error) {
+    throw new Error('Erro ao obter transações');
+  }
+};
