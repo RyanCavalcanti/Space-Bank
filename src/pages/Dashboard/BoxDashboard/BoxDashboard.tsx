@@ -252,7 +252,7 @@ function BoxDashboard() {
           tipo: transacao.transacao,
           valor: transacao.valor
         };
-        setExtratos(prevExtratos => [...prevExtratos, novoExtrato]);
+        setExtratos(prevExtratos => [novoExtrato, ...prevExtratos]); // adicionando extrato novo no topo ao invés de abaixo do outro.
       } else {
         console.error('Erro: Tipo de transação inválido.', transacao);
       }

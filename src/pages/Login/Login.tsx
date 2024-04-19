@@ -14,8 +14,14 @@ function Login() {
   const handleLogin = async ({ email, password }: Credentials) => {
     try {
       const data = await loginUser({ email, password });
-      localStorage.setItem('token', data.token); // Armazenar o token no localStorage
-      navigate('/dashboard'); // Redirecionar para o painel após o login
+      localStorage.setItem('token', data.token);
+      navigate('/dashboard');
+
+      setTimeout(() => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('firstName');
+      }, 1800000); // 30 minutos em milissegundos
+
     } catch (error) {
       console.log('Erro ao efetuar login:', error)
     }
