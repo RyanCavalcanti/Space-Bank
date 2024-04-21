@@ -113,7 +113,7 @@ const SectionStyles = styled(ContainerHome) <ContainerProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 85vh;
+  height: auto;
 
   @media (max-width: 1220px) {
     flex-direction: column;
@@ -126,7 +126,7 @@ const ArticleInfosStyles = styled.article`
   border-radius: 8px;
   box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
   list-style: none;
-  height: 100%;
+  height: 660px;
   padding: 24px;
   width: 180px;
 
@@ -194,6 +194,7 @@ const BoxSectionTwoStyles = styled.section`
 
   @media (max-width: 690px){
     height: 740px;
+    height: 100%;
   }
 `
 
@@ -202,9 +203,10 @@ const ArticleExtratoStyles = styled.article`
   border-radius: 8px;
   box-shadow: 0 8px 24px hsla(210,8%,62%,.2);
   list-style: none;
-  height: 100%;
+  height: 100vh;
+  max-height: 660px;
   padding: 24px;
-  max-width: 300px;
+  max-width: 320px;
   width: 100%;
   overflow-y: auto;
 
@@ -219,7 +221,10 @@ const ArticleExtratoStyles = styled.article`
   }
 
   @media (max-width: 1220px) {
-    display: none;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    width: 100%;
+    max-width: 690px;
   }
 `
 
