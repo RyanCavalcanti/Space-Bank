@@ -259,7 +259,7 @@ function BoxDashboard() {
           transactionId: generateId(),
           tipo: transacao.transacao,
           valor: transacao.valor,
-          data: new Date().toLocaleDateString('pt-BR'), // Adicionando data no formato dd/mm/aaaa
+          data: new Date().toISOString().split('T')[0], // Adicionando data no formato dd/mm/aaaa
           mes: mesesDoAno[new Date().getMonth()] // Adicionando o mês
         };
         setExtratos(prevExtratos => [...prevExtratos, novoExtrato]); // adicionando extrato novo no topo ao invés de abaixo do outro.
