@@ -44,6 +44,10 @@ export default function Saldo({ saldo }: SaldoProps) {
     return () => clearInterval(intervalId);
   }, [saldo]);
 
+  const formatarSaldo = (saldo: number) => {
+    return saldo.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   return (
     <DivMainStyles>
       <div>
@@ -52,7 +56,7 @@ export default function Saldo({ saldo }: SaldoProps) {
       <hr />
       <br />
       <Paragraph color={theme.colors.White} style={{ fontSize: '1.2rem'}}>Conta corrente</Paragraph>
-      <Paragraph color={theme.colors.White} fontWeight={600} style={{ fontSize: '1.2rem'}}>R$ {saldoAtual.toFixed(2)}</Paragraph>
+      <Paragraph color={theme.colors.White} fontWeight={600} style={{ fontSize: '1.2rem'}}>R$ {formatarSaldo(saldoAtual)}</Paragraph>
     </DivMainStyles>
   );
 }

@@ -262,7 +262,7 @@ function BoxDashboard() {
           data: new Date().toISOString().split('T')[0], // Adicionando data no formato dd/mm/aaaa
           mes: mesesDoAno[new Date().getMonth()] // Adicionando o mês
         };
-        setExtratos(prevExtratos => [...prevExtratos, novoExtrato]); // adicionando extrato novo no topo ao invés de abaixo do outro.
+        setExtratos(prevExtratos => [novoExtrato, ...prevExtratos]); // adicionando extrato novo no topo ao invés de abaixo do outro.
         const token = localStorage.getItem('token');
         if (token !== null) {
           await saveTransaction(novoExtrato, token);
