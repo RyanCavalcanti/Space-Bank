@@ -64,7 +64,7 @@ export default function FormularioDeTransacao({ realizarTransacao }: FormularioP
 
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
-    const novoValor = name === 'valor' ? value.replace(/[^\d]/g, '') : e.target.value.replace(/[^\d]/g, '');
+    const novoValor = name === 'valor' ? value.replace(/[^\d]/g, '') : e.target.value;
     const valoresAtualizados = { ...valor, [name]: novoValor };
     setValor(valoresAtualizados);
   }
