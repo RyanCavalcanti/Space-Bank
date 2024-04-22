@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import CardApple from '../../../assets/Icon/CardApple.webp';
 import CardGoogle from '../../../assets/Icon/CardGoogle.webp';
 import RocketWhite from '../../../assets/Icon/Rocket-White.svg';
-import Image from '../../../components/common/Image';
+import Image from '../../../components/common/Image/Image';
 import theme from '../../../styles/Theme';
-import Anchor from '../../../components/common/Anchor';
+import Anchor from '../../../components/common/Anchor/Anchor';
 import { ContainerHome } from '../../../styles/GlobalStyle';
-import Title from '../../../components/common/Title';
-import Span from '../../../components/common/Span';
-import Paragraph from '../../../components/common/Paragraph';
+import Title from '../../../components/common/Title/Title';
+import Span from '../../../components/common/Span/Span';
+import Paragraph from '../../../components/common/Paragraph/Paragraph';
 
 const SectionStyle = styled.section`
   background-color: ${theme.colors.Pink};

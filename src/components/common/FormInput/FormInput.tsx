@@ -1,5 +1,5 @@
 import React from "react";
-import { InputFormStyles } from "../../styles/FormStyles";
+import { InputFormStyles } from "../../../styles/FormStyles";
 
 interface FormInputProps {
   type: string;

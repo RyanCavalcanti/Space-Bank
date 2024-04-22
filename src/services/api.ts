@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Transacao } from "../pages/Dashboard/Transacao/Transacao";
+import { Transacao } from "../components/common/Transacao/Transacao";
 
 export const BASE_URL = 'http://localhost:3333/api';
 
@@ -15,8 +15,8 @@ export const registerUser = async (userData: { [key: string]: string }) => {
     const response = await axios.post(`${BASE_URL}/users/register`, userData);
     return response.data;
   } catch (error) {
-    console.error('Error registering user:', error);
-    throw new Error('Failed to register user');
+    console.error('Erro ao registrar usuário:', error);
+    throw new Error('Falha ao registrar usuário');
   }
 };
 

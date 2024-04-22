@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Anchor from "../common/Anchor";
-import Paragraph from "../common/Paragraph";
-import Span from "../common/Span";
+import Anchor from "../common/Anchor/Anchor";
+import Paragraph from "../common/Paragraph/Paragraph";
+import Span from "../common/Span/Span";
 
 const FooterStyles = styled.footer`
   display: flex;

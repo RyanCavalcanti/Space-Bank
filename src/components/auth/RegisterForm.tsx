@@ -1,13 +1,13 @@
 import { useState } from "react";
-import FormInput from "../common/FormInput";
+import FormInput from "../common/FormInput/FormInput";
 import {
   ContainerFormStyles,
   ErrorText,
   FormStyles,
   LabelFormStyles,
 } from "../../styles/FormStyles";
-import Button from "../common/Button";
-import Title from "../common/Title";
+import Button from "../common/Button/Button";
+import Title from "../common/Title/Title";
 import { registerUser } from "../../services/api";
 
 interface RegisterFormProps {
@@ -39,9 +39,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
       onSubmit();
     } catch (error) {
       if (error instanceof Error) {
-        setError(error.message); // Trata o tipo de erro como string
+        setError(error.message); 
       } else {
-        setError("Erro desconhecido"); // Trata outros tipos de erro
+        setError("Erro desconhecido");
       }
     }
   };

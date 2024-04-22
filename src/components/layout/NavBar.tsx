@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import logoCelular from '../../assets/Images/Logo-Smarphone.webp';
 import logo from '../../assets/Images/Logo.webp';
-import Image from '../common/Image';
-import Anchor from '../common/Anchor';
+import Image from '../common/Image/Image';
+import Anchor from '../common/Anchor/Anchor';
 import theme from '../../styles/Theme';
 import { ContainerHome, ContainerProps } from '../../styles/GlobalStyle';
 

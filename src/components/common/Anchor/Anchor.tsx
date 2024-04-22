@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "../../styles/Theme";
+import theme from "../../../styles/Theme";
 
 export const NoneAnchor = styled.a`
   text-decoration: none;

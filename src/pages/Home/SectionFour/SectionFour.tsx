@@ -1,10 +1,10 @@
-import Image from "../../../components/common/Image";
+import Image from "../../../components/common/Image/Image";
 import Cards from '../../../assets/Images/Cards.webp';
 import styled from "styled-components";
 import { ContainerHome, ContainerProps } from '../../../styles/GlobalStyle';
-import Anchor from "../../../components/common/Anchor";
-import Title from "../../../components/common/Title";
-import Paragraph from "../../../components/common/Paragraph";
+import Anchor from "../../../components/common/Anchor/Anchor";
+import Title from "../../../components/common/Title/Title";
+import Paragraph from "../../../components/common/Paragraph/Paragraph";
 
 const SectionStyle = styled(ContainerHome)<ContainerProps>`
   display: flex;

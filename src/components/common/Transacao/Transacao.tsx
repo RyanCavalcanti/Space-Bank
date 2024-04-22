@@ -1,10 +1,10 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import styled from 'styled-components';
-import Button from '../../../components/common/Button';
-import Paragraph from '../../../components/common/Paragraph';
-import Title from '../../../components/common/Title';
+import Button from '../Button/Button';
+import Paragraph from '../Paragraph/Paragraph';
+import Title from '../Title/Title';
 import theme from '../../../styles/Theme';
-import Image from '../../../components/common/Image';
+import Image from '../Image/Image';
 import WomanCard from '../../../assets/Icon/Woman-card.svg';
 
 export interface Transacao {

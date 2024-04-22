@@ -53,16 +53,16 @@ const StyledTitle = styled.h1<TitleProps>`
             font-size: 1.1rem;
           }
         `;
-      case 'h4': // será alterado futuramente
+      case 'h4': 
         return `
-          font-size: 1rem;
+          font-size: 1.4rem;
         `;
       case 'h5':
         return `
           font-size: 1.2rem;
           margin: 0;
         `;
-      case 'h6': // será alterado futuramente
+      case 'h6': 
         return `
           font-size: 1rem;
         `;

@@ -1,5 +1,5 @@
 import theme from "../../../styles/Theme";
-import Paragraph from "../Paragraph";
+import Paragraph from "../Paragraph/Paragraph";
 
 const data = Date.now();
 const hoje = new Date(data);

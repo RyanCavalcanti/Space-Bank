@@ -1,4 +1,4 @@
-import Image from "../../../components/common/Image";
+import Image from "../../../components/common/Image/Image";
 import theme from "../../../styles/Theme";
 import smartphoneDesktop from '../../../assets/Images/Smartphone.webp';
 import smartphone from '../../../assets/Images/Smartphone-CellPhone.webp';
@@ -8,9 +8,9 @@ import iconHappy from '../../../assets/Icon/IconHappy.webp';
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { ContainerHome, ContainerProps } from "../../../styles/GlobalStyle";
-import Title from "../../../components/common/Title";
-import Paragraph from "../../../components/common/Paragraph";
-import Span from "../../../components/common/Span";
+import Title from "../../../components/common/Title/Title";
+import Paragraph from "../../../components/common/Paragraph/Paragraph";
+import Span from "../../../components/common/Span/Span";
 
 const SectionStyles = styled(ContainerHome)<ContainerProps>`
   display: flex;

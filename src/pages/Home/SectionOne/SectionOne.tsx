@@ -1,4 +1,4 @@
-import Image from "../../../components/common/Image";
+import Image from "../../../components/common/Image/Image";
 import iconCheck from '../../../assets/Icon/arrowCheck.webp';
 import card from '../../../assets/Images/Card.webp';
 import iconApple from '../../../assets/Icon/Icon-Apple.webp';
@@ -6,9 +6,9 @@ import iconAndroid from '../../../assets/Icon/Icon-PlayStore.webp';
 import styled from "styled-components";
 import theme from "../../../styles/Theme";
 import { ContainerHome, ContainerProps } from "../../../styles/GlobalStyle";
-import Anchor from "../../../components/common/Anchor";
-import Title from "../../../components/common/Title";
-import Paragraph from "../../../components/common/Paragraph";
+import Anchor from "../../../components/common/Anchor/Anchor";
+import Title from "../../../components/common/Title/Title";
+import Paragraph from "../../../components/common/Paragraph/Paragraph";
 
 const SectionStyles = styled(ContainerHome)<ContainerProps>`
   display: flex;

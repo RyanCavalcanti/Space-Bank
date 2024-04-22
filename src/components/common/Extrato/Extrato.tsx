@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Month from '../Month/Month';
 import DateNumbers from '../Date/DateNumber';
 import theme from '../../../styles/Theme';
-import Paragraph from '../Paragraph';
+import Paragraph from '../Paragraph/Paragraph';
 
 interface ExtratoProps{
   tipoTransacao: string;

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import FormInput from "../common/FormInput";
+import FormInput from "../common/FormInput/FormInput";
 import {
   ContainerFormStyles,
   ErrorText,
   FormStyles,
   LabelFormStyles,
 } from "../../styles/FormStyles";
-import Button from "../common/Button";
-import Title from "../common/Title";
+import Button from "../common/Button/Button";
+import Title from "../common/Title/Title";
 import { loginUser } from "../../services/api";
 
 interface Credentials {
@@ -17,7 +17,7 @@ interface Credentials {
 }
 
 interface LoginFormProps {
-  onLogin: (credentials: Credentials) => void; // Corrigido para aceitar um objeto Credentials
+  onLogin: (credentials: Credentials) => void; 
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
@@ -31,8 +31,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
     try {
       const data = await loginUser({ email, password });
       localStorage.setItem('token', data.token);
-      localStorage.setItem('firstName', data.firstName); // Store firstName in localStorage
-      onLogin({ email, password, firstName: data.firstName }); // Pass a Credentials object to onLogin
+      localStorage.setItem('firstName', data.firstName); 
+      onLogin({ email, password, firstName: data.firstName }); 
     } catch (error) {
       setError('Erro ao tentar fazer login. Tente novamente.(LoginForm)');
     }

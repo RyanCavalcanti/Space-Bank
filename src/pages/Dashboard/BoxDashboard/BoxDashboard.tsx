@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import theme from '../../../styles/Theme';
-import Image from '../../../components/common/Image';
+import Image from '../../../components/common/Image/Image';
 import logo from '../../../assets/Icon/Rocket-White.svg';
-import Title from '../../../components/common/Title';
-import Paragraph from '../../../components/common/Paragraph';
-import Button from '../../../components/common/Button';
+import Title from '../../../components/common/Title/Title';
+import Paragraph from '../../../components/common/Paragraph/Paragraph';
+import Button from '../../../components/common/Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { ContainerHome, ContainerProps } from '../../../styles/GlobalStyle';
-import Anchor from '../../../components/common/Anchor';
+import Anchor from '../../../components/common/Anchor/Anchor';
 import DateBrasil from '../../../components/common/Date/Date';
-import Saldo from '../Saldo/Saldo';
+import Saldo from '../../../components/common/Saldo/Saldo';
 import ilustracao from '../../../assets/Icon/ilustracao.svg';
-import FormularioDeTransacao, { Transacao } from '../Transacao/Transacao';
+import FormularioDeTransacao, { Transacao } from '../../../components/common/Transacao/Transacao';
 import { alterarSaldoNoBanco, getTransactions, saveTransaction } from '../../../services/api';
 import { useNavigate } from 'react-router-dom';
 import Extrato from '../../../components/common/Extrato/Extrato';
@@ -233,52 +233,52 @@ function BoxDashboard() {
   const [menuVisible, setMenuVisible] = useState(false);
   const navigate = useNavigate();
   const [extratos, setExtratos] = useState<ExtratoItem[]>([]);
+  const [error, setError] = useState<string>('');
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
 
   const realizarTransacao = async (transacao: Transacao) => {
-    const valorNumerico = parseFloat(transacao.valor); // Convertendo valor para número
+    const valorNumerico = parseFloat(transacao.valor); 
 
-    if (isNaN(valorNumerico) || valorNumerico <= 0) { // Verificando se é um número válido e maior que zero
-      console.error('Erro: Valor de transação inválido.');
+    if (isNaN(valorNumerico) || valorNumerico <= 0) {
+      setError('Erro: Valor de transação inválido.');
       return;
     }
 
     if (transacao.transacao === '') {
-      console.error('Erro: Tipo de transação não selecionado.');
+      setError('Erro: Tipo de transação não selecionado.');
       return;
     }
 
     if (valorNumerico > 100000000) {
-      console.error('Aviso: Valor muito alto. Será avaliado pelo Banco Central.');
+      setError('Valor muito alto. Será avaliado pelo Banco Central.');
       return;
     }
 
     try {
       if (transacao.transacao === 'Depósito' || transacao.transacao === 'Transferência') {
-        console.log('Transação realizada com sucesso:', transacao);
         await alterarSaldoNoBanco(transacao);
         const novoExtrato: ExtratoItem = {
           transactionId: generateId(),
           tipo: transacao.transacao,
           valor: transacao.valor,
-          data: new Date().toISOString().split('T')[0], // Adicionando data no formato dd/mm/aaaa
-          mes: mesesDoAno[new Date().getMonth()] // Adicionando o mês
+          data: new Date().toISOString().split('T')[0],
+          mes: mesesDoAno[new Date().getMonth()] 
         };
-        setExtratos(prevExtratos => [novoExtrato, ...prevExtratos]); // adicionando extrato novo no topo ao invés de abaixo do outro.
+        setExtratos(prevExtratos => [novoExtrato, ...prevExtratos]);
         const token = localStorage.getItem('token');
         if (token !== null) {
           await saveTransaction(novoExtrato, token);
         } else {
-          console.error('Erro: Token não encontrado.');
+          setError('Erro: Token não encontrado.');
         }
       } else {
-        console.error('Erro: Tipo de transação inválido.', transacao);
+        setError('Erro: Tipo de transação inválido.');
       }
     } catch (error) {
-      console.error('Erro ao realizar a transação:', error);
+      setError('Erro ao realizar a transação. Tente novamente mais tarde.');
     }
   };
 
@@ -299,17 +299,14 @@ function BoxDashboard() {
         try {
           const transactions = await getTransactions(token);
           setExtratos(transactions);
+          setError('');
         } catch (error) {
-          console.error('Erro ao obter transações:', error);
+          setError('Erro ao obter transações. Tente novamente mais tarde.');
         }
       };
       fetchTransactions();
     }
   }, []);
-
-  useEffect(() => {
-    console.log('Extratos atualizados:', extratos);
-  }, [extratos]);
 
   return (
     <>
@@ -363,6 +360,7 @@ function BoxDashboard() {
             </BoxSectionOneStyles>
             <BoxSectionTwoStyles>
               <FormularioDeTransacao realizarTransacao={realizarTransacao} />
+              {error && <Paragraph color={theme.colors.Red} marginTop='15px'>{error}</Paragraph>}
             </BoxSectionTwoStyles>
           </BoxesStyles>
           <ArticleExtratoStyles>

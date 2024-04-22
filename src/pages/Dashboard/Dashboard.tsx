@@ -8,7 +8,7 @@ function Dashboard() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      navigate('/login'); // Corrija o redirecionamento para /login
+      navigate('/login');
     }
   }, [navigate]);
 

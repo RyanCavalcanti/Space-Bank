@@ -5,7 +5,7 @@ import SectionThree from "./SectionThree/SectionThree";
 import SectionFour from "./SectionFour/SectionFour";
 import SectionFive from './SectionFive/SectionFive';
 import Footer from "../../components/layout/Footer";
-import ScrollToTopButton from "../../components/common/ScrollToTopButton";
+import ScrollToTopButton from "../../components/common/ScrollToTopButton/ScrollToTopButton";
 
 function HomePage() {
   return (

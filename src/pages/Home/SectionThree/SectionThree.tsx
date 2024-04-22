@@ -1,4 +1,4 @@
-import Image from "../../../components/common/Image";
+import Image from "../../../components/common/Image/Image";
 import CreditCard from "../../../assets/Icon/CreditCard.svg";
 import Shopping from "../../../assets/Icon/Shopping.svg";
 import Clock from "../../../assets/Icon/Clock.svg";
@@ -8,9 +8,9 @@ import Shield from "../../../assets/Icon/Shield.svg";
 import styled from "styled-components";
 import theme from "../../../styles/Theme";
 import { ContainerHome } from "../../../styles/GlobalStyle";
-import Title from "../../../components/common/Title";
-import Span from "../../../components/common/Span";
-import Paragraph from "../../../components/common/Paragraph";
+import Title from "../../../components/common/Title/Title";
+import Span from "../../../components/common/Span/Span";
+import Paragraph from "../../../components/common/Paragraph/Paragraph";
 
 const SectionStyles = styled.section`
   background-color: ${theme.colors.Pink};
