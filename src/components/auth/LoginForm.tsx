@@ -34,7 +34,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
       localStorage.setItem('firstName', data.firstName); 
       onLogin({ email, password, firstName: data.firstName }); 
     } catch (error) {
-      setError('Erro ao tentar fazer login. Tente novamente.(LoginForm)');
+      setError('Erro ao tentar fazer login. Tente novamente.');
     }
   };
 

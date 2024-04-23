@@ -57,7 +57,7 @@ export default function Saldo({ saldo }: SaldoProps) {
       <br />
       <Paragraph color={theme.colors.White} style={{ fontSize: '1.2rem'}}>Conta corrente</Paragraph>
       <Paragraph color={theme.colors.White} fontWeight={600} style={{ fontSize: '1.2rem'}}>R$ {formatarSaldo(saldoAtual)}</Paragraph>
-      {error && <Paragraph color={theme.colors.Red}>{error}</Paragraph>}
+      {error && <Paragraph color={theme.colors.White}>{error}</Paragraph>}
     </DivMainStyles>
   );
 }
