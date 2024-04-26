@@ -27,6 +27,7 @@ O **SpackeBank** é uma simulação de um banco digital, desenvolvido para que o
 * Dotenv (Utilizado para carregar variáveis de ambiente a partir de um arquivo .env, facilitando a configuração de valores sensíveis, como chaves de API ou credenciais de banco de dados.)
 * JWT (Biblioteca para Node.js que permite a autenticação baseada em token, gerando e verificando tokens JWT (JSON Web Tokens) para autenticar usuários em aplicativos web e APIs.)
 * Mysql12 (Driver MySQL para Node.js, que facilita a interação com um banco de dados MySQL a partir do código Node.js, permitindo executar consultas e manipular dados de forma eficiente.)
+* Página do Back-End: <a href="https://github.com/RyanCavalcanti/BackEnd-SpaceBank">SpaceBank Backend</a>
 
 ---
 
