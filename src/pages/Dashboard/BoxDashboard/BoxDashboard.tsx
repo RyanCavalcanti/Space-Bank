@@ -17,6 +17,8 @@ import FormularioDeTransacao, { Transacao } from '../../../components/common/Tra
 import { alterarSaldoNoBanco, getTransactions, saveTransaction } from '../../../services/api';
 import { useNavigate } from 'react-router-dom';
 import Extrato from '../../../components/common/Extrato/Extrato';
+import useTokenWatcher from '../../../components/auth/useTokenWatcher';
+import Footer from '../../../components/layout/Footer';
 
 interface ExtratoItem {
   transactionId: string;
@@ -234,6 +236,7 @@ function BoxDashboard() {
   const navigate = useNavigate();
   const [extratos, setExtratos] = useState<ExtratoItem[]>([]);
   const [error, setError] = useState<string>('');
+  useTokenWatcher();
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -317,7 +320,7 @@ function BoxDashboard() {
           <ContainerLogo>
             <Image img={logo} alt="Logo SpaceBank" />
             <Title as="h5" color={theme.colors.White}>
-              SpaceBank
+              <Anchor href='/' variant='none'>SpaceBank</Anchor>
             </Title>
           </ContainerLogo>
 
@@ -379,6 +382,7 @@ function BoxDashboard() {
           </ArticleExtratoStyles>
         </SectionStyles>
       </MainStyles>
+      <Footer />
     </>
   );
 }
