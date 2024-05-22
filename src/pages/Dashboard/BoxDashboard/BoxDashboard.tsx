@@ -240,7 +240,7 @@ function BoxDashboard() {
   };
 
   const realizarTransacao = async (transacao: Transacao) => {
-    const valorNumerico = parseFloat(transacao.valor); 
+    const valorNumerico = parseFloat(transacao.valor);
 
     if (isNaN(valorNumerico) || valorNumerico <= 0) {
       setError('Erro: Valor de transação inválido.');
@@ -260,12 +260,14 @@ function BoxDashboard() {
     try {
       if (transacao.transacao === 'Depósito' || transacao.transacao === 'Transferência') {
         await alterarSaldoNoBanco(transacao);
+        const dataAtual = new Date();
+        const dataLocal = new Date(dataAtual.getTime() - dataAtual.getTimezoneOffset() * 60000);
         const novoExtrato: ExtratoItem = {
           transactionId: generateId(),
           tipo: transacao.transacao,
           valor: transacao.valor,
-          data: new Date().toISOString().split('T')[0],
-          mes: mesesDoAno[new Date().getMonth()] 
+          data: dataLocal.toISOString().split('T')[0],
+          mes: mesesDoAno[dataAtual.getMonth()]
         };
         setExtratos(prevExtratos => [novoExtrato, ...prevExtratos]);
         const token = localStorage.getItem('token');
@@ -290,7 +292,7 @@ function BoxDashboard() {
     localStorage.removeItem('token');
     localStorage.removeItem('firstName');
     navigate("/login");
-  }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -298,7 +300,7 @@ function BoxDashboard() {
       const fetchTransactions = async () => {
         try {
           const transactions = await getTransactions(token);
-          setExtratos(transactions);
+          setExtratos(transactions.reverse()); 
           setError('');
         } catch (error) {
           setError('Erro ao obter transações. Tente novamente mais tarde.');
@@ -367,7 +369,11 @@ function BoxDashboard() {
             <Paragraph fontWeight={600} style={{ fontSize: '1.8rem' }} >Extrato</Paragraph>
             <ul>
               {extratos.map(extrato => (
-                <Extrato key={extrato.transactionId} tipoTransacao={extrato.tipo} valorTransacao={extrato.valor} />
+                <Extrato key={extrato.transactionId} 
+                tipoTransacao={extrato.tipo} 
+                valorTransacao={extrato.valor} 
+                dataTransacao={extrato.data} 
+                mesTransacao={extrato.mes}/>
               ))}
             </ul>
           </ArticleExtratoStyles>

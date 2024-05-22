@@ -10,6 +10,14 @@ interface TransactionData {
   mes: string;
 }
 
+interface BackendTransaction {
+  transactionId: string;
+  tipo: string;
+  valor: string;
+  data: string;
+  mes: string;
+}
+
 export const registerUser = async (userData: { [key: string]: string }) => {
   try {
     const response = await axios.post(`${BASE_URL}/users/register`, userData);
@@ -32,7 +40,7 @@ export const loginUser = async (userData: { [key: string]: string }) => {
 export const obterSaldo = async () => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.get(`${BASE_URL}/users/obter-saldo`, {
+    const response = await axios.get(`${BASE_URL}/users/saldo`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -48,9 +56,9 @@ export const alterarSaldoNoBanco = async (transacao: Transacao) => {
   let url = '';
 
   if (transacao.transacao === 'Depósito') {
-    url = `${BASE_URL}/users/adicionar-saldo`;
+    url = `${BASE_URL}/users/saldo/entrada`;
   } else if (transacao.transacao === 'Transferência') {
-    url = `${BASE_URL}/users/subtrair-saldo`;
+    url = `${BASE_URL}/users/saldo/saida`;
   } else {
     throw new Error('Tipo de transação inválido');
   }
@@ -70,7 +78,7 @@ export const alterarSaldoNoBanco = async (transacao: Transacao) => {
 
 export const saveTransaction = async (transactionData: TransactionData, token: string) => {
   try {
-    const response = await axios.post(`${BASE_URL}/users/salvar-extrato`, transactionData, {
+    const response = await axios.post(`${BASE_URL}/users/extrato`, transactionData, {
       headers: {
         'Authorization': `Bearer ${token}`
       },
@@ -81,14 +89,18 @@ export const saveTransaction = async (transactionData: TransactionData, token: s
   }
 };
 
-export const getTransactions = async (token: string) => {
+export const getTransactions = async (token: string): Promise<BackendTransaction[]> => {
   try {
-    const response = await axios.get(`${BASE_URL}/users/buscar-transacoes`, {
+    const response = await axios.get<{ transactions: BackendTransaction[] }>(`${BASE_URL}/users/transacoes`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     });
-    return response.data.transactions;
+
+    return response.data.transactions.map(transaction => ({
+      ...transaction,
+      data: new Date(transaction.data).toLocaleDateString('pt-BR')
+    }));
   } catch (error) {
     throw new Error('Erro ao obter transações');
   }

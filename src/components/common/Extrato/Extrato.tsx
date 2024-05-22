@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import Month from '../Month/Month';
-import DateNumbers from '../Date/DateNumber';
 import theme from '../../../styles/Theme';
 import Paragraph from '../Paragraph/Paragraph';
 
-interface ExtratoProps{
+interface ExtratoProps {
   tipoTransacao: string;
   valorTransacao: string;
+  dataTransacao: string;
+  mesTransacao: string;
 }
 
 const ExtratoItem = styled.li`
@@ -35,16 +35,17 @@ const Linha = styled.div`
 `
 
 
-const Extrato = ({ tipoTransacao, valorTransacao }: ExtratoProps) => {
+
+const Extrato = ({ tipoTransacao, valorTransacao, dataTransacao, mesTransacao }: ExtratoProps) => {
 
   return (
     <ExtratoItem>
       <MonthStyles>
-        <Month style={{ color: theme.colors.Green, fontWeight: '600' }} />
+        <Paragraph style={{ color: theme.colors.Green, fontWeight: '600' }}>{mesTransacao}</Paragraph>
       </MonthStyles>
       <InfosStyles>
         <Paragraph color={theme.colors.Black}>{tipoTransacao}</Paragraph>
-        <span><DateNumbers style={{ color: theme.colors.Black }} /></span>
+        <span style={{ color: theme.colors.Black }}>{dataTransacao}</span>
       </InfosStyles>
       {tipoTransacao === 'Transferência' ? (
         <Paragraph color={theme.colors.Black} fontWeight={600} style={{ textAlign: 'start' }}>{`- R$ ${valorTransacao}`}</Paragraph >
