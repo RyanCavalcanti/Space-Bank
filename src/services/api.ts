@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Transacao } from "../components/common/Transacao/Transacao";
 
-export const BASE_URL = 'http://localhost:3333/api';
+export const BASE_URL = 'https://ec2-44-220-162-86.compute-1.amazonaws.com:3333/api';
 
 interface TransactionData {
   tipo: string;
