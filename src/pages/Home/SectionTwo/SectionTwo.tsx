@@ -1,69 +1,14 @@
 import Image from "../../../components/common/Image/Image";
-import theme from "../../../styles/Theme";
 import smartphoneDesktop from '../../../assets/Images/Smartphone.webp';
 import smartphone from '../../../assets/Images/Smartphone-CellPhone.webp';
 import iconMoney from '../../../assets/Icon/IconMoney.webp';
 import iconSmartphone from '../../../assets/Icon/IconSmartphone.webp';
 import iconHappy from '../../../assets/Icon/IconHappy.webp';
-import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { ContainerHome, ContainerProps } from "../../../styles/GlobalStyle";
 import Title from "../../../components/common/Title/Title";
 import Paragraph from "../../../components/common/Paragraph/Paragraph";
 import Span from "../../../components/common/Span/Span";
-
-const SectionStyles = styled(ContainerHome)<ContainerProps>`
-  display: flex;
-  align-items: center;
-  gap: 100px;
-  margin-top: 50px;
-
-  @media(max-width: 992px) {
-    flex-direction: column;
-  }
-`;
-
-const ArticleStyles = styled.article`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ArticleContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-
-  & > div {
-    & > h3 {
-      font-family: "Inter", sans-serif;
-      font-size: 1.5rem;
-      margin: 0;
-      font-weight: 600;
-
-      @media(max-width: 992px) {
-        font-size: 1.1rem;
-      }
-    }
-    & > p {
-      font-family: "Inter", sans-serif;
-      font-size: 1.1rem;
-      margin: 0;
-      margin-top: 10px;
-    }
-  }
-`;
-
-interface LinePinkProps {
-  addMargin: boolean;
-}
-
-const LinePink = styled.div<LinePinkProps>`
-  width: 100%;
-  height: 4px;
-  background-color: ${theme.colors.Pink};
-  margin-top: 20px;
-  margin-bottom: ${({ addMargin }) => (addMargin ? "50px" : "0")};
-`;
+import { ArticleContainer, ArticleStyles, LinePink, SectionStyles } from "./SectionTwo.styles";
 
 interface BoxInfoProps {
   img: string;

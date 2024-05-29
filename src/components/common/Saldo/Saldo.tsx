@@ -1,23 +1,13 @@
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import Paragraph from '../Paragraph/Paragraph';
 import Title from '../Title/Title';
 import { obterSaldo } from '../../../services/api';
 import theme from '../../../styles/Theme';
+import { DivMainStyles } from './Saldo.styles';
 
 interface SaldoProps {
   saldo: number;
 }
-
-const DivMainStyles = styled.div`
-  margin: 0 auto;
-  width: 190px;
-
-  @media (max-width: 480px) {
-    width: 100%;
-    max-width: 440px;
-  }
-`;
 
 export default function Saldo({ saldo }: SaldoProps) {
   const [saldoAtual, setSaldoAtual] = useState<number>(saldo);

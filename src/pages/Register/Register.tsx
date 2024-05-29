@@ -1,5 +1,5 @@
 import RegisterForm from "../../components/auth/RegisterForm";
-import NavBar from "../../components/layout/NavBar";
+import NavBar from "../../components/layout/NavBar/NavBar";
 import { useNavigate } from 'react-router-dom';
 
 function Register() {

@@ -18,7 +18,7 @@ import { alterarSaldoNoBanco, getTransactions, saveTransaction } from '../../../
 import { useNavigate } from 'react-router-dom';
 import Extrato from '../../../components/common/Extrato/Extrato';
 import useTokenWatcher from '../../../components/auth/useTokenWatcher';
-import Footer from '../../../components/layout/Footer';
+import Footer from '../../../components/layout/Footer/Footer';
 
 interface ExtratoItem {
   transactionId: string;

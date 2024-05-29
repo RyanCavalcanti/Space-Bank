@@ -1,10 +1,10 @@
-import NavBar from "../../components/layout/NavBar";
+import NavBar from "../../components/layout/NavBar/NavBar";
 import SectionOne from "./SectionOne/SectionOne";
 import SectionTwo from "./SectionTwo/SectionTwo";
 import SectionThree from "./SectionThree/SectionThree";
 import SectionFour from "./SectionFour/SectionFour";
 import SectionFive from './SectionFive/SectionFive';
-import Footer from "../../components/layout/Footer";
+import Footer from "../../components/layout/Footer/Footer";
 import ScrollToTopButton from "../../components/common/ScrollToTopButton/ScrollToTopButton";
 
 function HomePage() {

@@ -5,52 +5,11 @@ import Clock from "../../../assets/Icon/Clock.svg";
 import Gift from "../../../assets/Icon/Gift.svg";
 import Percent from "../../../assets/Icon/Percent.svg";
 import Shield from "../../../assets/Icon/Shield.svg";
-import styled from "styled-components";
-import theme from "../../../styles/Theme";
-import { ContainerHome } from "../../../styles/GlobalStyle";
 import Title from "../../../components/common/Title/Title";
 import Span from "../../../components/common/Span/Span";
 import Paragraph from "../../../components/common/Paragraph/Paragraph";
+import { ContainerArticle, ContainerBox, SectionStyles, StyledArticle } from "./SectionThree.styles";
 
-const SectionStyles = styled.section`
-  background-color: ${theme.colors.Pink};
-  margin-top: 100px;
-`;
-
-const ContainerBox = styled(ContainerHome)`
-  padding-top: 50px;
-  padding-bottom: 50px;
-
-  @media (max-width: 1099px) {
-    padding-bottom: 20px;
-  }
-`
-
-const ContainerArticle = styled.div`
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  margin: 32px 0px;
-  gap: 24px;
-
-  @media (max-width: 1099px) {
-    flex-direction: column;
-  }
-`;
-
-const StyledArticle = styled.article<{ disabled?: boolean }>`
-  background-color: ${theme.colors.White};
-  border-radius: 4px;
-  width: 25%;
-  padding: 24px;
-  visibility: ${({ disabled }) => (disabled ? "hidden" : "visible")};
-
-  @media (max-width: 1100px) {
-    display: ${({ disabled }) => (disabled ? "none" : "block")};
-    width: 100%;
-    margin-bottom: 20px;
-  }
-`;
 
 interface CardsProps {
   img: string;

@@ -1,18 +1,10 @@
-import styled from 'styled-components';
 import imgError from '../../assets/Images/404Error.svg';
 import Image from '../../components/common/Image/Image';
 import Title from '../../components/common/Title/Title';
-import NavBar from '../../components/layout/NavBar';
+import NavBar from '../../components/layout/NavBar/NavBar';
 import theme from '../../styles/Theme';
 import Anchor from '../../components/common/Anchor/Anchor';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
-`
+import { Container } from './NotFound.styles';
 
 function NotFound() {
   return (

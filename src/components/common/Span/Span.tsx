@@ -1,13 +1,8 @@
-import styled from "styled-components";
-import theme from "../../../styles/Theme";
+import { SpanStyles } from "./Span.styles";
 
 interface SpanProps {
   children: React.ReactNode;
 }
-
-const SpanStyles = styled.span`
-  color: ${theme.colors.Red};
-`;
 
 function Span({ children }: SpanProps) {
   return(

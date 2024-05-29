@@ -1,15 +1,7 @@
-import styled from "styled-components";
-import Anchor from "../common/Anchor/Anchor";
-import Paragraph from "../common/Paragraph/Paragraph";
-import Span from "../common/Span/Span";
-
-const FooterStyles = styled.footer`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 30px 0;
-  gap: 20px;
-`
+import Anchor from "../../common/Anchor/Anchor";
+import Paragraph from "../../common/Paragraph/Paragraph";
+import Span from "../../common/Span/Span";
+import { FooterStyles } from "./Footer.styles";
 
 function Footer() {
   const currentYear = new Date().getFullYear();

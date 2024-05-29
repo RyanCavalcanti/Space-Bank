@@ -1,11 +1,11 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import styled from 'styled-components';
 import Button from '../Button/Button';
 import Paragraph from '../Paragraph/Paragraph';
 import Title from '../Title/Title';
 import theme from '../../../styles/Theme';
 import Image from '../Image/Image';
 import WomanCard from '../../../assets/Icon/Woman-card.svg';
+import { CampoValor, DivContainerStyles, FormGroup, GrupoOpcoes } from './Transacao.styles';
 
 export interface Transacao {
   transacao: string;
@@ -14,50 +14,6 @@ export interface Transacao {
 interface FormularioProps {
   realizarTransacao: (transacao: Transacao) => Promise<void>;
 }
-
-const DivContainerStyles = styled.div`
-  display: flex;
-  width: 100%;
-
-  @media (max-width: 690px){
-    flex-direction: column;
-  }
-`
-
-const FormGroup = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-
-  @media (max-width: 690px){
-    width: 100%;
-  }
-`;
-
-const GrupoOpcoes = styled.select`
-    background-color: ${theme.colors.White};
-    border: 1px solid ${theme.colors.Red};
-    border-radius: 6px;
-    font-size: 14px;
-    outline: none;
-    padding: 8px;
-    margin-top: 30px;
-`;
-
-const CampoValor = styled.input`
-    background-color: ${theme.colors.White};
-    border: 1px solid ${theme.colors.Red};
-    border-radius: 6px;
-    font-size: 14px;
-    margin-bottom: 1rem;
-    outline: none;
-    padding: 8px;
-    text-align: center;
-    width: 70%;
-    @media (max-width: 690px){
-      width: 100%;
-  }
-`;
 
 export default function FormularioDeTransacao({ realizarTransacao }: FormularioProps) {
   const [valor, setValor] = useState<Transacao>({ transacao: '', valor: '' });
